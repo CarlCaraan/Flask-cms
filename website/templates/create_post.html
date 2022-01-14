@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Create Post | Flask App{% endblock %}
 {% block content %}
-<h1>Hello this is a test</h1>
+<h1 align="center">Make a Post</h1>
+<form action="" method="POST">
+    <textarea name="text" id="text" class="form-control" cols="30" rows="10"></textarea><br>
+    <div>
+        <button class="btn btn-lg btn-primary float-end">Posts</button>
+    </div>
+</form>
+<a class="float-start" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
+<br>
 {% endblock %}
 
