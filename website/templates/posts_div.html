@@ -74,6 +74,18 @@
             </form>
             <!-- End Comment Section -->
 
+            <!-- Like Button -->
+            {% if user.id in post.likes|map(attribute="author")|list %}
+            <a class="text-decoration-none" href="/like-post/{{ post.id }}">
+                <i class="fas fa-thumbs-up"></i>
+            </a>
+            {% else %}
+            <a class="text-decoration-none" href="/like-post/{{ post.id }}">
+                <i class="far fa-thumbs-up"></i>
+            </a>
+            {% endif %}
+            {{ post.likes|length }}
+
         </div>
         <!-- End Content Section -->
 
