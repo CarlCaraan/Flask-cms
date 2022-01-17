@@ -62,7 +62,6 @@ def sign_up():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
-            flash('User created!')
             return redirect(url_for('views.home'))
 
     return render_template("signup.html", user=current_user)
@@ -73,21 +72,20 @@ def adminlogin():
     if request.method == 'POST':
         email = request.form.get("email")
         password = request.form.get("password")
-        usertype = "admin"
 
-        admin = User.query.filter_by(usertype=usertype).first()
-        if admin:
-            user = User.query.filter_by(email=email).first()
-            if user:
-                if check_password_hash(user.password, password):
-                    login_user(user, remember=True)
+        user = User.query.filter_by(email=email).first()
+        if user:
+            if check_password_hash(user.password, password):
+                login_user(user, remember=True)
+                if current_user.usertype == "admin":
                     return redirect(url_for('views.adminhome'))
                 else:
-                    flash('Password is incorrect.', category='error')
+                    flash('You dont have admin privilages.', category='error')
             else:
-                flash('Email does not exist.', category='error')
+                flash('Password is incorrect.', category='error')
         else:
-            flash('You dont have admin privilages!', category='error')
+            flash('Email does not exist.', category='error')
+
 
     return render_template("admin/login.html", user=current_user)
 
@@ -128,7 +126,6 @@ def admin_sign_up():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
-            flash('User created!')
             return redirect(url_for('views.adminhome'))
 
     return render_template("admin/signup.html", user=current_user)
