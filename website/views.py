@@ -15,7 +15,7 @@ def home():
 
 # ========= ADMIN HOME =========
 @views.route("/")
-@views.route("/adminhome")
+@views.route("/admin/home")
 @login_required
 def adminhome():
     posts = Post.query.all()
@@ -23,6 +23,15 @@ def adminhome():
     likes = Like.query.all()
     comments = Comment.query.all()
     return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
+
+@views.route("/admin/user")
+@login_required
+def admin_user():
+    posts = Post.query.all()
+    users = User.query.all()
+    likes = Like.query.all()
+    comments = Comment.query.all()
+    return render_template("backend/user/view_user.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
 
 # ========= CREATE POST =========
 @views.route("/create-post", methods=['GET', 'POST'])
