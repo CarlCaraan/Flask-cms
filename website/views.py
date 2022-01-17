@@ -5,12 +5,24 @@ from . import db
 
 views = Blueprint("views", __name__)
 
+# ========= USER HOME =========
 @views.route("/")
 @views.route("/home")
 @login_required
 def home():
     posts = Post.query.all()
     return render_template("home.html", user=current_user, posts=posts)
+
+# ========= ADMIN HOME =========
+@views.route("/")
+@views.route("/adminhome")
+@login_required
+def adminhome():
+    posts = Post.query.all()
+    users = User.query.all()
+    likes = Like.query.all()
+    comments = Comment.query.all()
+    return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
 
 # ========= CREATE POST =========
 @views.route("/create-post", methods=['GET', 'POST'])
