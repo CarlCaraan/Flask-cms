@@ -76,15 +76,15 @@
 
             <!-- Like Button -->
             {% if user.id in post.likes|map(attribute="author")|list %}
-            <a class="text-decoration-none" href="/like-post/{{ post.id }}">
-                <i class="fas fa-thumbs-up"></i>
-            </a>
+            <!-- <a class="text-decoration-none" href="/like-post/{{ post.id }}"> -->
+                <i class="fas fa-thumbs-up" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
+            <!-- </a> -->
             {% else %}
-            <a class="text-decoration-none" href="/like-post/{{ post.id }}">
-                <i class="far fa-thumbs-up"></i>
-            </a>
+            <!-- <a class="text-decoration-none" href="/like-post/{{ post.id }}"> -->
+                <i class="far fa-thumbs-up" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
+            <!-- </a> -->
             {% endif %}
-            {{ post.likes|length }}
+            <span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span>
 
         </div>
         <!-- End Content Section -->
