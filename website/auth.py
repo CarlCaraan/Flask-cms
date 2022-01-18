@@ -134,10 +134,10 @@ def admin_sign_up():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("views.home"))
+    return redirect(url_for("auth.login"))
 
 @auth.route("/admin-logout")
 @login_required
 def admin_logout():
     logout_user()
-    return redirect(url_for("views.adminhome"))
+    return redirect(url_for("auth.adminlogin"))

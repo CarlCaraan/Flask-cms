@@ -10,10 +10,31 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Users</h1>
 
+    <!-- Start Message Validation -->
+    <div class="center mx-auto w-100" align="center">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        {% if category == 'error' %}
+        <div class="alert alert-danger alter-dismissible fade show">
+            {{ message }}
+        </div>
+        {% else %}
+        <div class="alert alert-success alter-dismissible fade show">
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <!-- End Message Validation -->
+
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Users List Table</h6>
+            <h6 class="mt-2 font-weight-bold text-primary float-left">Users List Table</h6>
+            <a class="btn btn-primary float-right" href="/admin/user/add">Add User</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

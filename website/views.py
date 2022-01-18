@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from flask_login import login_required, current_user
 from .models import Post, User, Comment, Like
 from . import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 views = Blueprint("views", __name__)
 
@@ -26,12 +27,55 @@ def adminhome():
 
 @views.route("/admin/user")
 @login_required
-def admin_user():
+def admin_user_view():
     posts = Post.query.all()
     users = User.query.all()
     likes = Like.query.all()
     comments = Comment.query.all()
     return render_template("backend/user/view_user.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
+
+@views.route("/admin/user/add", methods=['GET', 'POST'])
+@login_required
+def admin_user_add():
+    posts = Post.query.all()
+    users = User.query.all()
+    likes = Like.query.all()
+    comments = Comment.query.all()
+
+    if request.method == 'POST':
+        email = request.form.get("email")
+        username = request.form.get("username")
+        firstname = request.form.get("firstname")
+        lastname = request.form.get("lastname")
+        password = request.form.get("password")
+        usertype = request.form.get("usertype")
+
+        email_exists = User.query.filter_by(email=email).first()
+        username_exists = User.query.filter_by(username=username).first()
+
+        if email_exists:
+            flash('Email is already in use.', category='error')
+        elif username_exists:
+            flash('Username is already in use.', category='error')
+        elif len(firstname) < 2:
+            flash('First Name is Required.', category='error')
+        elif len(lastname) < 2:
+            flash('Last Name is Required.', category='error')
+        elif len(username) < 2:
+            flash('Username is Required.', category='error')
+        elif len(password) < 6:
+            flash('Password is too short.', category='error')
+        elif len(email) < 4:
+            flash("Email is invalid.", category='error')
+        else:
+            new_user = User(email=email, username=username, firstname=firstname, lastname=lastname, usertype=usertype, password=generate_password_hash(password, method='sha256'))
+            db.session.add(new_user)
+            db.session.commit()
+            flash("User Inserted Successfully.", category='success')
+            return redirect(url_for('views.admin_user_view'))
+
+    return render_template("backend/user/add_user.html", user=current_user)
+
 
 # ========= CREATE POST =========
 @views.route("/create-post", methods=['GET', 'POST'])
