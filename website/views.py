@@ -6,7 +6,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 views = Blueprint("views", __name__)
 
-# ========= USER HOME =========
+# ========= USER CONTROLLER =========
+# User Home
 @views.route("/")
 @views.route("/home")
 @login_required
@@ -14,7 +15,111 @@ def home():
     posts = Post.query.all()
     return render_template("home.html", user=current_user, posts=posts)
 
-# ========= ADMIN HOME =========
+# User Create Post
+@views.route("/create-post", methods=['GET', 'POST'])
+@login_required
+def create_post():
+    if request.method == "POST":
+        text = request.form.get('text')
+        
+        if not text:
+            flash('Post cannot be empty', category='error')
+        else:
+            post = Post(text=text, author=current_user.id)
+            db.session.add(post)
+            db.session.commit()
+            flash('Post Created!', category='success') 
+            return redirect(url_for('views.home'))
+
+    return render_template('create_post.html', user=current_user)
+
+# User Delete Post
+@views.route("/delete-post/<id>")
+@login_required
+def delete_post(id):
+    post = Post.query.filter_by(id=id).first()
+
+    if not post:
+        flash("Post does not exist.", category='error')
+    elif current_user.id != post.author:
+        flash("You do not gave permission do delete this post.", category='error')
+    else:
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post Deleted Successfully', category='success')
+
+    return redirect(url_for('views.home'))
+
+# User View Post
+@views.route("/posts/<username>")
+@login_required
+def posts(username):
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        flash('No user with that username exists.', category='error')
+        return redirect(url_for('views.home'))
+
+    posts = user.posts
+    return render_template('posts.html', user=current_user, posts=posts, username=username)
+
+# User Create Comment
+@views.route("/create-comment/<post_id>", methods=['POST'])
+@login_required
+def create_comment(post_id):
+    text = request.form.get('text')
+
+    if not text:
+        flash('Comment cannot be empty.', category='error')
+    else:
+        post = Post.query.filter_by(id = post_id)
+        if post:
+            comment = Comment(text=text, author=current_user.id, post_id=post_id)
+            db.session.add(comment)
+            db.session.commit()
+            flash('Comment Posted Successfully!', category='success')
+        else:
+            flash('Post does not exist.', category)
+        
+    return redirect(url_for('views.home'))
+
+# User Delete Comment
+@views.route("/delete-comment/<comment_id>")
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.filter_by(id=comment_id).first()
+    if not comment:
+        flash('Comment does not exist.', category='error')
+    elif current_user.id != comment.author and current_user.id != comment.post.author:
+        flash('You do not have permission to delete this comment.', category='error')
+    else:
+        db.session.delete(comment)
+        db.session.commit()
+
+    return redirect(url_for('views.home'))
+
+# User Liking Post
+@views.route("/like-post/<post_id>", methods=['POST'])
+@login_required
+def like(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    like = Like.query.filter_by(author=current_user.id, post_id=post_id).first()
+
+    if not post:
+        # flash('Post does not exist.', category='error')
+        return jsonify({'error': 'Post does not exist.'}, 400)
+    elif like:
+        db.session.delete(like)
+        db.session.commit()
+    else:
+        like = Like(author=current_user.id, post_id=post_id)
+        db.session.add(like)
+        db.session.commit()
+
+    # return redirect(url_for('views.home'))
+    return jsonify({"likes": len(post.likes), "liked":current_user.id in map(lambda x: x.author, post.likes)})
+
+# ========= ADMIN CONTROLLER =========
+# Admin Home Dashboard
 @views.route("/")
 @views.route("/admin/home")
 @login_required
@@ -25,6 +130,7 @@ def adminhome():
     comments = Comment.query.all()
     return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
 
+# Admin User View
 @views.route("/admin/user")
 @login_required
 def admin_user_view():
@@ -34,6 +140,7 @@ def admin_user_view():
     comments = Comment.query.all()
     return render_template("backend/user/view_user.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
 
+# Admin User Add
 @views.route("/admin/user/add", methods=['GET', 'POST'])
 @login_required
 def admin_user_add():
@@ -76,106 +183,17 @@ def admin_user_add():
 
     return render_template("backend/user/add_user.html", user=current_user)
 
-
-# ========= CREATE POST =========
-@views.route("/create-post", methods=['GET', 'POST'])
+# Admin Delete User
+@views.route("/delete-user/<user_id>")
 @login_required
-def create_post():
-    if request.method == "POST":
-        text = request.form.get('text')
-        
-        if not text:
-            flash('Post cannot be empty', category='error')
-        else:
-            post = Post(text=text, author=current_user.id)
-            db.session.add(post)
-            db.session.commit()
-            flash('Post Created!', category='success') 
-            return redirect(url_for('views.home'))
-
-    return render_template('create_post.html', user=current_user)
-
-# ========= DELETE POST =========
-@views.route("/delete-post/<id>")
-@login_required
-def delete_post(id):
-    post = Post.query.filter_by(id=id).first()
-
-    if not post:
-        flash("Post does not exist.", category='error')
-    elif current_user.id != post.author:
-        flash("You do not gave permission do delete this post.", category='error')
-    else:
-        db.session.delete(post)
-        db.session.commit()
-        flash('Post Deleted Successfully', category='success')
-
-    return redirect(url_for('views.home'))
-
-# ========= VIEW POST =========
-@views.route("/posts/<username>")
-@login_required
-def posts(username):
-    user = User.query.filter_by(username=username).first()
+def delete_user(user_id):
+    user = User.query.filter_by(id=user_id).first()
     if not user:
-        flash('No user with that username exists.', category='error')
-        return redirect(url_for('views.home'))
-
-    posts = user.posts
-    return render_template('posts.html', user=current_user, posts=posts, username=username)
-
-# ========= CREATE COMMENT =========
-@views.route("/create-comment/<post_id>", methods=['POST'])
-@login_required
-def create_comment(post_id):
-    text = request.form.get('text')
-
-    if not text:
-        flash('Comment cannot be empty.', category='error')
+        flash('User does not exist.', category='error')
     else:
-        post = Post.query.filter_by(id = post_id)
-        if post:
-            comment = Comment(text=text, author=current_user.id, post_id=post_id)
-            db.session.add(comment)
-            db.session.commit()
-            flash('Comment Posted Successfully!', category='success')
-        else:
-            flash('Post does not exist.', category)
-        
-    return redirect(url_for('views.home'))
-
-# ========= DELETE COMMENT =========
-@views.route("/delete-comment/<comment_id>")
-@login_required
-def delete_comment(comment_id):
-    comment = Comment.query.filter_by(id=comment_id).first()
-    if not comment:
-        flash('Comment does not exist.', category='error')
-    elif current_user.id != comment.author and current_user.id != comment.post.author:
-        flash('You do not have permission to delete this comment.', category='error')
-    else:
-        db.session.delete(comment)
+        db.session.delete(user)
         db.session.commit()
+        flash('User Deleted Successfully.', category='success')
 
-    return redirect(url_for('views.home'))
+    return redirect(url_for('views.admin_user_view'))
 
-# ========= LIKING POST =========
-@views.route("/like-post/<post_id>", methods=['POST'])
-@login_required
-def like(post_id):
-    post = Post.query.filter_by(id=post_id).first()
-    like = Like.query.filter_by(author=current_user.id, post_id=post_id).first()
-
-    if not post:
-        # flash('Post does not exist.', category='error')
-        return jsonify({'error': 'Post does not exist.'}, 400)
-    elif like:
-        db.session.delete(like)
-        db.session.commit()
-    else:
-        like = Like(author=current_user.id, post_id=post_id)
-        db.session.add(like)
-        db.session.commit()
-
-    # return redirect(url_for('views.home'))
-    return jsonify({"likes": len(post.likes), "liked":current_user.id in map(lambda x: x.author, post.likes)})
