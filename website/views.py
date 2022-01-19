@@ -264,10 +264,10 @@ def admin_profile_password():
             password2 = request.form["password2"]
 
             if not oldpassword:
-                flash("All fields must not be empty.", category='error')
+                flash("All Fields are required.", category='error')
                 return redirect(url_for('views.admin_profile_password'))
             elif not password2:
-                flash("All fields must not be empty.", category='error')
+                flash("All Fields are required.", category='error')
                 return redirect(url_for('views.admin_profile_password'))
             elif user.password != password2:
                 flash("New Password dont match!.", category='error')
