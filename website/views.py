@@ -282,7 +282,4 @@ def admin_profile_password():
             flash("Current Password Incorrect.", category='error')
             return redirect(url_for('views.admin_profile_password'))
         
-
-
-    
     return render_template("backend/profile/edit_password.html", user=current_user)
