@@ -42,17 +42,17 @@
         </div>
     </li>
 
-    <li class="nav-item {{ 'active' if active_page == 'view_profile' or active_page == 'edit_profile' else '' }}">
-        <a class="nav-link  {{ 'active' if active_page == 'view_profile' or active_page == 'edit_profile' else '' }}" href="#" data-toggle="collapse" data-target="#collapseTwo"
+    <li class="nav-item {{ 'active' if active_page == 'view_profile' or active_page == 'edit_profile' or active_page == 'edit_password' else '' }}">
+        <a class="nav-link {{ '' if active_page == 'view_profile' or active_page == 'edit_profile' or active_page == 'edit_password' else 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-id-badge"></i>
             <span>Manage Profile</span>
         </a>
-        <div id="collapseTwo" class="collapse {{ 'show' if active_page == 'view_profile' or active_page == 'edit_profile' else '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse {{ 'show' if active_page == 'view_profile' or active_page == 'edit_password' or active_page == 'edit_profile' else '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Your Profile:</h6>
                 <a class="collapse-item {{ 'active' if active_page == 'view_profile' or active_page == 'edit_profile' else '' }}" href="/admin/profile">View Profile</a>
-                <a class="collapse-item" href="/admin/change-password">Change Password</a>
+                <a class="collapse-item {{ 'active' if active_page == 'edit_password' else '' }}" href="/admin/change-password">Change Password</a>
             </div>
         </div>
     </li>

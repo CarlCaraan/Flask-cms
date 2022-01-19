@@ -253,18 +253,36 @@ def admin_profile_edit():
 @views.route("/admin/change-password", methods=['GET', 'POST'])
 @login_required
 def admin_profile_password():
-    user_id = current_user.id
-    user = User.query.get_or_404(user_id)
+    user = User.query.get_or_404(current_user.id)
 
+    check_current_password = User.query.filter_by(id=current_user.id).first()
     if request.method == 'POST':
         oldpassword = request.form["oldpassword"]
-        user.password = request.form["password"]
-        password2 = request.form["password2"]
 
-        db.session.commit()
-        flash("Password Updated Successfully.", category='success')
-        return redirect(url_for('views.admin_profile_password'))
-         
+        if check_password_hash(check_current_password.password, oldpassword):
+            user.password = request.form["password"]
+            password2 = request.form["password2"]
 
-      
+            if not oldpassword:
+                flash("All fields must not be empty.", category='error')
+                return redirect(url_for('views.admin_profile_password'))
+            elif not password2:
+                flash("All fields must not be empty.", category='error')
+                return redirect(url_for('views.admin_profile_password'))
+            elif user.password != password2:
+                flash("New Password dont match!.", category='error')
+                return redirect(url_for('views.admin_profile_password'))
+            else:
+                hashed_password = generate_password_hash(current_user.password, method='sha256')
+                update_password = User.query.filter_by(id=current_user.id).update(dict(password=hashed_password))
+                db.session.commit()
+                flash("Password Updated Successfully.", category='success')
+                return redirect(url_for('views.admin_profile_password'))
+        else:
+            flash("Current Password Incorrect.", category='error')
+            return redirect(url_for('views.admin_profile_password'))
+        
+
+
+    
     return render_template("backend/profile/edit_password.html", user=current_user)
