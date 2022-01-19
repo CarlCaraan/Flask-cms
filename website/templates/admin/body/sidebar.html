@@ -28,16 +28,31 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {{ 'active' if active_page == 'view_user' or active_page == 'add_user' or active_page == 'edit_user' else '' }}">
-        <a class="nav-link  {{ '' if active_page == 'view_user' or active_page == 'add_user' or active_page == 'edit_user' else 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-user"></i>
+        <a class="nav-link  {{ '' if active_page == 'view_user' or active_page == 'add_user' or active_page == 'edit_user' else 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">
+            <i class="fas fa-fw fa-users"></i>
             <span>Manage User</span>
         </a>
-        <div id="collapseTwo" class="collapse {{ 'show' if active_page == 'view_user' or active_page == 'add_user' or active_page == 'edit_user' else '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseOne" class="collapse {{ 'show' if active_page == 'view_user' or active_page == 'add_user' or active_page == 'edit_user' else '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Records:</h6>
+                <h6 class="collapse-header">User Records:</h6>
                 <a class="collapse-item {{ 'active' if active_page == 'view_user' or active_page == 'edit_user' else '' }}" href="/admin/user">View User</a>
                 <a class="collapse-item {{ 'active' if active_page == 'add_user' else '' }}" href="/admin/user/add">Add User</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item {{ 'active' if active_page == 'view_profile' or active_page == 'edit_profile' else '' }}">
+        <a class="nav-link  {{ 'active' if active_page == 'view_profile' or active_page == 'edit_profile' else '' }}" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-id-badge"></i>
+            <span>Manage Profile</span>
+        </a>
+        <div id="collapseTwo" class="collapse {{ 'show' if active_page == 'view_profile' or active_page == 'edit_profile' else '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Your Profile:</h6>
+                <a class="collapse-item {{ 'active' if active_page == 'view_profile' or active_page == 'edit_profile' else '' }}" href="/admin/profile">View Profile</a>
+                <a class="collapse-item" href="/admin/change-password">Change Password</a>
             </div>
         </div>
     </li>
@@ -78,7 +93,7 @@
     <div class="sidebar-card d-none d-lg-flex">
         <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
         <p class="text-center mb-2"><strong>M83X Systems</strong><br>All rights reserved &copy 2022</p>
-        <a class="btn btn-success btn-sm" href="https://github.com/CarlCaraan" target="_blank">Visit our page!</a>
+        <a class="btn btn-success btn-sm" href="/admin/not-exist">Visit our page!</a>
     </div>
 
 </ul>

@@ -1,0 +1,62 @@
+{% extends "admin/admin_master.html" %}
+
+{% block title %}Profile | Admin{% endblock %}
+
+{% set active_page = "view_profile" %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 w-100">Profile 
+        <a href="/admin/profile/edit" class="btn btn-info float-right">Edit Profile</a>
+    </h1>
+
+
+    <!-- Start Message Validation -->
+    <div class="center mx-auto w-100" align="center">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        {% if category == 'error' %}
+        <div class="alert alert-danger alter-dismissible fade show">
+            {{ message }}
+        </div>
+        {% else %}
+        <div class="alert alert-success alter-dismissible fade show">
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <!-- End Message Validation -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Basic Information</h6>
+        </div>
+        <div class="card-body">
+            <p>Full Name: {{ user.firstname }} {{ user.lastname }}</p>
+            <p>Joined: {{ user.date_created.strftime('%Y-%m-%d') }}</p>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <!-- Card Header - Accordion -->
+        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button"
+            aria-expanded="true" aria-controls="collapseCardExample">
+            <h6 class="m-0 font-weight-bold text-primary">Contact Information</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse show" id="collapseCardExample">
+            <div class="card-body">
+                <p>Email: {{ user.email }}</p>
+                <p>Username: {{ user.username }}</p>
+                <p>User Type: {{ user.usertype }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

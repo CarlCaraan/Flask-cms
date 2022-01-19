@@ -15,25 +15,23 @@ def home():
     posts = Post.query.all()
     return render_template("home.html", user=current_user, posts=posts)
 
-# User Create Post
 @views.route("/create-post", methods=['GET', 'POST'])
 @login_required
 def create_post():
     if request.method == "POST":
         text = request.form.get('text')
-        
+
         if not text:
             flash('Post cannot be empty', category='error')
         else:
             post = Post(text=text, author=current_user.id)
             db.session.add(post)
             db.session.commit()
-            flash('Post Created!', category='success') 
+            flash('Post Created!', category='success')
             return redirect(url_for('views.home'))
 
     return render_template('create_post.html', user=current_user)
 
-# User Delete Post
 @views.route("/delete-post/<id>")
 @login_required
 def delete_post(id):
@@ -62,7 +60,6 @@ def posts(username):
     posts = user.posts
     return render_template('posts.html', user=current_user, posts=posts, username=username)
 
-# User Create Comment
 @views.route("/create-comment/<post_id>", methods=['POST'])
 @login_required
 def create_comment(post_id):
@@ -71,18 +68,18 @@ def create_comment(post_id):
     if not text:
         flash('Comment cannot be empty.', category='error')
     else:
-        post = Post.query.filter_by(id = post_id)
+        post = Post.query.filter_by(id=post_id)
         if post:
-            comment = Comment(text=text, author=current_user.id, post_id=post_id)
+            comment = Comment(
+                text=text, author=current_user.id, post_id=post_id)
             db.session.add(comment)
             db.session.commit()
             flash('Comment Posted Successfully!', category='success')
         else:
             flash('Post does not exist.', category)
-        
+
     return redirect(url_for('views.home'))
 
-# User Delete Comment
 @views.route("/delete-comment/<comment_id>")
 @login_required
 def delete_comment(comment_id):
@@ -97,12 +94,12 @@ def delete_comment(comment_id):
 
     return redirect(url_for('views.home'))
 
-# User Liking Post
 @views.route("/like-post/<post_id>", methods=['POST'])
 @login_required
 def like(post_id):
     post = Post.query.filter_by(id=post_id).first()
-    like = Like.query.filter_by(author=current_user.id, post_id=post_id).first()
+    like = Like.query.filter_by(
+        author=current_user.id, post_id=post_id).first()
 
     if not post:
         # flash('Post does not exist.', category='error')
@@ -116,10 +113,10 @@ def like(post_id):
         db.session.commit()
 
     # return redirect(url_for('views.home'))
-    return jsonify({"likes": len(post.likes), "liked":current_user.id in map(lambda x: x.author, post.likes)})
+    return jsonify({"likes": len(post.likes), "liked": current_user.id in map(lambda x: x.author, post.likes)})
 
 # ========= ADMIN CONTROLLER =========
-# Admin Home Dashboard
+# ADMIN DASHBOARD
 @views.route("/")
 @views.route("/admin/home")
 @login_required
@@ -130,7 +127,13 @@ def adminhome():
     comments = Comment.query.all()
     return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
 
-# Admin View User
+@views.route("/admin/not-exist")
+@login_required
+def no_content_page():
+
+    return render_template("admin/404.html", user=current_user)
+
+# MANAGE USER
 @views.route("/admin/user")
 @login_required
 def admin_user_view():
@@ -140,7 +143,6 @@ def admin_user_view():
     comments = Comment.query.all()
     return render_template("backend/user/view_user.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
 
-# Admin Add User
 @views.route("/admin/user/add", methods=['GET', 'POST'])
 @login_required
 def admin_user_add():
@@ -175,7 +177,8 @@ def admin_user_add():
         elif len(email) < 4:
             flash("Email is invalid.", category='error')
         else:
-            new_user = User(email=email, username=username, firstname=firstname, lastname=lastname, usertype=usertype, password=generate_password_hash(password, method='sha256'))
+            new_user = User(email=email, username=username, firstname=firstname, lastname=lastname,
+                            usertype=usertype, password=generate_password_hash(password, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             flash("User Inserted Successfully.", category='success')
@@ -183,7 +186,6 @@ def admin_user_add():
 
     return render_template("backend/user/add_user.html", user=current_user)
 
-# Admin Edit User
 @views.route("/edit-user/<user_id>", methods=['GET', 'POST'])
 @login_required
 def admin_user_edit(user_id):
@@ -206,8 +208,6 @@ def admin_user_edit(user_id):
 
     return render_template("backend/user/edit_user.html", user=user)
 
-
-# Admin Delete User
 @views.route("/delete-user/<user_id>")
 @login_required
 def delete_user(user_id):
@@ -221,3 +221,50 @@ def delete_user(user_id):
 
     return redirect(url_for('views.admin_user_view'))
 
+# MANAGE PROFILE
+@views.route("/admin/profile")
+@login_required
+def admin_profile_view():
+    users = User.query.all()
+    return render_template("backend/profile/view_profile.html", user=current_user,  users=users)
+
+@views.route("/admin/profile/edit", methods=['GET', 'POST'])
+@login_required
+def admin_profile_edit():
+    user = User.query.all()
+
+    if request.method == 'POST':
+        current_user.email = request.form["email"]
+        current_user.username = request.form["username"]
+        current_user.firstname = request.form["firstname"]
+        current_user.lastname = request.form["lastname"]
+        current_user.usertype = request.form["usertype"]
+
+        try:
+            db.session.commit()
+            flash("Profile Updated Successfully.", category='success')
+            return redirect(url_for('views.admin_profile_view'))
+        except:
+            flash("Email or Username already exists.", category='error')
+            return redirect(url_for('views.admin_profile_edit'))
+
+    return render_template("backend/profile/edit_profile.html", user=current_user)
+
+@views.route("/admin/change-password", methods=['GET', 'POST'])
+@login_required
+def admin_profile_password():
+    user_id = current_user.id
+    user = User.query.get_or_404(user_id)
+
+    if request.method == 'POST':
+        oldpassword = request.form["oldpassword"]
+        user.password = request.form["password"]
+        password2 = request.form["password2"]
+
+        db.session.commit()
+        flash("Password Updated Successfully.", category='success')
+        return redirect(url_for('views.admin_profile_password'))
+         
+
+      
+    return render_template("backend/profile/edit_password.html", user=current_user)
