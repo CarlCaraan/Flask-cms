@@ -130,7 +130,7 @@ def adminhome():
     comments = Comment.query.all()
     return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
 
-# Admin User View
+# Admin View User
 @views.route("/admin/user")
 @login_required
 def admin_user_view():
@@ -140,7 +140,7 @@ def admin_user_view():
     comments = Comment.query.all()
     return render_template("backend/user/view_user.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
 
-# Admin User Add
+# Admin Add User
 @views.route("/admin/user/add", methods=['GET', 'POST'])
 @login_required
 def admin_user_add():
@@ -182,6 +182,30 @@ def admin_user_add():
             return redirect(url_for('views.admin_user_view'))
 
     return render_template("backend/user/add_user.html", user=current_user)
+
+# Admin Edit User
+@views.route("/edit-user/<user_id>", methods=['GET', 'POST'])
+@login_required
+def admin_user_edit(user_id):
+    user = User.query.get_or_404(user_id)
+
+    if request.method == 'POST':
+        user.email = request.form["email"]
+        user.username = request.form["username"]
+        user.firstname = request.form["firstname"]
+        user.lastname = request.form["lastname"]
+        user.usertype = request.form["usertype"]
+
+        try:
+            db.session.commit()
+            flash("User Updated Successfully.", category='success')
+            return redirect(url_for('views.admin_user_view'))
+        except:
+            flash("Email or Username already exists.", category='error')
+            return redirect(url_for('views.admin_user_edit', user_id=user_id))
+
+    return render_template("backend/user/edit_user.html", user=user)
+
 
 # Admin Delete User
 @views.route("/delete-user/<user_id>")
