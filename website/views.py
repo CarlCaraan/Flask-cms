@@ -12,19 +12,24 @@ views = Blueprint("views", __name__)
 @views.route("/home")
 @login_required
 def home():
-    posts = Post.query.all()
+    posts = Post.query.order_by('id')
     return render_template("home.html", user=current_user, posts=posts)
 
 @views.route("/create-post", methods=['GET', 'POST'])
 @login_required
 def create_post():
     if request.method == "POST":
+        title = request.form.get('title')
         text = request.form.get('text')
 
+        if not title:
+            flash('This title field is required', category='error')
+            return redirect(url_for('views.create_post'))
         if not text:
-            flash('Post cannot be empty', category='error')
+            flash('This description field is required', category='error')
+            return redirect(url_for('views.create_post'))
         else:
-            post = Post(text=text, author=current_user.id)
+            post = Post(text=text, title=title, author=current_user.id)
             db.session.add(post)
             db.session.commit()
             flash('Post Created!', category='success')

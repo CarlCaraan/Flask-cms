@@ -1,14 +1,33 @@
 {% extends "base.html" %}
 
 {% block title %}Create Post | Flask App{% endblock %}
+
+{% set active_page = "add_post" %}
+
 {% block content %}
-<h1 align="center">Make a Post</h1>
-<form action="" method="POST">
-    <textarea name="text" id="text" class="form-control" cols="30" rows="10"></textarea><br>
-    <div>
-        <button class="btn btn-lg btn-primary float-end">Posts</button>
+<h3 class="text-muted mt-3">Post Job</h3>
+<div class="card">
+    <div class="card-header text-primary">
+        <h6>Post a Job Details</h6>
     </div>
-</form>
-<a class="float-start" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
+    <div class="card-body">
+        <form action="" method="POST">
+            <label for="text">Job Title</label>
+            <input class="form-control" type="text" id="title" name="title" placeholder="Job Title">
+
+            <label for="text">Job Description</label>
+            <input type="hidden" class="form-control" id="text" name="text" cols="30" rows="10"
+                placeholder="Whats on your mind?">
+            <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
+
+            <div>
+                <button class="btn btn-lg btn-primary float-end">Posts</button>
+            </div>
+        </form>
+        
+        <a class="float-start" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
+    </div>
+
+</div>
 <br>
 {% endblock %}
