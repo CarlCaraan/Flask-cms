@@ -117,7 +117,6 @@ def like(post_id):
 
 # ========= ADMIN CONTROLLER =========
 # ADMIN DASHBOARD
-@views.route("/")
 @views.route("/admin/home")
 @login_required
 def adminhome():
@@ -164,18 +163,28 @@ def admin_user_add():
 
         if email_exists:
             flash('Email is already in use.', category='error')
+            return redirect(url_for('views.admin_user_add'))
         elif username_exists:
             flash('Username is already in use.', category='error')
-        elif len(firstname) < 2:
-            flash('First Name is Required.', category='error')
-        elif len(lastname) < 2:
-            flash('Last Name is Required.', category='error')
-        elif len(username) < 2:
-            flash('Username is Required.', category='error')
-        elif len(password) < 6:
-            flash('Password is too short.', category='error')
-        elif len(email) < 4:
-            flash("Email is invalid.", category='error')
+            return redirect(url_for('views.admin_user_add'))
+        elif not firstname:
+            flash("This firstname field is required.", category='error')
+            return redirect(url_for('views.admin_user_add'))
+        elif not lastname:
+            flash("This lastname field is required.", category='error')
+            return redirect(url_for('views.admin_user_add'))
+        elif not email:
+            flash("This email field is required.", category='error')
+            return redirect(url_for('views.admin_user_add'))
+        elif not username:
+            flash("This username field is required.", category='error')
+            return redirect(url_for('views.admin_user_add'))
+        elif not password:
+            flash("This password field is required.", category='error')
+            return redirect(url_for('views.admin_user_add'))
+        elif not usertype:
+            flash("This usertype field is required.", category='error')
+            return redirect(url_for('views.admin_user_add'))
         else:
             new_user = User(email=email, username=username, firstname=firstname, lastname=lastname,
                             usertype=usertype, password=generate_password_hash(password, method='sha256'))
@@ -186,7 +195,7 @@ def admin_user_add():
 
     return render_template("backend/user/add_user.html", user=current_user)
 
-@views.route("/edit-user/<user_id>", methods=['GET', 'POST'])
+@views.route("/admin/edit-user/<user_id>", methods=['GET', 'POST'])
 @login_required
 def admin_user_edit(user_id):
     user = User.query.get_or_404(user_id)
@@ -198,17 +207,33 @@ def admin_user_edit(user_id):
         user.lastname = request.form["lastname"]
         user.usertype = request.form["usertype"]
 
-        try:
-            db.session.commit()
-            flash("User Updated Successfully.", category='success')
-            return redirect(url_for('views.admin_user_view'))
-        except:
-            flash("Email or Username already exists.", category='error')
+        if not user.email:
+            flash("This email field is required.", category='error')
             return redirect(url_for('views.admin_user_edit', user_id=user_id))
+        elif not user.username:
+            flash("This username field is required.", category='error')
+            return redirect(url_for('views.admin_user_edit', user_id=user_id))
+        elif not user.firstname:
+            flash("This firstname field is required.", category='error')
+            return redirect(url_for('views.admin_user_edit', user_id=user_id))
+        elif not user.lastname:
+            flash("This lastname field is required.", category='error')
+            return redirect(url_for('views.admin_user_edit', user_id=user_id))
+        elif not user.usertype:
+            flash("This usertype field is required.", category='error')
+            return redirect(url_for('views.admin_user_edit', user_id=user_id))
+        else:
+            try:
+                db.session.commit()
+                flash("User Updated Successfully.", category='success')
+                return redirect(url_for('views.admin_user_view'))
+            except:
+                flash("Email or Username already exists.", category='error')
+                return redirect(url_for('views.admin_user_edit', user_id=user_id))
 
     return render_template("backend/user/edit_user.html", user=user)
 
-@views.route("/delete-user/<user_id>")
+@views.route("/admin/delete-user/<user_id>")
 @login_required
 def delete_user(user_id):
     user = User.query.filter_by(id=user_id).first()
@@ -283,3 +308,75 @@ def admin_profile_password():
             return redirect(url_for('views.admin_profile_password'))
         
     return render_template("backend/profile/edit_password.html", user=current_user)
+
+# MANAGE POST
+@views.route("/admin/post")
+@login_required
+def admin_post_view():
+    posts = Post.query.all()
+    users = User.query.all()
+
+    return render_template("backend/post/view_post.html", user=current_user, posts=posts, users=users)
+
+@views.route("/admin/post/add", methods=['GET', 'POST'])
+@login_required
+def admin_post_add():
+    if request.method == "POST":
+        title = request.form.get('title')
+        text = request.form.get('text')
+
+        if not title:
+            flash('This title field cannot be empty', category='error')
+            return redirect(url_for('views.admin_post_add'))
+        elif not text:
+            flash('This description field cannot be empty', category='error')
+            return redirect(url_for('views.admin_post_add'))
+        else:
+            post = Post(text=text, title=title, author=current_user.id)
+            db.session.add(post)
+            db.session.commit()
+            flash('Post Created!', category='success')
+            return redirect(url_for('views.admin_post_view'))
+
+    return render_template('backend/post/add_post.html', user=current_user)
+
+@views.route("/admin/edit-post/<post_id>", methods=['GET', 'POST'])
+@login_required
+def admin_post_edit(post_id):
+    post = Post.query.get_or_404(post_id)
+
+    if request.method == 'POST':
+        post.title = request.form["title"]
+        post.text = request.form["text"]
+
+        if not post.title:
+            flash("This title field is required.", category='error')
+            return redirect(url_for('views.admin_post_edit', post_id=post_id))
+        elif len(post.text) < 14:
+            flash("This description field is required or must be greater than 2 characters.", category='error')
+            return redirect(url_for('views.admin_post_edit', post_id=post_id))
+        else:
+            db.session.commit()
+            flash("Post Updated Successfully.", category='success')
+            return redirect(url_for('views.admin_post_view'))
+
+    return render_template("backend/post/edit_post.html", post=post, user=current_user)
+
+@views.route("/admin/delete-post/<post_id>")
+@login_required
+def admin_post_delete(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+
+    if not post:
+        flash("Post does not exist.", category='error')
+        return redirect(url_for('views.admin_post_edit', post_id=post_id))
+    elif current_user.id != post.author:
+        flash("You do not gave permission do delete this post.", category='error')
+        return redirect(url_for('views.admin_post_edit', post_id=post_id))
+    else:
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post Deleted Successfully', category='success')
+        return redirect(url_for('views.admin_post_view'))
+
+    return render_template("backend/post/view_post.html", user=current_user)
