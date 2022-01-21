@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Profile | User{% endblock %}
+
+{% set active_page = "view_profile" %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h3 class="mb-2 text-muted w-100">Profile Info
+        <a href="/user/profile/edit" class="btn btn-info float-end text-white">Edit Profile</a>
+    </h3>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Basic Information</h6>
+        </div>
+        <div class="card-body">
+            <p>Full Name: {{ user.firstname }} {{ user.lastname }}</p>
+            <p>Joined: {{ user.date_created.strftime('%Y-%m-%d') }}</p>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <!-- Card Header - Accordion -->
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Contact Information</h6>
+            </div>
+            <div class="card-body">
+                <p>Email: {{ user.email }}</p>
+                <p>Username: {{ user.username }}</p>
+                <p>User Type: {{ user.usertype }}</p>
+            </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <!-- Card Header - Accordion -->
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Your Company</h6>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    This will help you to hire employee.
+                </div>
+                <p>Company: {{ user.company }}</p>
+            </div>
+    </div>
+
+</div>
+{% endblock %}

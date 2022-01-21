@@ -30,39 +30,83 @@ def login():
 @auth.route("/sign-up", methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
-        email = request.form.get("email")
-        username = request.form.get("username")
-        firstname = request.form.get("firstname")
-        lastname = request.form.get("lastname")
-        password1 = request.form.get("password1")
-        password2 = request.form.get("password2")
-        usertype = "user"
+        company = request.form.get("company")
+        allcompany = User.query.all()
+        if not company:
+            email = request.form.get("email")
+            username = request.form.get("username")
+            firstname = request.form.get("firstname")
+            lastname = request.form.get("lastname")
+            company = request.form.get("company")
+            password1 = request.form.get("password1")
+            password2 = request.form.get("password2")
+            usertype = "user"
 
-        email_exists = User.query.filter_by(email=email).first()
-        username_exists = User.query.filter_by(username=username).first()
+            email_exists = User.query.filter_by(email=email).first()
+            username_exists = User.query.filter_by(username=username).first()
 
-        if email_exists:
-            flash('Email is already in use.', category='error')
-        elif username_exists:
-            flash('Username is already in use.', category='error')
-        elif password1 != password2:
-            flash('Password don\'t match!', category='error')
-        elif len(username) < 2:
-            flash('Username is too short.', category='error')
-        elif len(firstname) < 2:
-            flash('First Name is too short.', category='error')
-        elif len(lastname) < 2:
-            flash('Last Name is too short.', category='error')
-        elif len(password1) < 6:
-            flash('Password is too short.', category='error')
-        elif len(email) < 4:
-            flash("Email is invalid.", category='error')
+            if email_exists:
+                flash('Email is already in use.', category='error')
+            elif username_exists:
+                flash('Username is already in use.', category='error')
+            elif password1 != password2:
+                flash('Password don\'t match!', category='error')
+            elif len(username) < 2:
+                flash('Username is too short.', category='error')
+            elif len(firstname) < 2:
+                flash('First Name is too short.', category='error')
+            elif len(lastname) < 2:
+                flash('Last Name is too short.', category='error')
+            elif len(password1) < 6:
+                flash('Password is too short.', category='error')
+            elif len(email) < 4:
+                flash("Email is invalid.", category='error')
+            else:
+                new_user = User(email=email, username=username, firstname=firstname, lastname=lastname, company=company, usertype=usertype, password=generate_password_hash(password1, method='sha256'))
+                db.session.add(new_user)
+                db.session.commit()
+                login_user(new_user, remember=True)
+                return redirect(url_for('views.home'))
         else:
-            new_user = User(email=email, username=username, firstname=firstname, lastname=lastname, usertype=usertype, password=generate_password_hash(password1, method='sha256'))
-            db.session.add(new_user)
-            db.session.commit()
-            login_user(new_user, remember=True)
-            return redirect(url_for('views.home'))
+            company = request.form.get("company")
+            company_exist = User.query.filter_by(company=company).first()
+            if company_exist:
+                flash('Company Name must be unique.', category='error')
+            else:
+                email = request.form.get("email")
+                username = request.form.get("username")
+                firstname = request.form.get("firstname")
+                lastname = request.form.get("lastname")
+                company = request.form.get("company")
+                password1 = request.form.get("password1")
+                password2 = request.form.get("password2")
+                usertype = "user"
+
+                email_exists = User.query.filter_by(email=email).first()
+                username_exists = User.query.filter_by(username=username).first()
+
+                if email_exists:
+                    flash('Email is already in use.', category='error')
+                elif username_exists:
+                    flash('Username is already in use.', category='error')
+                elif password1 != password2:
+                    flash('Password don\'t match!', category='error')
+                elif len(username) < 2:
+                    flash('Username is too short.', category='error')
+                elif len(firstname) < 2:
+                    flash('First Name is too short.', category='error')
+                elif len(lastname) < 2:
+                    flash('Last Name is too short.', category='error')
+                elif len(password1) < 6:
+                    flash('Password is too short.', category='error')
+                elif len(email) < 4:
+                    flash("Email is invalid.", category='error')
+                else:
+                    new_user = User(email=email, username=username, firstname=firstname, lastname=lastname, company=company, usertype=usertype, password=generate_password_hash(password1, method='sha256'))
+                    db.session.add(new_user)
+                    db.session.commit()
+                    login_user(new_user, remember=True)
+                    return redirect(url_for('views.home'))
 
     return render_template("signup.html", user=current_user)
 
@@ -93,40 +137,86 @@ def adminlogin():
 @auth.route("/admin-sign-up", methods=['GET', 'POST'])
 def admin_sign_up():
     if request.method == 'POST':
-        email = request.form.get("email")
-        username = request.form.get("username")
-        firstname = request.form.get("firstname")
-        lastname = request.form.get("lastname")
-        password1 = request.form.get("password1")
-        password2 = request.form.get("password2")
-        usertype = "admin"
+        company = request.form.get("company")
+        allcompany = User.query.all()
+        if not company:
+            email = request.form.get("email")
+            username = request.form.get("username")
+            firstname = request.form.get("firstname")
+            lastname = request.form.get("lastname")
+            company = request.form.get("company")
+            password1 = request.form.get("password1")
+            password2 = request.form.get("password2")
+            usertype = "user"
 
-        email_exists = User.query.filter_by(email=email).first()
-        username_exists = User.query.filter_by(username=username).first()
+            email_exists = User.query.filter_by(email=email).first()
+            username_exists = User.query.filter_by(username=username).first()
 
-        if email_exists:
-            flash('Email is already in use.', category='error')
-        elif username_exists:
-            flash('Username is already in use.', category='error')
-        elif password1 != password2:
-            flash('Password don\'t match!', category='error')
-        elif len(username) < 2:
-            flash('Username is too short.', category='error')
-        elif len(firstname) < 2:
-            flash('First Name is too short.', category='error')
-        elif len(lastname) < 2:
-            flash('Last Name is too short.', category='error')
-        elif len(password1) < 6:
-            flash('Password is too short.', category='error')
-        elif len(email) < 4:
-            flash("Email is invalid.", category='error')
+            if email_exists:
+                flash('Email is already in use.', category='error')
+            elif username_exists:
+                flash('Username is already in use.', category='error')
+            elif password1 != password2:
+                flash('Password don\'t match!', category='error')
+            elif len(username) < 2:
+                flash('Username is too short.', category='error')
+            elif len(firstname) < 2:
+                flash('First Name is too short.', category='error')
+            elif len(lastname) < 2:
+                flash('Last Name is too short.', category='error')
+            elif len(password1) < 6:
+                flash('Password is too short.', category='error')
+            elif len(email) < 4:
+                flash("Email is invalid.", category='error')
+            else:
+                new_user = User(email=email, username=username, firstname=firstname, lastname=lastname,
+                                company=company, usertype=usertype, password=generate_password_hash(password1, method='sha256'))
+                db.session.add(new_user)
+                db.session.commit()
+                login_user(new_user, remember=True)
+                return redirect(url_for('views.adminhome'))
         else:
-            new_user = User(email=email, username=username, firstname=firstname, lastname=lastname, usertype=usertype, password=generate_password_hash(
-                password1, method='sha256'))
-            db.session.add(new_user)
-            db.session.commit()
-            login_user(new_user, remember=True)
-            return redirect(url_for('views.adminhome'))
+            company = request.form.get("company")
+            company_exist = User.query.filter_by(company=company).first()
+            if company_exist:
+                flash('Company Name must be unique.', category='error')
+            else:
+                email = request.form.get("email")
+                username = request.form.get("username")
+                firstname = request.form.get("firstname")
+                lastname = request.form.get("lastname")
+                company = request.form.get("company")
+                password1 = request.form.get("password1")
+                password2 = request.form.get("password2")
+                usertype = "user"
+
+                email_exists = User.query.filter_by(email=email).first()
+                username_exists = User.query.filter_by(
+                    username=username).first()
+
+                if email_exists:
+                    flash('Email is already in use.', category='error')
+                elif username_exists:
+                    flash('Username is already in use.', category='error')
+                elif password1 != password2:
+                    flash('Password don\'t match!', category='error')
+                elif len(username) < 2:
+                    flash('Username is too short.', category='error')
+                elif len(firstname) < 2:
+                    flash('First Name is too short.', category='error')
+                elif len(lastname) < 2:
+                    flash('Last Name is too short.', category='error')
+                elif len(password1) < 6:
+                    flash('Password is too short.', category='error')
+                elif len(email) < 4:
+                    flash("Email is invalid.", category='error')
+                else:
+                    new_user = User(email=email, username=username, firstname=firstname, lastname=lastname,
+                                    company=company, usertype=usertype, password=generate_password_hash(password1, method='sha256'))
+                    db.session.add(new_user)
+                    db.session.commit()
+                    login_user(new_user, remember=True)
+                    return redirect(url_for('views.adminhome'))
 
     return render_template("admin/signup.html", user=current_user)
 

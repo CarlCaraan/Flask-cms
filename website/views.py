@@ -15,6 +15,7 @@ def home():
     posts = Post.query.order_by('id')
     return render_template("home.html", user=current_user, posts=posts)
 
+# POSTING JOB
 @views.route("/create-post", methods=['GET', 'POST'])
 @login_required
 def create_post():
@@ -53,17 +54,17 @@ def delete_post(id):
 
     return redirect(url_for('views.home'))
 
-# User View Post
-@views.route("/posts/<username>")
+# View Company
+@views.route("/posts/<company>")
 @login_required
-def posts(username):
-    user = User.query.filter_by(username=username).first()
+def posts(company):
+    user = User.query.filter_by(company=company).first()
     if not user:
-        flash('No user with that username exists.', category='error')
+        flash('No user with that company exists.', category='error')
         return redirect(url_for('views.home'))
 
     posts = user.posts
-    return render_template('posts.html', user=current_user, posts=posts, username=username)
+    return render_template('posts.html', user=current_user, posts=posts, company=company)
 
 @views.route("/create-comment/<post_id>", methods=['POST'])
 @login_required
@@ -119,6 +120,109 @@ def like(post_id):
 
     # return redirect(url_for('views.home'))
     return jsonify({"likes": len(post.likes), "liked": current_user.id in map(lambda x: x.author, post.likes)})
+
+# USER PROFILE SETTINGS AND CHANGE PASSWORD
+@views.route("/user/profile")
+@login_required
+def user_profile_view():
+    users = User.query.all()
+    return render_template("user/profile/view_profile.html", user=current_user,  users=users)
+
+@views.route("/user/profile/edit", methods=['GET', 'POST'])
+@login_required
+def user_profile_edit():
+    user = User.query.all()
+
+    if request.method == 'POST':
+        company = request.form.get("company")
+        if not company:
+            current_user.firstname = request.form["firstname"]
+            current_user.lastname = request.form["lastname"]
+            current_user.email = request.form["email"]
+            current_user.username = request.form["username"]
+            current_user.company = request.form["company"]
+            current_user.usertype = request.form["usertype"]
+
+            if not current_user.firstname:
+                flash("This firstname field is required.", category='error')
+                return redirect(url_for('views.user_profile_edit'))
+            elif not current_user.lastname:
+                flash("This lastname field is required.", category='error')
+                return redirect(url_for('views.user_profile_edit'))
+            elif not current_user.email:
+                flash("This email field is required.", category='error')
+                return redirect(url_for('views.user_profile_edit'))
+            elif not current_user.username:
+                flash("This username field is required.", category='error')
+                return redirect(url_for('views.user_profile_edit'))
+            elif not current_user.usertype:
+                flash("This usertype field is required.", category='error')
+                return redirect(url_for('views.user_profile_edit'))
+            else:
+                db.session.commit()
+                flash("Profile Updated Successfully.", category='success')
+                return redirect(url_for('views.user_profile_view'))
+        elif company == current_user.company:
+            current_user.firstname = request.form["firstname"]
+            current_user.lastname = request.form["lastname"]
+            current_user.email = request.form["email"]
+            current_user.username = request.form["username"]
+            current_user.company = request.form["company"]
+            current_user.usertype = request.form["usertype"]
+
+            if not current_user.firstname:
+                flash("This firstname field is required.", category='error')
+                return redirect(url_for('views.user_profile_edit'))
+            elif not current_user.lastname:
+                flash("This lastname field is required.", category='error')
+                return redirect(url_for('views.user_profile_edit'))
+            elif not current_user.email:
+                flash("This email field is required.", category='error')
+                return redirect(url_for('views.user_profile_edit'))
+            elif not current_user.username:
+                flash("This username field is required.", category='error')
+                return redirect(url_for('views.user_profile_edit'))
+            elif not current_user.usertype:
+                flash("This usertype field is required.", category='error')
+                return redirect(url_for('views.user_profile_edit'))
+            else:
+                db.session.commit()
+                flash("Profile Updated Successfully.", category='success')
+                return redirect(url_for('views.user_profile_view'))
+        else:
+            company = request.form.get("company")
+            company_exist = User.query.filter_by(company=company).first()
+            if company_exist:
+                flash('Company Name must be unique.', category='error')
+            else:
+                current_user.firstname = request.form["firstname"]
+                current_user.lastname = request.form["lastname"]
+                current_user.email = request.form["email"]
+                current_user.username = request.form["username"]
+                current_user.company = request.form["company"]
+                current_user.usertype = request.form["usertype"]
+
+                if not current_user.firstname:
+                    flash("This firstname field is required.", category='error')
+                    return redirect(url_for('views.user_profile_edit'))
+                elif not current_user.lastname:
+                    flash("This lastname field is required.", category='error')
+                    return redirect(url_for('views.user_profile_edit'))
+                elif not current_user.email:
+                    flash("This email field is required.", category='error')
+                    return redirect(url_for('views.user_profile_edit'))
+                elif not current_user.username:
+                    flash("This username field is required.", category='error')
+                    return redirect(url_for('views.user_profile_edit'))
+                elif not current_user.usertype:
+                    flash("This usertype field is required.", category='error')
+                    return redirect(url_for('views.user_profile_edit'))
+                else:
+                    db.session.commit()
+                    flash("Profile Updated Successfully.", category='success')
+                    return redirect(url_for('views.user_profile_view'))
+
+    return render_template("user/profile/edit_profile.html", user=current_user)
 
 # ========= ADMIN CONTROLLER =========
 # ADMIN DASHBOARD
@@ -264,19 +368,93 @@ def admin_profile_edit():
     user = User.query.all()
 
     if request.method == 'POST':
-        current_user.email = request.form["email"]
-        current_user.username = request.form["username"]
-        current_user.firstname = request.form["firstname"]
-        current_user.lastname = request.form["lastname"]
-        current_user.usertype = request.form["usertype"]
+        company = request.form.get("company")
+        if not company:
+            current_user.firstname = request.form["firstname"]
+            current_user.lastname = request.form["lastname"]
+            current_user.email = request.form["email"]
+            current_user.username = request.form["username"]
+            current_user.company = request.form["company"]
+            current_user.usertype = request.form["usertype"]
 
-        try:
-            db.session.commit()
-            flash("Profile Updated Successfully.", category='success')
-            return redirect(url_for('views.admin_profile_view'))
-        except:
-            flash("Email or Username already exists.", category='error')
-            return redirect(url_for('views.admin_profile_edit'))
+            if not current_user.firstname:
+                flash("This firstname field is required.", category='error')
+                return redirect(url_for('views.admin_profile_edit'))
+            elif not current_user.lastname:
+                flash("This lastname field is required.", category='error')
+                return redirect(url_for('views.admin_profile_edit'))
+            elif not current_user.email:
+                flash("This email field is required.", category='error')
+                return redirect(url_for('views.admin_profile_edit'))
+            elif not current_user.username:
+                flash("This username field is required.", category='error')
+                return redirect(url_for('views.admin_profile_edit'))
+            elif not current_user.usertype:
+                flash("This usertype field is required.", category='error')
+                return redirect(url_for('views.admin_profile_edit'))
+            else:
+                db.session.commit()
+                flash("Profile Updated Successfully.", category='success')
+                return redirect(url_for('views.admin_profile_view'))
+        elif company == current_user.company:
+            current_user.firstname = request.form["firstname"]
+            current_user.lastname = request.form["lastname"]
+            current_user.email = request.form["email"]
+            current_user.username = request.form["username"]
+            current_user.company = request.form["company"]
+            current_user.usertype = request.form["usertype"]
+
+            if not current_user.firstname:
+                flash("This firstname field is required.", category='error')
+                return redirect(url_for('views.admin_profile_edit'))
+            elif not current_user.lastname:
+                flash("This lastname field is required.", category='error')
+                return redirect(url_for('views.admin_profile_edit'))
+            elif not current_user.email:
+                flash("This email field is required.", category='error')
+                return redirect(url_for('views.admin_profile_edit'))
+            elif not current_user.username:
+                flash("This username field is required.", category='error')
+                return redirect(url_for('views.admin_profile_edit'))
+            elif not current_user.usertype:
+                flash("This usertype field is required.", category='error')
+                return redirect(url_for('views.admin_profile_edit'))
+            else:
+                db.session.commit()
+                flash("Profile Updated Successfully.", category='success')
+                return redirect(url_for('views.admin_profile_view'))
+        else:
+            company = request.form.get("company")
+            company_exist = User.query.filter_by(company=company).first()
+            if company_exist:
+                flash('Company Name must be unique.', category='error')
+            else:
+                current_user.firstname = request.form["firstname"]
+                current_user.lastname = request.form["lastname"]
+                current_user.email = request.form["email"]
+                current_user.username = request.form["username"]
+                current_user.company = request.form["company"]
+                current_user.usertype = request.form["usertype"]
+
+                if not current_user.firstname:
+                    flash("This firstname field is required.", category='error')
+                    return redirect(url_for('views.admin_profile_edit'))
+                elif not current_user.lastname:
+                    flash("This lastname field is required.", category='error')
+                    return redirect(url_for('views.admin_profile_edit'))
+                elif not current_user.email:
+                    flash("This email field is required.", category='error')
+                    return redirect(url_for('views.admin_profile_edit'))
+                elif not current_user.username:
+                    flash("This username field is required.", category='error')
+                    return redirect(url_for('views.admin_profile_edit'))
+                elif not current_user.usertype:
+                    flash("This usertype field is required.", category='error')
+                    return redirect(url_for('views.admin_profile_edit'))
+                else:
+                    db.session.commit()
+                    flash("Profile Updated Successfully.", category='success')
+                    return redirect(url_for('views.admin_profile_view'))
 
     return render_template("backend/profile/edit_profile.html", user=current_user)
 

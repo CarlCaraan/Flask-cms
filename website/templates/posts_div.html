@@ -17,7 +17,6 @@
 
                 <!-- Start Header Section -->
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <a href="/posts/{{ post.user.username }}">{{ post.user.username }}</a>
                     <span class="text-primary fw-bold">
                         {{ post.title }}
                     </span>
@@ -38,6 +37,7 @@
                 <!-- Start Content Section -->
                 <div class="card-body">
                     <!-- Start Collapsable Job Description -->
+                    <a class="fw-bold text-secondary" href="/posts/{{ post.user.company }}">{{ post.user.company }}</a>
                     <p class="fw-bold text-secondary" data-bs-toggle="collapse" href="#collapseExample{{ post.id }}"
                         role="button" aria-expanded="false" aria-controls="collapseExample">
                         Job Description <i class="fas fa-chevron-down"></i>

@@ -9,6 +9,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(150), unique=True)
     firstname = db.Column(db.String(150))
     lastname = db.Column(db.String(150))
+    company = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     usertype = db.Column(db.String(10))
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())

@@ -42,6 +42,7 @@
                     <thead>
                         <tr>
                             <th>SL NO</th>
+                            <th>Company</th>
                             <th>Author</th>
                             <th>Title</th>
                             <th>Date Posted</th>
@@ -52,6 +53,7 @@
                         {% for post in posts %}
                         <tr>
                             <td>{{ post.id }}</td>
+                            <td>{{ post.user.company }}</td>
                             <td>{{ post.user.firstname }} {{ post.user.lastname }}</td>
                             <td>{{ post.title }}</td>
                             <td>{{ post.date_created }}</td>
