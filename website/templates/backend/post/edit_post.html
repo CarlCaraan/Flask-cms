@@ -1,6 +1,6 @@
 {% extends "admin/admin_master.html" %}
 
-{% block title %}Edit Post | Admin{% endblock %}
+{% block title %}Edit Job | Admin{% endblock %}
 
 {% set active_page = "edit_post" %}
 
@@ -8,7 +8,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Edit Post</h1>
+    <h1 class="h3 mb-2 text-gray-800">Edit Job</h1>
 
     <!-- Start Message Validation -->
     <div class="center mx-auto w-100" align="center">
@@ -33,23 +33,23 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add Form</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Edit Form</h6>
         </div>
         <div class="card-body">
             <form method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="title">Title</label>
+                        <label for="title">Job Title</label>
                         <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ post.title }}">
 
-                        <label for="text">Description</label>
+                        <label for="text">Job Description</label>
                         <input type="hidden" class="form-control" id="text" name="text" rows="5"
                             placeholder="Whats on your mind?" value="{{ post.text }}">
                         <trix-editor input="text"></trix-editor>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Update Post</button>
+                <button type="submit" class="btn btn-primary">Update Job</button>
             </form>
         </div>
     </div>
