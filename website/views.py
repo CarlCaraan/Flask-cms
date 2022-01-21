@@ -22,19 +22,23 @@ def create_post():
     if request.method == "POST":
         title = request.form.get('title')
         text = request.form.get('text')
-
-        if not title:
-            flash('This title field is required', category='error')
-            return redirect(url_for('views.create_post'))
-        if not text:
-            flash('This description field is required', category='error')
-            return redirect(url_for('views.create_post'))
+        
+        if current_user.company:
+            if not title:
+                flash('This title field is required', category='error')
+                return redirect(url_for('views.create_post'))
+            if not text:
+                flash('This description field is required', category='error')
+                return redirect(url_for('views.create_post'))
+            else:
+                post = Post(text=text, title=title, author=current_user.id)
+                db.session.add(post)
+                db.session.commit()
+                flash('Post Created!', category='success')
+                return redirect(url_for('views.home'))
         else:
-            post = Post(text=text, title=title, author=current_user.id)
-            db.session.add(post)
-            db.session.commit()
-            flash('Post Created!', category='success')
-            return redirect(url_for('views.home'))
+                flash('You must add your company in your profile before posting!', category='error')
+                return redirect(url_for('views.create_post'))  
 
     return render_template('create_post.html', user=current_user)
 
@@ -508,18 +512,22 @@ def admin_post_add():
         title = request.form.get('title')
         text = request.form.get('text')
 
-        if not title:
-            flash('This title field cannot be empty', category='error')
-            return redirect(url_for('views.admin_post_add'))
-        elif not text:
-            flash('This description field cannot be empty', category='error')
-            return redirect(url_for('views.admin_post_add'))
+        if current_user.company:
+            if not title:
+                flash('This title field cannot be empty', category='error')
+                return redirect(url_for('views.admin_post_add'))
+            elif not text:
+                flash('This description field cannot be empty', category='error')
+                return redirect(url_for('views.admin_post_add'))
+            else:
+                post = Post(text=text, title=title, author=current_user.id)
+                db.session.add(post)
+                db.session.commit()
+                flash('Post Created!', category='success')
+                return redirect(url_for('views.admin_post_view'))
         else:
-            post = Post(text=text, title=title, author=current_user.id)
-            db.session.add(post)
-            db.session.commit()
-            flash('Post Created!', category='success')
-            return redirect(url_for('views.admin_post_view'))
+            flash('You must add your company in your profile before posting!', category='error')
+            return redirect(url_for('views.admin_post_add'))
 
     return render_template('backend/post/add_post.html', user=current_user)
 

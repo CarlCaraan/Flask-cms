@@ -147,7 +147,7 @@ def admin_sign_up():
             company = request.form.get("company")
             password1 = request.form.get("password1")
             password2 = request.form.get("password2")
-            usertype = "user"
+            usertype = "admin"
 
             email_exists = User.query.filter_by(email=email).first()
             username_exists = User.query.filter_by(username=username).first()
@@ -188,7 +188,7 @@ def admin_sign_up():
                 company = request.form.get("company")
                 password1 = request.form.get("password1")
                 password2 = request.form.get("password2")
-                usertype = "user"
+                usertype = "admin"
 
                 email_exists = User.query.filter_by(email=email).first()
                 username_exists = User.query.filter_by(
