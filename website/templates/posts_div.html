@@ -8,13 +8,16 @@
 <h3 class="text-muted mt-3">{% block header %}Jobs List{% endblock %}</h3>
 <div id="posts">
     <div class="row">
-        <div class="col-8">
+        <div class="col-md-4">
+            <img src="{{ url_for('static',filename='user/img/search.png') }}" width="450" alt="">
+        </div>
+        <div class="col-md-8">
             {% for post in posts %}
             <div class="card mb-3" id="post_container">
 
                 <!-- Start Header Section -->
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <!-- <a href="/posts/{{ post.user.username }}">{{ post.user.username }}</a> -->
+                    <a href="/posts/{{ post.user.username }}">{{ post.user.username }}</a>
                     <span class="text-primary fw-bold">
                         {{ post.title }}
                     </span>
@@ -115,9 +118,6 @@
 
             </div> <!-- End Card -->
             {% endfor %}
-        </div>
-        <div class="col-4">
-            <img src="{{ url_for('static',filename='user/img/search.png') }}" width="500" alt="">
         </div>
     </div>
 </div>
