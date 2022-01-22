@@ -5,6 +5,7 @@
 {% set active_page = "add_post" %}
 
 {% block content %}
+<script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
 <h3 class="text-muted mt-3">Post Job</h3>
 <div class="card">
     <div class="card-header text-primary">
@@ -12,22 +13,133 @@
     </div>
     <div class="card-body">
         <form action="" method="POST">
-            <label for="text">Job Title</label>
-            <input class="form-control" type="text" id="title" name="title" placeholder="Job Title">
+            <label for="title">Job Title</label>
+            <input class="form-control" type="text" id="title" name="title" placeholder="Job Title"><br>
 
             <label for="text">Job Description</label>
             <input type="hidden" class="form-control" id="text" name="text" cols="30" rows="10"
                 placeholder="Whats on your mind?">
             <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
 
+            <label for="">Company Location</label>
+            <div class="row">
+                <div class="col-6">
+                    <select class="form-control mb-2" id="region"></select>
+                    <select class="form-control mb-2" id="province" required onclick="getProvince()"></select>
+                    <select class="form-control" id="city" required onclick="getCity()"></select><br>
+                    <input type="text" name="location" id="province_hidden" value="">
+                    <input type="text" name="location1" id="city_hidden" value="">
+                </div>
+                <div class="col-6">
+                </div>
+            </div>
+
+            <h5>Additional Information(Required)</h5>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="">Careel Level</label>
+                    <select class="form-control" name="" id="">
+                        <option disabled selected>Select options</option>
+                        <option value="">Less than 1 Year Experienced Employee</option>
+                        <option value="">1-4 Years Experienced Employee</option>
+                        <option value="">Supervisor/5 Years & Up Experienced Employee</option>
+                    </select><br>
+
+                    <label for="">Years Of Experience</label>
+                    <select class="form-control" name="" id="">
+                        <option disabled selected>Select options</option>
+                        <option value="">Fresh Graduate</option>
+                        <option value="">1 Year </option>
+                        <option value="">2 Years</option>
+                        <option value="">3 Years</option>
+                        <option value="">4 Years</option>
+                        <option value="">5 Years</option>
+                    </select><br>
+                    <label for="">Job Type</label>
+                    <select class="form-control" name="" id="">
+                        <option disabled selected>Select options</option>
+                        <option value="">Full-Time</option>
+                        <option value="">Part-Time</option>
+                    </select><br>
+                </div>
+                <div class="col-md-6">
+                    <label for="">Job Specializations</label>
+                    <input class="form-control" type="text" placeholder="Job Specializations (please specify)"><br><br>
+
+                    <label for="">Qualification</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Highschool Graduate
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Bachelor's/College Degree
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Professional License (Passed Board/Bar/Professional License Exam)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div>
                 <button class="btn btn-lg btn-primary float-end">Posts</button>
             </div>
         </form>
-        
+
         <a class="float-start" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
     </div>
 
 </div>
 <br>
+<!-- Dynamic PH Locations -->
+<script type="text/javascript">
+    var my_handlers = {
+        fill_provinces: function () {
+            var region_code = $(this).val();
+            $('#province').ph_locations('fetch_list', [{ "region_code": region_code }]);
+        },
+        fill_cities: function () {
+            var province_code = $(this).val();
+            $('#city').ph_locations('fetch_list', [{ "province_code": province_code }]);
+        },
+        fill_barangays: function () {
+            var city_code = $(this).val();
+            $('#barangay').ph_locations('fetch_list', [{ "city_code": city_code }]);
+        }
+    };
+
+    $(function () {
+        $('#region').on('change', my_handlers.fill_provinces);
+        $('#province').on('change', my_handlers.fill_cities);
+        $('#city').on('change', my_handlers.fill_barangays);
+
+        $('#region').ph_locations({ 'location_type': 'regions' });
+        $('#province').ph_locations({ 'location_type': 'provinces' });
+        $('#city').ph_locations({ 'location_type': 'cities' });
+        $('#barangay').ph_locations({ 'location_type': 'barangays' });
+
+        $('#region').ph_locations('fetch_list');
+    });
+
+    var sel = document.getElementById("province");
+    var text= sel.options[sel.selectedIndex].text;
+    function getProvince() {
+        var location1 = $("#province option:selected").text();
+        document.getElementById("province_hidden").value = location1;
+    }
+    var sel1 = document.getElementById("city");
+    var text1= sel1.options[sel1.selectedIndex].text;
+    function getCity() {
+        var location1 = $("#city option:selected").text();
+        document.getElementById("city_hidden").value = location1;
+    }
+</script>
 {% endblock %}
