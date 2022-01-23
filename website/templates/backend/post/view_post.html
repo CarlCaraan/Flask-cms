@@ -42,9 +42,10 @@
                     <thead>
                         <tr>
                             <th>SL NO</th>
-                            <th>Company</th>
+                            <th>Company Name</th>
+                            <th>Job Title</th>
                             <th>Author</th>
-                            <th>Title</th>
+                            <th>Company Location</th>
                             <th>Date Posted</th>
                             <th>Action</th>
                         </tr>
@@ -54,8 +55,9 @@
                         <tr>
                             <td>{{ post.id }}</td>
                             <td>{{ post.user.company }}</td>
+                            <td class="text-primary font-weight-bold">{{ post.title }}</td>
                             <td>{{ post.user.firstname }} {{ post.user.lastname }}</td>
-                            <td>{{ post.title }}</td>
+                            <td class="font-weight-bold">{{ post.location }} ({{ post.location1 }})</td>
                             <td>{{ post.date_created }}</td>
                             <td>
                                 <a href="/admin/edit-post/{{ post.id }}" class="btn btn-info">Edit</a>

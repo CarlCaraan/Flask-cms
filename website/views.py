@@ -62,7 +62,7 @@ def create_post():
                 flash('This jobtype field is required', category='error')
                 return redirect(url_for('views.create_post'))
             else:
-                post = Post(text=text, title=title, location1=location, location=location1, level=level,
+                post = Post(text=text, title=title, location=location, location1=location1, level=level,
                             specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification, qualification1=qualification1, qualification2=qualification2, author=current_user.id)
                 db.session.add(post)
                 db.session.commit()
@@ -631,6 +631,15 @@ def admin_post_add():
     if request.method == "POST":
         title = request.form.get('title')
         text = request.form.get('text')
+        location = request.form.get('location')
+        location1 = request.form.get('location1')
+        level = request.form.get('level')
+        specialization = request.form.get('specialization')
+        experience = request.form.get('experience')
+        jobtype = request.form.get('jobtype')
+        qualification = request.form.get('qualification')
+        qualification1 = request.form.get('qualification1')
+        qualification2 = request.form.get('qualification2')
 
         if current_user.company:
             if not title:
@@ -639,8 +648,27 @@ def admin_post_add():
             elif not text:
                 flash('This description field cannot be empty', category='error')
                 return redirect(url_for('views.admin_post_add'))
+            elif not location:
+                flash('This province field is required', category='error')
+                return redirect(url_for('views.admin_post_add'))
+            elif not location1:
+                flash('This city field is required', category='error')
+                return redirect(url_for('views.admin_post_add'))
+            elif not level:
+                flash('This career level field is required', category='error')
+                return redirect(url_for('views.admin_post_add'))
+            elif not specialization:
+                flash('This job specialization field is required', category='error')
+                return redirect(url_for('views.admin_post_add'))
+            elif not experience:
+                flash('This years of experience field is required', category='error')
+                return redirect(url_for('views.admin_post_add'))
+            elif not jobtype:
+                flash('This jobtype field is required', category='error')
+                return redirect(url_for('views.admin_post_add'))
             else:
-                post = Post(text=text, title=title, author=current_user.id)
+                post = Post(text=text, title=title, location=location, location1=location1, level=level,
+                            specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification, qualification1=qualification1, qualification2=qualification2, author=current_user.id)
                 db.session.add(post)
                 db.session.commit()
                 flash('Post Created!', category='success')
@@ -661,6 +689,14 @@ def admin_post_edit(post_id):
     if request.method == 'POST':
         post.title = request.form["title"]
         post.text = request.form["text"]
+        post.level = request.form['level']
+        post.specialization = request.form['specialization']
+        post.experience = request.form['experience']
+        post.jobtype = request.form['jobtype']
+        post.qualification = request.form['qualification']
+        post.qualification1 = request.form['qualification1']
+        post.qualification2 = request.form['qualification2']
+
 
         if not post.title:
             flash("This title field is required.", category='error')
@@ -668,6 +704,18 @@ def admin_post_edit(post_id):
         elif len(post.text) < 14:
             flash(
                 "This description field is required or must be greater than 2 characters.", category='error')
+            return redirect(url_for('views.admin_post_edit', post_id=post_id))
+        elif not post.level:
+            flash('This career level field is required', category='error')
+            return redirect(url_for('views.admin_post_edit', post_id=post_id))
+        elif not post.specialization:
+            flash('This job specialization field is required', category='error')
+            return redirect(url_for('views.admin_post_edit', post_id=post_id))
+        elif not post.experience:
+            flash('This years of experience field is required', category='error')
+            return redirect(url_for('views.admin_post_edit', post_id=post_id))
+        elif not post.jobtype:
+            flash('This jobtype field is required', category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
         else:
             db.session.commit()

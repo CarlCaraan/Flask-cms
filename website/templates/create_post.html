@@ -6,7 +6,7 @@
 
 {% block content %}
 <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
-<h3 class="text-muted mt-3">Post Job</h3>
+<h3 class="text-muted mt-3"><i class="fas fa-file-alt"></i> Post Job</h3>
 <div class="card">
     <div class="card-header text-primary">
         <h6>Post a Job Details</h6>
@@ -24,17 +24,15 @@
             <label for="">Company Location</label>
             <div class="row">
                 <div class="col-6">
-                    <select class="form-control mb-2" id="region" onclick="getHidden()">
-                        <option selected="selected" disabled="disabled"></option>
+                    Region*<select class="form-control mb-2" id="region" onclick="getHidden()">
+
                     </select>
-                    <select class="form-control mb-2" id="province" required onclick="getHidden()">
-                        <option selected="selected" disabled="disabled">Select Options</option>
+                    Province*<select class="form-control mb-2" id="province" onclick="getHidden()">
                     </select>
-                    <select class="form-control" id="city" required onclick="getHidden()">
-                        <option selected="selected" disabled="disabled">Select Options</option>
+                    City*<select class="form-control" id="city" onclick="getHidden()">
                     </select><br>
-                    <input type="hidden" name="location" id="province_hidden" value="">
-                    <input type="hidden" name="location1" id="city_hidden" value="">
+                    <input type="hidden" name="location" id="province_hidden">
+                    <input type="hidden" name="location1" id="city_hidden">
                 </div>
                 <div class="col-6">
                 </div>
@@ -47,9 +45,11 @@
                     <label for="">Careel Level</label>
                     <select class="form-control" name="level" id="">
                         <option disabled selected>Select options</option>
-                        <option value="Less than 1 Year Experienced Employee">Less than 1 Year Experienced Employee</option>
+                        <option value="Less than 1 Year Experienced Employee">Less than 1 Year Experienced Employee
+                        </option>
                         <option value="1-4 Years Experienced Employee">1-4 Years Experienced Employee</option>
-                        <option value="Supervisor/5 Years & Up Experienced Employee">Supervisor/5 Years & Up Experienced Employee</option>
+                        <option value="Supervisor/5 Years & Up Experienced Employee">Supervisor/5 Years & Up Experienced
+                            Employee</option>
                     </select><br>
 
                     <label for="">Years Of Experience</label>
@@ -71,32 +71,37 @@
                 </div>
                 <div class="col-md-6">
                     <label for="">Job Specializations</label>
-                    <input class="form-control" type="text" name="specialization" placeholder="Job Specializations (please specify)"><br><br>
+                    <input class="form-control" type="text" name="specialization"
+                        placeholder="Job Specializations (please specify)"><br>
 
                     <label for="">Qualification</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Highschool Graduate" name="qualification" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="Highschool Graduate" name="qualification"
+                            id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Highschool Graduate
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Bachelor's/College Degree" name="qualification1" id="flexCheckChecked">
+                        <input class="form-check-input" type="checkbox" value="Bachelor's/College Degree"
+                            name="qualification1" id="flexCheckChecked">
                         <label class="form-check-label" for="flexCheckChecked">
                             Bachelor's/College Degree
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Professional License (Passed Board/Bar/Professional License Exam)" name="qualification2" id="flexCheckChecked">
+                        <input class="form-check-input" type="checkbox"
+                            value="Professional License (Passed Board/Bar/Professional License Exam)"
+                            name="qualification2" id="flexCheckChecked">
                         <label class="form-check-label" for="flexCheckChecked">
                             Professional License (Passed Board/Bar/Professional License Exam)
                         </label>
-                    </div>
+                    </div><br>
                 </div>
             </div>
 
             <div>
-                <button class="btn btn-lg btn-primary float-end" onclick="getHidden()">Posts</button>
+                <button class="btn btn-lg btn-primary float-end" onclick="getHidden()">Post</button>
             </div>
         </form>
 
@@ -137,9 +142,9 @@
 
     // Get value of select and store to hidden inputs
     var sel = document.getElementById("province");
-    var text= sel.options[sel.selectedIndex].text;
+    var text = sel.options[sel.selectedIndex].text;
     var sel1 = document.getElementById("city");
-    var text1= sel1.options[sel1.selectedIndex].text;
+    var text1 = sel1.options[sel1.selectedIndex].text;
 
     function getHidden() {
         var location1 = $("#province option:selected").text();
@@ -147,6 +152,5 @@
         document.getElementById("province_hidden").value = location1;
         document.getElementById("city_hidden").value = location2;
     }
-
 </script>
 {% endblock %}

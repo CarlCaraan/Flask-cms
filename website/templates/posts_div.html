@@ -35,11 +35,11 @@
             <!-- Start Collapsable Job Description -->
             <a class="text-secondary text-decoration-none" href="/posts/{{ post.user.company }}">{{ post.user.company
                 }}</a><br><br>
-            <span class="fw-bold">{{ post.location.capitalize() }}, {{ post.location1.capitalize() }}</span>
+            <span class="fw-bold">{{ post.location.capitalize() }} ({{ post.location1.capitalize() }})</span>
             <hr>
             <p class="fw-bold" data-bs-toggle="collapse" href="#collapseExample{{ post.id }}"
                 role="button" aria-expanded="false" aria-controls="collapseExample">
-                *Job Description <i class="fas fa-chevron-down"></i>
+                Job Description <i class="fas fa-chevron-down"></i>
             </p>
             <div class="collapse" id="collapseExample{{ post.id }}">
                 <div class="card-text">
@@ -62,20 +62,25 @@
                         {{ post.jobtype }}<br><br>
                         <span class="fw-bold">Qualification</span><br>
 
-                        {% if post.qualification == None %}
+                        {% if post.qualification == None and post.qualification1 == None and post.qualification2 == None %}
+                            Not Specified
                         {% else %}
-                        {{ post.qualification }} <br>
+                            {% if post.qualification == None %}
+                            {% else %}
+                            {{ post.qualification }} <br>
+                            {% endif %}
+                            
+                            {% if post.qualification1 == None %}
+                            {% else %}
+                            {{ post.qualification1 }}<br>
+                            {% endif %}
+                            
+                            {% if post.qualification2 == None %}
+                            {% else %}
+                            {{ post.qualification2 }}<br><br>
+                            {% endif %}
                         {% endif %}
 
-                        {% if post.qualification1 == None %}
-                        {% else %}
-                        {{ post.qualification1 }}<br>
-                        {% endif %}
-
-                        {% if post.qualification2 == None %}
-                        {% else %}
-                        {{ post.qualification2 }}<br><br>
-                        {% endif %}
                     </div>
                 </div>
                 <!-- End Additional Information Section -->
