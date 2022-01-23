@@ -8,7 +8,6 @@
 <h3 class="text-muted mt-3">{% block header %}<i class="fas fa-list-alt"></i> Job List{% endblock %}</h3>
 <div id="posts">
 
-    {% if posts.all()|length > 0 %}
     {% for post in posts %}
     <div class="card mb-3" id="post_container">
 
@@ -101,9 +100,6 @@
                 </button>
             </div>
 
-            <!-- Start Comment Section -->
-
-
             <div class="collapse" id="comments-{{ post.id }}">
                 <div class="card">
                     <div class="card-body" id="comments-expanded-{{ post.id }}">
@@ -173,12 +169,6 @@
 
     </div> <!-- End Card -->
     {% endfor %}
-    {% else %}
-    <div align="center">
-        <img src="{{ url_for('static',filename='user/img/search.png') }}" width="450" alt=""><br>
-        <h4 class="text-muted">No Job Listed.</h4>
-    </div>
-    {% endif %}
 
 </div>
 

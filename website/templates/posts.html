@@ -1,12 +1,11 @@
-{% extends "posts_div.html" %}
+{% extends "single_post.html" %}
 
-{% block title %}{{ company }} | Jobs{% endblock %}
+{% block title %}{{ company }} | Jobs List{% endblock %}
 
 {% block header %}
-    {{ company }}'s Jobs
+<i class="fas fa-list-alt"></i> {{ company }}'s Jobs List
 {% endblock %}
 
 {% block footer %}
-    <a class="float-start" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
+<a class="float-start" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
 {% endblock %}
-
