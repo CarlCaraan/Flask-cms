@@ -8,6 +8,8 @@ views = Blueprint("views", __name__)
 
 # ========= USER CONTROLLER =========
 # User Home
+
+
 @views.route("/")
 @views.route("/home")
 @login_required
@@ -16,13 +18,24 @@ def home():
     return render_template("home.html", user=current_user, posts=posts)
 
 # POSTING JOB
+
+
 @views.route("/create-post", methods=['GET', 'POST'])
 @login_required
 def create_post():
     if request.method == "POST":
         title = request.form.get('title')
         text = request.form.get('text')
-        
+        location = request.form.get('location')
+        location1 = request.form.get('location1')
+        level = request.form.get('level')
+        specialization = request.form.get('specialization')
+        experience = request.form.get('experience')
+        jobtype = request.form.get('jobtype')
+        qualification = request.form.get('qualification')
+        qualification1 = request.form.get('qualification1')
+        qualification2 = request.form.get('qualification2')
+
         if current_user.company:
             if not title:
                 flash('This title field is required', category='error')
@@ -30,17 +43,38 @@ def create_post():
             if not text:
                 flash('This description field is required', category='error')
                 return redirect(url_for('views.create_post'))
+            if not location:
+                flash('This province field is required', category='error')
+                return redirect(url_for('views.create_post'))
+            if not location1:
+                flash('This city field is required', category='error')
+                return redirect(url_for('views.create_post'))
+            if not level:
+                flash('This career level field is required', category='error')
+                return redirect(url_for('views.create_post'))
+            if not specialization:
+                flash('This job specialization field is required', category='error')
+                return redirect(url_for('views.create_post'))
+            if not experience:
+                flash('This years of experience field is required', category='error')
+                return redirect(url_for('views.create_post'))
+            if not jobtype:
+                flash('This jobtype field is required', category='error')
+                return redirect(url_for('views.create_post'))
             else:
-                post = Post(text=text, title=title, author=current_user.id)
+                post = Post(text=text, title=title, location1=location, location=location1, level=level,
+                            specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification, qualification1=qualification1, qualification2=qualification2, author=current_user.id)
                 db.session.add(post)
                 db.session.commit()
                 flash('Post Created!', category='success')
                 return redirect(url_for('views.home'))
         else:
-                flash('You must add your company in your profile before posting!', category='error')
-                return redirect(url_for('views.create_post'))  
+            flash(
+                'You must add your company in your profile before posting!', category='error')
+            return redirect(url_for('views.create_post'))
 
     return render_template('create_post.html', user=current_user)
+
 
 @views.route("/delete-post/<id>")
 @login_required
@@ -59,6 +93,8 @@ def delete_post(id):
     return redirect(url_for('views.home'))
 
 # View Company
+
+
 @views.route("/posts/<company>")
 @login_required
 def posts(company):
@@ -69,6 +105,7 @@ def posts(company):
 
     posts = user.posts
     return render_template('posts.html', user=current_user, posts=posts, company=company)
+
 
 @views.route("/create-comment/<post_id>", methods=['POST'])
 @login_required
@@ -90,6 +127,7 @@ def create_comment(post_id):
 
     return redirect(url_for('views.home'))
 
+
 @views.route("/delete-comment/<comment_id>")
 @login_required
 def delete_comment(comment_id):
@@ -103,6 +141,7 @@ def delete_comment(comment_id):
         db.session.commit()
 
     return redirect(url_for('views.home'))
+
 
 @views.route("/like-post/<post_id>", methods=['POST'])
 @login_required
@@ -126,11 +165,14 @@ def like(post_id):
     return jsonify({"likes": len(post.likes), "liked": current_user.id in map(lambda x: x.author, post.likes)})
 
 # USER PROFILE SETTINGS AND CHANGE PASSWORD
+
+
 @views.route("/user/profile")
 @login_required
 def user_profile_view():
     users = User.query.all()
     return render_template("user/profile/view_profile.html", user=current_user,  users=users)
+
 
 @views.route("/user/profile/edit", methods=['GET', 'POST'])
 @login_required
@@ -139,11 +181,12 @@ def user_profile_edit():
 
     if request.method == 'POST':
         company = request.form.get("company")
-        
+
         if company != current_user.company and current_user.posts:
-            flash("Cannot edit company name because it is associated with some post!.", category='error')
+            flash(
+                "Cannot edit company name because it is associated with some post!.", category='error')
             return redirect(url_for('views.user_profile_edit'))
-        else:   
+        else:
             company = request.form.get("company")
             if not company:
                 current_user.firstname = request.form["firstname"]
@@ -213,26 +256,32 @@ def user_profile_edit():
                     current_user.usertype = request.form["usertype"]
 
                     if not current_user.firstname:
-                        flash("This firstname field is required.", category='error')
+                        flash("This firstname field is required.",
+                              category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     elif not current_user.lastname:
-                        flash("This lastname field is required.", category='error')
+                        flash("This lastname field is required.",
+                              category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     elif not current_user.email:
                         flash("This email field is required.", category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     elif not current_user.username:
-                        flash("This username field is required.", category='error')
+                        flash("This username field is required.",
+                              category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     elif not current_user.usertype:
-                        flash("This usertype field is required.", category='error')
+                        flash("This usertype field is required.",
+                              category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     else:
                         db.session.commit()
-                        flash("Profile Updated Successfully.", category='success')
+                        flash("Profile Updated Successfully.",
+                              category='success')
                         return redirect(url_for('views.user_profile_view'))
 
     return render_template("user/profile/edit_profile.html", user=current_user)
+
 
 @views.route("/user/change-password", methods=['GET', 'POST'])
 @login_required
@@ -257,19 +306,23 @@ def user_profile_password():
                 flash("New Password dont match!.", category='error')
                 return redirect(url_for('views.user_profile_password'))
             else:
-                hashed_password = generate_password_hash(current_user.password, method='sha256')
-                update_password = User.query.filter_by(id=current_user.id).update(dict(password=hashed_password))
+                hashed_password = generate_password_hash(
+                    current_user.password, method='sha256')
+                update_password = User.query.filter_by(
+                    id=current_user.id).update(dict(password=hashed_password))
                 db.session.commit()
                 flash("Password Updated Successfully.", category='success')
                 return redirect(url_for('views.user_profile_password'))
         else:
             flash("Current Password Incorrect.", category='error')
             return redirect(url_for('views.user_profile_password'))
-        
+
     return render_template("user/profile/edit_password.html", user=current_user)
 
 # ========= ADMIN CONTROLLER =========
 # ADMIN DASHBOARD
+
+
 @views.route("/admin/home")
 @login_required
 def adminhome():
@@ -279,6 +332,7 @@ def adminhome():
     comments = Comment.query.all()
     return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
 
+
 @views.route("/admin/not-exist")
 @login_required
 def no_content_page():
@@ -286,6 +340,8 @@ def no_content_page():
     return render_template("admin/404.html", user=current_user)
 
 # MANAGE USER
+
+
 @views.route("/admin/user")
 @login_required
 def admin_user_view():
@@ -294,6 +350,7 @@ def admin_user_view():
     likes = Like.query.all()
     comments = Comment.query.all()
     return render_template("backend/user/view_user.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
+
 
 @views.route("/admin/user/add", methods=['GET', 'POST'])
 @login_required
@@ -348,6 +405,7 @@ def admin_user_add():
 
     return render_template("backend/user/add_user.html", user=current_user)
 
+
 @views.route("/admin/edit-user/<user_id>", methods=['GET', 'POST'])
 @login_required
 def admin_user_edit(user_id):
@@ -386,6 +444,7 @@ def admin_user_edit(user_id):
 
     return render_template("backend/user/edit_user.html", user=user)
 
+
 @views.route("/admin/delete-user/<user_id>")
 @login_required
 def delete_user(user_id):
@@ -400,11 +459,14 @@ def delete_user(user_id):
     return redirect(url_for('views.admin_user_view'))
 
 # MANAGE PROFILE
+
+
 @views.route("/admin/profile")
 @login_required
 def admin_profile_view():
     users = User.query.all()
     return render_template("backend/profile/view_profile.html", user=current_user,  users=users)
+
 
 @views.route("/admin/profile/edit", methods=['GET', 'POST'])
 @login_required
@@ -413,11 +475,12 @@ def admin_profile_edit():
 
     if request.method == 'POST':
         company = request.form.get("company")
-        
+
         if company != current_user.company and current_user.posts:
-            flash("Cannot edit company name because it is associated with some post!.", category='error')
+            flash(
+                "Cannot edit company name because it is associated with some post!.", category='error')
             return redirect(url_for('views.admin_profile_edit'))
-        else:   
+        else:
             company = request.form.get("company")
             if not company:
                 current_user.firstname = request.form["firstname"]
@@ -487,26 +550,32 @@ def admin_profile_edit():
                     current_user.usertype = request.form["usertype"]
 
                     if not current_user.firstname:
-                        flash("This firstname field is required.", category='error')
+                        flash("This firstname field is required.",
+                              category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     elif not current_user.lastname:
-                        flash("This lastname field is required.", category='error')
+                        flash("This lastname field is required.",
+                              category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     elif not current_user.email:
                         flash("This email field is required.", category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     elif not current_user.username:
-                        flash("This username field is required.", category='error')
+                        flash("This username field is required.",
+                              category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     elif not current_user.usertype:
-                        flash("This usertype field is required.", category='error')
+                        flash("This usertype field is required.",
+                              category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     else:
                         db.session.commit()
-                        flash("Profile Updated Successfully.", category='success')
+                        flash("Profile Updated Successfully.",
+                              category='success')
                         return redirect(url_for('views.admin_profile_view'))
 
     return render_template("backend/profile/edit_profile.html", user=current_user)
+
 
 @views.route("/admin/change-password", methods=['GET', 'POST'])
 @login_required
@@ -531,18 +600,22 @@ def admin_profile_password():
                 flash("New Password dont match!.", category='error')
                 return redirect(url_for('views.admin_profile_password'))
             else:
-                hashed_password = generate_password_hash(current_user.password, method='sha256')
-                update_password = User.query.filter_by(id=current_user.id).update(dict(password=hashed_password))
+                hashed_password = generate_password_hash(
+                    current_user.password, method='sha256')
+                update_password = User.query.filter_by(
+                    id=current_user.id).update(dict(password=hashed_password))
                 db.session.commit()
                 flash("Password Updated Successfully.", category='success')
                 return redirect(url_for('views.admin_profile_password'))
         else:
             flash("Current Password Incorrect.", category='error')
             return redirect(url_for('views.admin_profile_password'))
-        
+
     return render_template("backend/profile/edit_password.html", user=current_user)
 
 # MANAGE POST
+
+
 @views.route("/admin/post")
 @login_required
 def admin_post_view():
@@ -550,6 +623,7 @@ def admin_post_view():
     users = User.query.all()
 
     return render_template("backend/post/view_post.html", user=current_user, posts=posts, users=users)
+
 
 @views.route("/admin/post/add", methods=['GET', 'POST'])
 @login_required
@@ -572,10 +646,12 @@ def admin_post_add():
                 flash('Post Created!', category='success')
                 return redirect(url_for('views.admin_post_view'))
         else:
-            flash('You must add your company in your profile before posting!', category='error')
+            flash(
+                'You must add your company in your profile before posting!', category='error')
             return redirect(url_for('views.admin_post_add'))
 
     return render_template('backend/post/add_post.html', user=current_user)
+
 
 @views.route("/admin/edit-post/<post_id>", methods=['GET', 'POST'])
 @login_required
@@ -590,7 +666,8 @@ def admin_post_edit(post_id):
             flash("This title field is required.", category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
         elif len(post.text) < 14:
-            flash("This description field is required or must be greater than 2 characters.", category='error')
+            flash(
+                "This description field is required or must be greater than 2 characters.", category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
         else:
             db.session.commit()
@@ -598,6 +675,7 @@ def admin_post_edit(post_id):
             return redirect(url_for('views.admin_post_view'))
 
     return render_template("backend/post/edit_post.html", post=post, user=current_user)
+
 
 @views.route("/admin/delete-post/<post_id>")
 @login_required

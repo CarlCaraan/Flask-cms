@@ -25,6 +25,15 @@ class Post(db.Model):
     author = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable="False")
     comments = db.relationship('Comment', backref='post', passive_deletes=True) # relationship of post and comments
     likes = db.relationship('Like', backref='post', passive_deletes="True") # relationship of user and comments
+    location = db.Column(db.Text, nullable=False)
+    location1 = db.Column(db.Text, nullable=False)
+    level = db.Column(db.Text, nullable=False)
+    experience = db.Column(db.Text, nullable=False)
+    specialization = db.Column(db.Text, nullable=False)
+    qualification = db.Column(db.Text, nullable=True)
+    qualification1 = db.Column(db.Text, nullable=True)
+    qualification2 = db.Column(db.Text, nullable=True)
+    jobtype = db.Column(db.Text, nullable=False)
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
