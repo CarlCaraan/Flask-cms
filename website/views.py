@@ -75,6 +75,48 @@ def create_post():
 
     return render_template('create_post.html', user=current_user)
 
+@views.route("/edit-post/<post_id>", methods=['GET', 'POST'])
+@login_required
+def user_post_edit(post_id):
+    post = Post.query.get_or_404(post_id)
+
+    if request.method == 'POST':
+        post.title = request.form["title"]
+        post.text = request.form["text"]
+        post.level = request.form['level']
+        post.specialization = request.form['specialization']
+        post.experience = request.form['experience']
+        post.jobtype = request.form['jobtype']
+        post.qualification = request.form['qualification']
+        post.qualification1 = request.form['qualification1']
+        post.qualification2 = request.form['qualification2']
+
+
+        if not post.title:
+            flash("This title field is required.", category='error')
+            return redirect(url_for('views.user_post_edit', post_id=post_id))
+        elif len(post.text) < 14:
+            flash(
+                "This description field is required or must be greater than 2 characters.", category='error')
+            return redirect(url_for('views.user_post_edit', post_id=post_id))
+        elif not post.level:
+            flash('This career level field is required', category='error')
+            return redirect(url_for('views.user_post_edit', post_id=post_id))
+        elif not post.specialization:
+            flash('This job specialization field is required', category='error')
+            return redirect(url_for('views.user_post_edit', post_id=post_id))
+        elif not post.experience:
+            flash('This years of experience field is required', category='error')
+            return redirect(url_for('views.user_post_edit', post_id=post_id))
+        elif not post.jobtype:
+            flash('This jobtype field is required', category='error')
+            return redirect(url_for('views.user_post_edit', post_id=post_id))
+        else:
+            db.session.commit()
+            flash("Post Updated Successfully.", category='success')
+            return redirect(url_for('views.user_post_edit', post_id=post_id))
+
+    return render_template("user/post/edit_post.html", post=post, user=current_user)
 
 @views.route("/delete-post/<id>")
 @login_required

@@ -22,6 +22,9 @@
                 <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>
                 <ul class="dropdown-menu">
                     <li>
+                        <a href="/edit-post/{{ post.id }}" class="dropdown-item">Edit</a>
+                    </li>
+                    <li>
                         <a href="/delete-post/{{ post.id }}" class="dropdown-item" id="delete">Delete</a>
                     </li>
                 </ul>
@@ -88,10 +91,10 @@
             </div>
             <!-- End Collapsable Job Description -->
 
-            <div class="alert alert-success text-center">
+            <div class="alert alert-info text-center">
                 <i class="fas fa-check-circle"></i>
                 Must Submit Application Form and Resume.<br>
-                    <button class="btn btn-success mt-2">
+                    <button class="btn btn-info mt-2">
                     <a class="text-light text-decoration-none" href="mailto:{{ post.user.email }}">Apply Now</a>
                 </button>
             </div>
