@@ -109,11 +109,11 @@
             <!-- Start Like Button -->
             {% if user.id in post.likes|map(attribute="author")|list %}
             <!-- <a class="text-decoration-none" href="/like-post/{{ post.id }}"> -->
-            <i class="fas fa-chart-line" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
+            <i class="fas fa-chart-line text-primary" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
             <!-- </a> -->
             {% else %}
             <!-- <a class="text-decoration-none" href="/like-post/{{ post.id }}"> -->
-            <i class="fas fa-chart-line text-primary" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
+            <i class="fas fa-chart-line" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
             <!-- </a> -->
             {% endif %}
             <span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span> <small>Popularity</small> 

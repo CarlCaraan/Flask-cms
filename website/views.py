@@ -262,9 +262,15 @@ def user_profile_edit():
                     flash("This usertype field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 else:
-                    db.session.commit()
-                    flash("Profile Updated Successfully.", category='success')
-                    return redirect(url_for('views.user_profile_view'))
+                    try:
+                        db.session.commit()
+                        flash("Profile Updated Successfully.",
+                              category='success')
+                        return redirect(url_for('views.user_profile_edit'))
+                    except:
+                        flash("email or username must be unique.", category='error')
+                        return redirect(url_for('views.user_profile_edit'))
+
             elif company == current_user.company:
                 current_user.firstname = request.form["firstname"]
                 current_user.lastname = request.form["lastname"]
@@ -289,9 +295,15 @@ def user_profile_edit():
                     flash("This usertype field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 else:
-                    db.session.commit()
-                    flash("Profile Updated Successfully.", category='success')
-                    return redirect(url_for('views.user_profile_view'))
+                    try:
+                        db.session.commit()
+                        flash("Profile Updated Successfully.",
+                              category='success')
+                        return redirect(url_for('views.user_profile_edit'))
+                    except:
+                        flash("email or username must be unique.",
+                              category='error')
+                        return redirect(url_for('views.user_profile_edit'))
             else:
                 company = request.form.get("company")
                 company_exist = User.query.filter_by(company=company).first()
@@ -325,10 +337,14 @@ def user_profile_edit():
                               category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     else:
-                        db.session.commit()
-                        flash("Profile Updated Successfully.",
-                              category='success')
-                        return redirect(url_for('views.user_profile_view'))
+                        try:
+                            db.session.commit()
+                            flash("Profile Updated Successfully.", category='success')
+                            return redirect(url_for('views.user_profile_edit'))
+                        except:
+                            flash("email or username must be unique.",
+                                category='error')
+                            return redirect(url_for('views.user_profile_edit'))
 
     return render_template("user/profile/edit_profile.html", user=current_user)
 
@@ -553,9 +569,13 @@ def admin_profile_edit():
                     flash("This usertype field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 else:
-                    db.session.commit()
-                    flash("Profile Updated Successfully.", category='success')
-                    return redirect(url_for('views.admin_profile_view'))
+                    try:
+                        db.session.commit()
+                        flash("Profile Updated Successfully.", category='success')
+                        return redirect(url_for('views.admin_profile_view'))
+                    except:
+                        flash("Email or Username already exists.", category='error')
+                        return redirect(url_for('views.admin_profile_edit'))
             elif company == current_user.company:
                 current_user.firstname = request.form["firstname"]
                 current_user.lastname = request.form["lastname"]
@@ -580,9 +600,15 @@ def admin_profile_edit():
                     flash("This usertype field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 else:
-                    db.session.commit()
-                    flash("Profile Updated Successfully.", category='success')
-                    return redirect(url_for('views.admin_profile_view'))
+                    try:
+                        db.session.commit()
+                        flash("Profile Updated Successfully.",
+                              category='success')
+                        return redirect(url_for('views.admin_profile_view'))
+                    except:
+                        flash("Email or Username already exists.",
+                              category='error')
+                        return redirect(url_for('views.admin_profile_edit'))
             else:
                 company = request.form.get("company")
                 company_exist = User.query.filter_by(company=company).first()
@@ -616,10 +642,15 @@ def admin_profile_edit():
                               category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     else:
-                        db.session.commit()
-                        flash("Profile Updated Successfully.",
-                              category='success')
-                        return redirect(url_for('views.admin_profile_view'))
+                        try:
+                            db.session.commit()
+                            flash("Profile Updated Successfully.",
+                                category='success')
+                            return redirect(url_for('views.admin_profile_view'))
+                        except:
+                            flash("Email or Username already exists.",
+                                category='error')
+                            return redirect(url_for('views.admin_profile_edit'))
 
     return render_template("backend/profile/edit_profile.html", user=current_user)
 
