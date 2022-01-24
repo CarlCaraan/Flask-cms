@@ -14,7 +14,7 @@ views = Blueprint("views", __name__)
 @views.route("/home")
 @login_required
 def home():
-    posts = Post.query.order_by('id')
+    posts = Post.query.order_by(Post.date_created.desc())
     return render_template("home.html", user=current_user, posts=posts)
 
 # POSTING JOB
