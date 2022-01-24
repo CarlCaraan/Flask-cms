@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     usertype = db.Column(db.String(10))
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     posts = db.relationship('Post', backref='user', passive_deletes="True") # relationship of user and posts
-    comments = db.relationship('Comment', backref='user', passive_deletes="True") # relationship of user and comments
+    # comments = db.relationship('Comment', backref='user', passive_deletes="True") # relationship of user and comments
     likes = db.relationship('Like', backref='user', passive_deletes="True") # relationship of user and comments
 
 class Post(db.Model):
@@ -23,7 +23,7 @@ class Post(db.Model):
     text = db.Column(db.Text, nullable=False)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     author = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable="False")
-    comments = db.relationship('Comment', backref='post', passive_deletes=True) # relationship of post and comments
+    # comments = db.relationship('Comment', backref='post', passive_deletes=True) # relationship of post and comments
     likes = db.relationship('Like', backref='post', passive_deletes="True") # relationship of user and comments
     location = db.Column(db.Text, nullable=False)
     location1 = db.Column(db.Text, nullable=False)
@@ -35,12 +35,12 @@ class Post(db.Model):
     qualification2 = db.Column(db.Text, nullable=True)
     jobtype = db.Column(db.Text, nullable=False)
 
-class Comment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(200), nullable=False)
-    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
-    author = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable="False")
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id', ondelete="CASCADE"), nullable="False")
+# class Comment(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     text = db.Column(db.String(200), nullable=False)
+#     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+#     author = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable="False")
+#     post_id = db.Column(db.Integer, db.ForeignKey('post.id', ondelete="CASCADE"), nullable="False")
 
 class Like(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_required, current_user
-from .models import Post, User, Comment, Like
+from .models import Post, User, Like
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -134,9 +134,7 @@ def delete_post(id):
 
     return redirect(url_for('views.home'))
 
-# View Company
-
-
+# View Company Profile
 @views.route("/posts/<company>")
 @login_required
 def posts(company):
@@ -148,6 +146,16 @@ def posts(company):
     posts = user.posts
     return render_template('posts.html', user=current_user, posts=posts, company=company)
 
+# View Single Post
+@views.route("/post/<id>")
+@login_required
+def post(id):
+    post = Post.query.filter_by(id=id).first()
+    if not post:
+        flash('No post exist!', category='error')
+        return redirect(url_for('views.home'))
+
+    return render_template('single_post.html', user=current_user, post=post)
 
 @views.route("/create-comment/<post_id>", methods=['POST'])
 @login_required
@@ -371,8 +379,7 @@ def adminhome():
     posts = Post.query.all()
     users = User.query.all()
     likes = Like.query.all()
-    comments = Comment.query.all()
-    return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
+    return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes)
 
 
 @views.route("/admin/not-exist")
@@ -390,8 +397,7 @@ def admin_user_view():
     posts = Post.query.all()
     users = User.query.all()
     likes = Like.query.all()
-    comments = Comment.query.all()
-    return render_template("backend/user/view_user.html", user=current_user, posts=posts, users=users, likes=likes, comments=comments)
+    return render_template("backend/user/view_user.html", user=current_user, posts=posts, users=users, likes=likes)
 
 
 @views.route("/admin/user/add", methods=['GET', 'POST'])
@@ -400,7 +406,6 @@ def admin_user_add():
     posts = Post.query.all()
     users = User.query.all()
     likes = Like.query.all()
-    comments = Comment.query.all()
 
     if request.method == 'POST':
         email = request.form.get("email")

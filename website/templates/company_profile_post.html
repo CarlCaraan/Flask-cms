@@ -8,7 +8,6 @@
 <h3 class="text-muted mt-3">{% block header %}<i class="fas fa-list-alt"></i> Job List{% endblock %}</h3>
 <div id="posts">
 
-    {% if posts.all()|length > 0 %}
     {% for post in posts %}
     <div class="card mb-3" id="post_container">
 
@@ -116,21 +115,13 @@
             <i class="fas fa-chart-line text-primary" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
             <!-- </a> -->
             {% endif %}
-            <span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span> <small>Popularity</small> 
+            <span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span> <small>Popularity</small>
             <!-- End Like Button -->
         </div>
 
     </div> <!-- End Card -->
     {% endfor %}
-    {% else %}
-    <div align="center">
-        <img src="{{ url_for('static',filename='user/img/search.png') }}" width="450" alt=""><br>
-        <h4 class="text-muted">No Job Listed.</h4>
-    </div>
-    {% endif %}
-
 </div>
-
 {% block footer %} {% endblock %}
 
 {% endblock %}
