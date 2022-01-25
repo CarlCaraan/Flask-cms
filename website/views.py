@@ -748,6 +748,8 @@ def admin_post_add():
         qualification = request.form.get('qualification')
         qualification1 = request.form.get('qualification1')
         qualification2 = request.form.get('qualification2')
+        qualification3 = request.form.get('qualification3')
+        qualification4 = request.form.get('qualification4')
 
         if current_user.company:
             if not title:
@@ -779,7 +781,8 @@ def admin_post_add():
                 return redirect(url_for('views.admin_post_add'))
             else:
                 post = Post(text=text, title=title, location=location, location1=location1, salary=salary, salary1=salary1, level=level,
-                            specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification, qualification1=qualification1, qualification2=qualification2, author=current_user.id)
+                            specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification,
+                            qualification1=qualification1, qualification2=qualification2, qualification3=qualification3, qualification4=qualification4, author=current_user.id)
                 db.session.add(post)
                 db.session.commit()
                 flash('Post Created!', category='success')
@@ -809,6 +812,8 @@ def admin_post_edit(post_id):
         post.qualification = request.form['qualification']
         post.qualification1 = request.form['qualification1']
         post.qualification2 = request.form['qualification2']
+        post.qualification3 = request.form['qualification3']
+        post.qualification4 = request.form['qualification4']
 
         if not post.title:
             flash("This title field is required.", category='error')
