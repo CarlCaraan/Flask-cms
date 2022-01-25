@@ -35,6 +35,8 @@ class Post(db.Model):
     qualification = db.Column(db.Text, nullable=True)
     qualification1 = db.Column(db.Text, nullable=True)
     qualification2 = db.Column(db.Text, nullable=True)
+    qualification3 = db.Column(db.Text, nullable=True)
+    qualification4 = db.Column(db.Text, nullable=True)
     jobtype = db.Column(db.Text, nullable=False)
 
 # class Comment(db.Model):

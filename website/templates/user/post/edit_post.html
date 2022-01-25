@@ -146,7 +146,32 @@
                             <label class="form-check-label" for="qualification2">
                                 Professional License (Passed Board/Bar/Professional License Exam)
                             </label>
-                        </div><br>
+                        </div>
+                        <div class="form-check">
+                            <input type="hidden" name="qualification3" id="qualification3_hidden"
+                                value="{{ post.qualification3 }}">
+                            <input class="form-check-input" type="checkbox"
+                                value="Vocational Diploma/Short Course Certificate"
+                                name="qualification3" id="qualification3" onclick="getQualification3()" {{ 'checked' if
+                                post.qualification3=='Vocational Diploma/Short Course Certificate'
+                                else '' }}>
+                            <label class="form-check-label" for="qualification3">
+                                Vocational Diploma/Short Course Certificate
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="hidden" name="qualification4" id="qualification4_hidden"
+                                value="{{ post.qualification4 }}">
+                            <input class="form-check-input" type="checkbox"
+                                value="Post Graduate Diploma/Master's Degree"
+                                name="qualification4" id="qualification4" onclick="getQualification4()" {{ 'checked' if
+                                post.qualification4=="Post Graduate Diploma/Master's Degree"
+                                else '' }}>
+                            <label class="form-check-label" for="qualification4">
+                                Post Graduate Diploma/Master's Degree
+                            </label>
+                        </div>
+                        <br>
                     </div>
                 </div>
 
@@ -225,6 +250,24 @@
         var textinput = document.getElementById("qualification2_hidden");
         if (checkBox.checked == true) {
             textinput.value = "Professional License (Passed Board/Bar/Professional License Exam)";
+        } else {
+            textinput.value = "";
+        }
+    }
+    function getQualification3() {
+        var checkBox = document.getElementById("qualification3");
+        var textinput = document.getElementById("qualification3_hidden");
+        if (checkBox.checked == true) {
+            textinput.value = "Vocational Diploma/Short Course Certificate";
+        } else {
+            textinput.value = "";
+        }
+    }
+    function getQualification4() {
+        var checkBox = document.getElementById("qualification4");
+        var textinput = document.getElementById("qualification4_hidden");
+        if (checkBox.checked == true) {
+            textinput.value = "Post Graduate Diploma/Master's Degree";
         } else {
             textinput.value = "";
         }

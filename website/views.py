@@ -37,6 +37,8 @@ def create_post():
         qualification = request.form.get('qualification')
         qualification1 = request.form.get('qualification1')
         qualification2 = request.form.get('qualification2')
+        qualification3 = request.form.get('qualification3')
+        qualification4 = request.form.get('qualification4')
 
         if current_user.company:
             if not title:
@@ -68,7 +70,8 @@ def create_post():
                 return redirect(url_for('views.create_post'))
             else:
                 post = Post(text=text, title=title, location=location, location1=location1, salary=salary, salary1=salary1, level=level,
-                            specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification, qualification1=qualification1, qualification2=qualification2, author=current_user.id)
+                            specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification, qualification1=qualification1,
+                            qualification2=qualification2, qualification3=qualification3, qualification4=qualification4, author=current_user.id)
                 db.session.add(post)
                 db.session.commit()
                 flash('Post Created!', category='success')
@@ -79,6 +82,7 @@ def create_post():
             return redirect(url_for('views.create_post'))
 
     return render_template('create_post.html', user=current_user)
+
 
 @views.route("/edit-post/<post_id>", methods=['GET', 'POST'])
 @login_required
@@ -97,7 +101,8 @@ def user_post_edit(post_id):
         post.qualification = request.form['qualification']
         post.qualification1 = request.form['qualification1']
         post.qualification2 = request.form['qualification2']
-
+        post.qualification3 = request.form['qualification3']
+        post.qualification4 = request.form['qualification4']
 
         if not post.title:
             flash("This title field is required.", category='error')
@@ -128,6 +133,7 @@ def user_post_edit(post_id):
 
     return render_template("user/post/edit_post.html", post=post, user=current_user)
 
+
 @views.route("/delete-post/<id>")
 @login_required
 def delete_post(id):
@@ -145,6 +151,8 @@ def delete_post(id):
     return redirect(url_for('views.home'))
 
 # View Company Profile
+
+
 @views.route("/posts/<company>")
 @login_required
 def posts(company):
@@ -157,6 +165,8 @@ def posts(company):
     return render_template('posts.html', user=current_user, posts=posts, company=company)
 
 # View Single Post
+
+
 @views.route("/post/<id>")
 @login_required
 def post(id):
@@ -166,6 +176,7 @@ def post(id):
         return redirect(url_for('views.home'))
 
     return render_template('single_post.html', user=current_user, post=post)
+
 
 @views.route("/create-comment/<post_id>", methods=['POST'])
 @login_required
@@ -278,7 +289,8 @@ def user_profile_edit():
                               category='success')
                         return redirect(url_for('views.user_profile_edit'))
                     except:
-                        flash("email or username must be unique.", category='error')
+                        flash("email or username must be unique.",
+                              category='error')
                         return redirect(url_for('views.user_profile_edit'))
 
             elif company == current_user.company:
@@ -349,11 +361,12 @@ def user_profile_edit():
                     else:
                         try:
                             db.session.commit()
-                            flash("Profile Updated Successfully.", category='success')
+                            flash("Profile Updated Successfully.",
+                                  category='success')
                             return redirect(url_for('views.user_profile_edit'))
                         except:
                             flash("email or username must be unique.",
-                                category='error')
+                                  category='error')
                             return redirect(url_for('views.user_profile_edit'))
 
     return render_template("user/profile/edit_profile.html", user=current_user)
@@ -584,10 +597,12 @@ def admin_profile_edit():
                 else:
                     try:
                         db.session.commit()
-                        flash("Profile Updated Successfully.", category='success')
+                        flash("Profile Updated Successfully.",
+                              category='success')
                         return redirect(url_for('views.admin_profile_view'))
                     except:
-                        flash("Email or Username already exists.", category='error')
+                        flash("Email or Username already exists.",
+                              category='error')
                         return redirect(url_for('views.admin_profile_edit'))
             elif company == current_user.company:
                 current_user.firstname = request.form["firstname"]
@@ -658,11 +673,11 @@ def admin_profile_edit():
                         try:
                             db.session.commit()
                             flash("Profile Updated Successfully.",
-                                category='success')
+                                  category='success')
                             return redirect(url_for('views.admin_profile_view'))
                         except:
                             flash("Email or Username already exists.",
-                                category='error')
+                                  category='error')
                             return redirect(url_for('views.admin_profile_edit'))
 
     return render_template("backend/profile/edit_profile.html", user=current_user)
@@ -734,7 +749,6 @@ def admin_post_add():
         qualification1 = request.form.get('qualification1')
         qualification2 = request.form.get('qualification2')
 
-
         if current_user.company:
             if not title:
                 flash('This title field cannot be empty', category='error')
@@ -795,7 +809,6 @@ def admin_post_edit(post_id):
         post.qualification = request.form['qualification']
         post.qualification1 = request.form['qualification1']
         post.qualification2 = request.form['qualification2']
-
 
         if not post.title:
             flash("This title field is required.", category='error')

@@ -44,7 +44,7 @@
             <!-- Start Salary -->
             {% if post.salary == "0" and post.salary1 == "0" %}
             {% else %}
-                <span class="fw-bold">PHP {{ post.salary }}K - {{ post.salary1 }}K monthly</span>
+            <span class="fw-bold">PHP {{ post.salary }}K - {{ post.salary1 }}K monthly</span>
             {% endif %}
             <!-- End Salary -->
 
@@ -75,26 +75,37 @@
                         {{ post.jobtype }}<br><br>
                         <span class="fw-bold">Qualification</span><br>
 
-                        {% if post.qualification == None and post.qualification1 == None and post.qualification2 == None
+                        {% if post.qualification == None and post.qualification1 == None and post.qualification2 == None and post.qualification3
+                        == None and post.qualification4 == None
                         %}
                         Not Specified
                         {% else %}
-                        {% if post.qualification == None %}
+                        {% if not post.qualification %}
                         {% else %}
-                        {{ post.qualification }} <br>
+                        {{ post.qualification }},
                         {% endif %}
-
-                        {% if post.qualification1 == None %}
+                        
+                        {% if not post.qualification1 %}
                         {% else %}
-                        {{ post.qualification1 }}<br>
+                        {{ post.qualification1 }},
                         {% endif %}
-
-                        {% if post.qualification2 == None %}
+                        
+                        {% if not post.qualification2 %}
                         {% else %}
-                        {{ post.qualification2 }}<br><br>
+                        {{ post.qualification2 }},
                         {% endif %}
+                        
+                        {% if not post.qualification3 %}
+                        {% else %}
+                        {{ post.qualification3 }},
                         {% endif %}
-
+                        
+                        {% if not post.qualification4 %}
+                        {% else %}
+                        {{ post.qualification4 }},
+                        {% endif %}
+                        
+                        {% endif %}
                     </div>
                 </div>
                 <!-- End Additional Information Section -->
