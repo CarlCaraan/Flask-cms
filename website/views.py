@@ -417,7 +417,7 @@ def user_profile_password():
 def adminhome():
     posts = Post.query.all()
     likes = Like.query.all()
-    users = Like.query.all()
+    users = User.query.all()
     employee = User.query.filter_by(usertype='user').all()
     admins = User.query.filter_by(usertype='admin').all()
 
