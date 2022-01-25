@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css">
     <!-- Custom CSS/Style.CSS -->
     <link rel="stylesheet" href="{{ url_for('static',filename='user/css/style.css') }}">
+    <!-- Custom SCSS/Style.scss (Salary Slider SCSS) -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='user/css/salary.scss') }}">
 </head>
 
 <body>
@@ -47,7 +49,7 @@
                     {% endif %}
                 </ul>
                 <li class="d-flex nav-item dropdown">
-                    <a class="nav-link text-secondary dropdown-toggle ps-0" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link text-secondary dropdown-toggle ps-0 {{ 'text-white' if active_page == 'edit_password' or active_page == 'edit_profile' or active_page == 'view_profile' else '' }}" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         {{ current_user.firstname }}
                         {{ current_user.lastname }}
@@ -142,6 +144,8 @@
 
     <!-- Like prevent reloading page -->
     <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+    <!-- Salary Slider JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
 </body>
 
 </html>

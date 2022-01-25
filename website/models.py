@@ -27,6 +27,8 @@ class Post(db.Model):
     likes = db.relationship('Like', backref='post', passive_deletes="True") # relationship of user and comments
     location = db.Column(db.Text, nullable=False)
     location1 = db.Column(db.Text, nullable=False)
+    salary = db.Column(db.Text, nullable=True)
+    salary1 = db.Column(db.Text, nullable=True)
     level = db.Column(db.Text, nullable=False)
     experience = db.Column(db.Text, nullable=False)
     specialization = db.Column(db.Text, nullable=False)

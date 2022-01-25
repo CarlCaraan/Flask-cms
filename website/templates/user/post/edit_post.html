@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Edit Job | Admin{% endblock %}
+{% block title %}Edit Job | Flask App{% endblock %}
 
 {% set active_page = "add_post" %}
 
@@ -20,79 +20,136 @@
         <div class="card-body">
             <form action="" method="POST">
                 <label for="title">Job Title</label>
-                <input class="form-control" type="text" id="title" name="title" placeholder="Job Title" value="{{ post.title }}"><br>
-    
+                <input class="form-control" type="text" id="title" name="title" placeholder="Job Title"
+                    value="{{ post.title }}"><br>
+
                 <label for="text">Job Description</label>
                 <input type="hidden" class="form-control" id="text" name="text" cols="30" rows="10"
                     placeholder="Whats on your mind?" value="{{ post.text }}">
                 <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
-    
+
+                <label for="">Salary Range Monthly (0 - 150k ₱)</label><br>
+                <input class="form-check-input" type="checkbox" value="" id="dont_specify" onclick="onSpecify()">
+                <label class="form-check-label" for="dont_specify">
+                    Don't Specify
+                </label>
+                <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
+                    From: <span id="rangeValue">{{ post.salary }}</span><input id="salary" type="range" class="form-range" min="0"
+                        max="150" value="{{ post.salary }}" name="salary" oninput="updateValue(this.value)"
+                        onchange="updateValue(this.value)">
+                    To: <span id="rangeValue1">{{ post.salary1 }}</span><input id="salary1" type="range" class="form-range" min="0"
+                        max="150" value="{{ post.salary1 }}" name="salary1" oninput="updateValue1(this.value)"
+                        onchange="updateValue1(this.value)">
+                </div><br>
+                <script>
+                    function updateValue(newValue) {
+                        document.getElementById("rangeValue").innerHTML = newValue + "K";
+                    }
+                    function updateValue1(newValue) {
+                        document.getElementById("rangeValue1").innerHTML = newValue + "K";
+                    }
+                    function onSpecify() {
+                        checkBox = document.getElementById("dont_specify");
+                        salaryDiv = document.getElementById("salary_div");
+
+                        salary1 = document.getElementById("salary1");
+                        if (salaryDiv.style.display === "none") {
+                            salaryDiv.style.display = "block";
+                        }
+                        else {
+                            salary = document.getElementById("salary").value = "0";
+                            salary1 = document.getElementById("salary1").value = "0";
+                            salaryDiv.style.display = "none";
+                        }
+                    }
+                </script>
+
                 <h5>Additional Information(Required)</h5>
-    
+
                 <div class="row">
                     <div class="col-md-6">
                         <label for="">Careel Level</label>
                         <select class="form-control" name="level" id="">
                             <option disabled selected>Select options</option>
-                            <option value="Less than 1 Year Experienced Employee" {{ 'selected' if post.level == 'Less than 1 Year Experienced Employee' else ''}}>Less than 1 Year Experienced Employee
+                            <option value="Less than 1 Year Experienced Employee" {{ 'selected' if
+                                post.level=='Less than 1 Year Experienced Employee' else '' }}>Less than 1 Year
+                                Experienced Employee
                             </option>
-                            <option value="1-4 Years Experienced Employee" {{ 'selected' if post.level == '1-4 Years Experienced Employee' else ''}}>1-4 Years Experienced Employee</option>
-                            <option value="Supervisor/5 Years & Up Experienced Employee" {{ 'selected' if post.level == 'Supervisor/5 Years & Up Experienced Employee' else ''}}>Supervisor/5 Years & Up Experienced
+                            <option value="1-4 Years Experienced Employee" {{ 'selected' if
+                                post.level=='1-4 Years Experienced Employee' else '' }}>1-4 Years Experienced Employee
+                            </option>
+                            <option value="Supervisor/5 Years & Up Experienced Employee" {{ 'selected' if
+                                post.level=='Supervisor/5 Years & Up Experienced Employee' else '' }}>Supervisor/5 Years
+                                & Up Experienced
                                 Employee</option>
                         </select><br>
-    
+
                         <label for="">Years Of Experience</label>
                         <select class="form-control" name="experience" id="">
                             <option disabled selected>Select options</option>
-                            <option value="Fresh Graduate" {{ 'selected' if post.experience == 'Fresh Graduate' else ''}}>Fresh Graduate</option>
-                            <option value="1 Year" {{ 'selected' if post.experience == '1 Year' else ''}}>1 Year</option>
-                            <option value="2 Years" {{ 'selected' if post.experience == '2 Years' else ''}}>2 Years</option>
-                            <option value="3 Years" {{ 'selected' if post.experience == '3 Years' else ''}}>3 Years</option>
-                            <option value="4 Years" {{ 'selected' if post.experience == '4 Years' else ''}}>4 Years</option>
-                            <option value="5 Years" {{ 'selected' if post.experience == '5 Years' else ''}}>5 Years</option>
+                            <option value="Fresh Graduate" {{ 'selected' if post.experience=='Fresh Graduate' else ''
+                                }}>Fresh Graduate</option>
+                            <option value="1 Year" {{ 'selected' if post.experience=='1 Year' else '' }}>1 Year</option>
+                            <option value="2 Years" {{ 'selected' if post.experience=='2 Years' else '' }}>2 Years
+                            </option>
+                            <option value="3 Years" {{ 'selected' if post.experience=='3 Years' else '' }}>3 Years
+                            </option>
+                            <option value="4 Years" {{ 'selected' if post.experience=='4 Years' else '' }}>4 Years
+                            </option>
+                            <option value="5 Years" {{ 'selected' if post.experience=='5 Years' else '' }}>5 Years
+                            </option>
                         </select><br>
                         <label for="">Job Type</label>
                         <select class="form-control" name="jobtype" id="">
                             <option disabled selected>Select options</option>
-                            <option value="Full-Time" {{ 'selected' if post.jobtype == 'Full-Time' else ''}}>Full-Time</option>
-                            <option value="Part-Time" {{ 'selected' if post.jobtype == 'Part-Time' else ''}}>Part-Time</option>
+                            <option value="Full-Time" {{ 'selected' if post.jobtype=='Full-Time' else '' }}>Full-Time
+                            </option>
+                            <option value="Part-Time" {{ 'selected' if post.jobtype=='Part-Time' else '' }}>Part-Time
+                            </option>
                         </select><br>
                     </div>
                     <div class="col-md-6">
                         <label for="">Job Specializations</label>
                         <input class="form-control" type="text" name="specialization"
                             placeholder="Job Specializations (please specify)" value="{{ post.specialization }}"><br>
-    
+
                         <label for="">Qualification</label>
                         <div class="form-check">
-                            <input type="hidden" name="qualification" id="qualification_hidden" value="{{ post.qualification }}">
-                            <input class="form-check-input" type="checkbox" value="Highschool Graduate" name="qualification"
-                                id="qualification" onclick="getQualification()" {{ 'checked' if post.qualification == 'Highschool Graduate' else ''}}>
+                            <input type="hidden" name="qualification" id="qualification_hidden"
+                                value="{{ post.qualification }}">
+                            <input class="form-check-input" type="checkbox" value="Highschool Diploma"
+                                name="qualification" id="qualification" onclick="getQualification()" {{ 'checked' if
+                                post.qualification=='Highschool Diploma' else '' }}>
                             <label class="form-check-label" for="qualification">
-                                Highschool Graduate
+                                Highschool Diploma
                             </label>
                         </div>
 
                         <div class="form-check">
-                            <input type="hidden" name="qualification1" id="qualification1_hidden" value="{{ post.qualification1 }}">
+                            <input type="hidden" name="qualification1" id="qualification1_hidden"
+                                value="{{ post.qualification1 }}">
                             <input class="form-check-input" type="checkbox" value="Bachelor's/College Degree"
-                                name="qualification1" id="qualification1" onclick="getQualification1()" {{ 'checked' if post.qualification1 == "Bachelor's/College Degree" else ''}}>
+                                name="qualification1" id="qualification1" onclick="getQualification1()" {{ 'checked' if
+                                post.qualification1=="Bachelor's/College Degree" else '' }}>
                             <label class="form-check-label" for="qualification1">
                                 Bachelor's/College Degree
                             </label>
                         </div>
                         <div class="form-check">
-                            <input type="hidden" name="qualification2" id="qualification2_hidden" value="{{ post.qualification2 }}">
+                            <input type="hidden" name="qualification2" id="qualification2_hidden"
+                                value="{{ post.qualification2 }}">
                             <input class="form-check-input" type="checkbox"
                                 value="Professional License (Passed Board/Bar/Professional License Exam)"
-                                name="qualification2" id="qualification2" onclick="getQualification2()" {{ 'checked' if post.qualification2 == 'Professional License (Passed Board/Bar/Professional License Exam)' else ''}}>
+                                name="qualification2" id="qualification2" onclick="getQualification2()" {{ 'checked' if
+                                post.qualification2=='Professional License (Passed Board/Bar/Professional License Exam)'
+                                else '' }}>
                             <label class="form-check-label" for="qualification2">
                                 Professional License (Passed Board/Bar/Professional License Exam)
                             </label>
                         </div><br>
                     </div>
                 </div>
-    
+
                 <div>
                     <button class="btn btn-lg btn-primary float-end" onclick="getHidden()">Post</button>
                 </div>
@@ -149,7 +206,7 @@
         var checkBox = document.getElementById("qualification");
         var textinput = document.getElementById("qualification_hidden");
         if (checkBox.checked == true) {
-            textinput.value = "Highschool Graduate";
+            textinput.value = "Highschool Diploma";
         } else {
             textinput.value = "";
         }

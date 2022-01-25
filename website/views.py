@@ -28,6 +28,8 @@ def create_post():
         text = request.form.get('text')
         location = request.form.get('location')
         location1 = request.form.get('location1')
+        salary = request.form.get('salary')
+        salary1 = request.form.get('salary1')
         level = request.form.get('level')
         specialization = request.form.get('specialization')
         experience = request.form.get('experience')
@@ -61,8 +63,11 @@ def create_post():
             if not jobtype:
                 flash('This jobtype field is required', category='error')
                 return redirect(url_for('views.create_post'))
+            elif salary > salary1:
+                flash('This salary format is incorrect', category='error')
+                return redirect(url_for('views.create_post'))
             else:
-                post = Post(text=text, title=title, location=location, location1=location1, level=level,
+                post = Post(text=text, title=title, location=location, location1=location1, salary=salary, salary1=salary1, level=level,
                             specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification, qualification1=qualification1, qualification2=qualification2, author=current_user.id)
                 db.session.add(post)
                 db.session.commit()
@@ -87,6 +92,8 @@ def user_post_edit(post_id):
         post.specialization = request.form['specialization']
         post.experience = request.form['experience']
         post.jobtype = request.form['jobtype']
+        post.salary = request.form['salary']
+        post.salary1 = request.form['salary1']
         post.qualification = request.form['qualification']
         post.qualification1 = request.form['qualification1']
         post.qualification2 = request.form['qualification2']
@@ -110,6 +117,9 @@ def user_post_edit(post_id):
             return redirect(url_for('views.user_post_edit', post_id=post_id))
         elif not post.jobtype:
             flash('This jobtype field is required', category='error')
+            return redirect(url_for('views.user_post_edit', post_id=post_id))
+        elif post.salary > post.salary1:
+            flash('This salary format is incorrect', category='error')
             return redirect(url_for('views.user_post_edit', post_id=post_id))
         else:
             db.session.commit()
@@ -393,9 +403,12 @@ def user_profile_password():
 @login_required
 def adminhome():
     posts = Post.query.all()
-    users = User.query.all()
     likes = Like.query.all()
-    return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes)
+    users = Like.query.all()
+    employee = User.query.filter_by(usertype='user').all()
+    admins = User.query.filter_by(usertype='admin').all()
+
+    return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes, admins=admins, employee=employee)
 
 
 @views.route("/admin/not-exist")
@@ -711,6 +724,8 @@ def admin_post_add():
         text = request.form.get('text')
         location = request.form.get('location')
         location1 = request.form.get('location1')
+        salary = request.form.get('salary')
+        salary1 = request.form.get('salary1')
         level = request.form.get('level')
         specialization = request.form.get('specialization')
         experience = request.form.get('experience')
@@ -718,6 +733,7 @@ def admin_post_add():
         qualification = request.form.get('qualification')
         qualification1 = request.form.get('qualification1')
         qualification2 = request.form.get('qualification2')
+
 
         if current_user.company:
             if not title:
@@ -744,8 +760,11 @@ def admin_post_add():
             elif not jobtype:
                 flash('This jobtype field is required', category='error')
                 return redirect(url_for('views.admin_post_add'))
+            elif salary > salary1:
+                flash('This salary format is incorrect', category='error')
+                return redirect(url_for('views.admin_post_add'))
             else:
-                post = Post(text=text, title=title, location=location, location1=location1, level=level,
+                post = Post(text=text, title=title, location=location, location1=location1, salary=salary, salary1=salary1, level=level,
                             specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification, qualification1=qualification1, qualification2=qualification2, author=current_user.id)
                 db.session.add(post)
                 db.session.commit()
@@ -771,6 +790,8 @@ def admin_post_edit(post_id):
         post.specialization = request.form['specialization']
         post.experience = request.form['experience']
         post.jobtype = request.form['jobtype']
+        post.salary = request.form['salary']
+        post.salary1 = request.form['salary1']
         post.qualification = request.form['qualification']
         post.qualification1 = request.form['qualification1']
         post.qualification2 = request.form['qualification2']
@@ -795,6 +816,9 @@ def admin_post_edit(post_id):
         elif not post.jobtype:
             flash('This jobtype field is required', category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
+        elif post.salary > post.salary1:
+            flash('This salary format is incorrect', category='error')
+            return redirect(url_for('views.admin_post_edit', post_id=post_id))
         else:
             db.session.commit()
             flash("Post Updated Successfully.", category='success')
@@ -810,9 +834,6 @@ def admin_post_delete(post_id):
 
     if not post:
         flash("Post does not exist.", category='error')
-        return redirect(url_for('views.admin_post_edit', post_id=post_id))
-    elif current_user.id != post.author:
-        flash("You do not gave permission do delete this post.", category='error')
         return redirect(url_for('views.admin_post_edit', post_id=post_id))
     else:
         db.session.delete(post)

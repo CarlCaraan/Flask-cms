@@ -34,7 +34,15 @@
         <div class="card-body">
             <a class="text-secondary text-decoration-none" href="/posts/{{ post.user.company }}">{{ post.user.company
                 }}</a><br><br>
-            <span class="fw-bold">{{ post.location.capitalize() }} ({{ post.location1.capitalize() }})</span>
+            <span class="fw-bold">{{ post.location.capitalize() }} ({{ post.location1.capitalize() }})</span><br>
+
+            <!-- Start Salary -->
+            {% if post.salary == "0" and post.salary1 == "0" %}
+            {% else %}
+                <span class="fw-bold">PHP {{ post.salary }}K - {{ post.salary1 }}K monthly</span>
+            {% endif %}
+            <!-- End Salary -->
+
             <hr>
 
             <!-- Start Job Description -->
