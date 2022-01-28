@@ -47,22 +47,22 @@ def create_post():
             elif not text:
                 flash('This description field is required', category='error')
                 return redirect(url_for('views.create_post'))
-            if not location:
+            elif not location:
                 flash('This province field is required', category='error')
                 return redirect(url_for('views.create_post'))
-            if not location1:
+            elif not location1:
                 flash('This city field is required', category='error')
                 return redirect(url_for('views.create_post'))
-            if not level:
+            elif not level:
                 flash('This career level field is required', category='error')
                 return redirect(url_for('views.create_post'))
-            if not specialization:
+            elif not specialization:
                 flash('This job specialization field is required', category='error')
                 return redirect(url_for('views.create_post'))
-            if not experience:
+            elif not experience:
                 flash('This years of experience field is required', category='error')
                 return redirect(url_for('views.create_post'))
-            if not jobtype:
+            elif not jobtype:
                 flash('This jobtype field is required', category='error')
                 return redirect(url_for('views.create_post'))
             elif salary > salary1:
