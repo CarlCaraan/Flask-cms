@@ -48,31 +48,47 @@
                     placeholder="Whats on your mind?" value="{{ post.text }}">
                 <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
 
-                <label for="">Salary Range Monthly (0 - 150k ₱)</label><br>
+                <label for="">Salary Range Monthly (0 - 250K ₱)</label><br>
                 <input class="form-check-input ml-2" type="checkbox" value="" id="dont_specify" onclick="onSpecify()">
                 <label class="form-check-label ml-4" for="dont_specify">
                     Don't Specify
-                </label>
+                </label><br>
                 <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
-                    From: <span id="rangeValue">{{ post.salary }}</span><br><input id="salary" type="range"
-                        class="form-range w-100" min="0" max="250" value="{{ post.salary }}" name="salary"
-                        oninput="updateValue(this.value)" onchange="updateValue(this.value)"><br>
-                    To: <span id="rangeValue1">{{ post.salary1 }}</span><br><input id="salary1" type="range"
-                        class="form-range w-100" min="0" max="250" value="{{ post.salary1 }}" name="salary1"
-                        oninput="updateValue1(this.value)" onchange="updateValue1(this.value)">
+                    <div class="row mt-3 mb-2">
+                        <div class="col-sm-12">
+                            <span>Current Job Salary Range:
+                                {% if post.salary and post.salary1 == "0" %}
+                                <strong>Not Specified</strong>
+                                {% else %}
+                                <strong>PHP {{ post.salary }}K to {{ post.salary1 }}K</strong></span><br>
+                            {% endif %}
+                        </div>
+                    </div>
+                    From: ₱<span id="slider-range-value1"></span>K<br>
+                    To: ₱<span id="slider-range-value2"></span>K
+                    <div class="row mt-3 mb-2">
+                        <div class="col-sm-12">
+                            <div id="slider-range" onclick="updateValue()"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input id="salary" type="hidden" name="salary" value="15">
+                            <input id="salary1" type="hidden" name="salary1" value="35">
+                        </div>
+                    </div>
                 </div><br>
                 <script>
                     function updateValue(newValue) {
-                        document.getElementById("rangeValue").innerHTML = newValue + "K";
-                    }
-                    function updateValue1(newValue) {
-                        document.getElementById("rangeValue1").innerHTML = newValue + "K";
+                        var span_salary1 = document.getElementById("slider-range-value1").textContent;
+                        document.getElementById("salary").value = span_salary1;
+                        var span_salary2 = document.getElementById("slider-range-value2").textContent;
+                        document.getElementById("salary1").value = span_salary2;
                     }
                     function onSpecify() {
-                        checkBox = document.getElementById("dont_specify");
                         salaryDiv = document.getElementById("salary_div");
-
                         salary1 = document.getElementById("salary1");
+
                         if (salaryDiv.style.display === "none") {
                             salaryDiv.style.display = "block";
                         }

@@ -59,34 +59,37 @@
                     <input type="hidden" name="location" id="province_hidden">
                     <input type="hidden" name="location1" id="city_hidden">
 
-                    <label for="">Salary Range Monthly (0 - 150k ₱)</label><br>
-                    <input class="form-check-input ml-2"
-                        type="checkbox" value="" id="dont_specify" onclick="onSpecify()">
-                    <label class="form-check-label ml-4 mb-3" for="dont_specify">
+                    <label for="">Salary Range Monthly (0 - 250K ₱)</label><br>
+                    <input class="form-check-input ml-2" type="checkbox" value="" onclick="onSpecify()">
+                    <label class="form-check-label ml-4" for="dont_specify">
                         Don't Specify
-                    </label>
+                    </label><br>
                     <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
-                        From: <span id="rangeValue"></span><br>
-                        <input id="salary" type="range" class="form-range w-100" min="0" max="250"
-                            value="15" name="salary" oninput="updateValue(this.value)"
-                            onchange="updateValue(this.value)"><br>
-                        To: <span id="rangeValue1"></span><br>
-                        <input id="salary1" type="range" class="form-range w-100" min="0" max="250"
-                            value="35" name="salary1" oninput="updateValue1(this.value)"
-                            onchange="updateValue1(this.value)">
+                        From: ₱<span id="slider-range-value1"></span>K<br>
+                        To: ₱<span id="slider-range-value2"></span>K
+                        <div class="row mt-3 mb-2">
+                            <div class="col-sm-12">
+                                <div id="slider-range" onclick="updateValue()"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input id="salary" type="hidden" name="salary">
+                                <input id="salary1" type="hidden" name="salary1">
+                            </div>
+                        </div>
                     </div><br>
                     <script>
                         function updateValue(newValue) {
-                            document.getElementById("rangeValue").innerHTML = newValue + "K";
-                        }
-                        function updateValue1(newValue) {
-                            document.getElementById("rangeValue1").innerHTML = newValue + "K";
+                            var span_salary1 = document.getElementById("slider-range-value1").textContent;
+                            document.getElementById("salary").value = span_salary1;
+                            var span_salary2 = document.getElementById("slider-range-value2").textContent;
+                            document.getElementById("salary1").value = span_salary2;
                         }
                         function onSpecify() {
-                            checkBox = document.getElementById("dont_specify");
                             salaryDiv = document.getElementById("salary_div");
-                            
                             salary1 = document.getElementById("salary1");
+
                             if (salaryDiv.style.display === "none") {
                                 salaryDiv.style.display = "block";
                             }
@@ -136,7 +139,7 @@
                 <div class="col-md-6">
                     <label for="">Job Specializations</label>
                     <input class="form-control" type="text" name="specialization"
-                        placeholder="Job Specializations (please specify)"><br>
+                        placeholder="Job Specializations (please specify)" onclick="updateValue()"><br>
         
                     <label for="">Qualification</label>
                     <div class="form-check">

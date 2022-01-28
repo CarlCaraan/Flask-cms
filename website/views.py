@@ -65,9 +65,6 @@ def create_post():
             elif not jobtype:
                 flash('This jobtype field is required', category='error')
                 return redirect(url_for('views.create_post'))
-            elif salary > salary1:
-                flash('This salary format is incorrect', category='error')
-                return redirect(url_for('views.create_post'))
             else:
                 post = Post(text=text, title=title, location=location, location1=location1, salary=salary, salary1=salary1, level=level,
                             specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification, qualification1=qualification1,
@@ -122,9 +119,6 @@ def user_post_edit(post_id):
             return redirect(url_for('views.user_post_edit', post_id=post_id))
         elif not post.jobtype:
             flash('This jobtype field is required', category='error')
-            return redirect(url_for('views.user_post_edit', post_id=post_id))
-        elif post.salary > post.salary1:
-            flash('This salary format is incorrect', category='error')
             return redirect(url_for('views.user_post_edit', post_id=post_id))
         else:
             db.session.commit()
@@ -776,9 +770,6 @@ def admin_post_add():
             elif not jobtype:
                 flash('This jobtype field is required', category='error')
                 return redirect(url_for('views.admin_post_add'))
-            elif salary > salary1:
-                flash('This salary format is incorrect', category='error')
-                return redirect(url_for('views.admin_post_add'))
             else:
                 post = Post(text=text, title=title, location=location, location1=location1, salary=salary, salary1=salary1, level=level,
                             specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification,
@@ -834,13 +825,10 @@ def admin_post_edit(post_id):
         elif not post.jobtype:
             flash('This jobtype field is required', category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
-        elif post.salary > post.salary1:
-            flash('This salary format is incorrect', category='error')
-            return redirect(url_for('views.admin_post_edit', post_id=post_id))
         else:
             db.session.commit()
             flash("Post Updated Successfully.", category='success')
-            return redirect(url_for('views.admin_post_view'))
+            return redirect(url_for('views.admin_post_edit', post_id=post_id))
 
     return render_template("backend/post/edit_post.html", post=post, user=current_user)
 

@@ -28,27 +28,48 @@
                     placeholder="Whats on your mind?" value="{{ post.text }}">
                 <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
 
-                <label for="">Salary Range Monthly (0 - 150k ₱)</label><br>
+                <label for="">Salary Range Monthly (0 - 250K ₱)</label><br>
                 <input class="form-check-input" type="checkbox" value="" id="dont_specify" onclick="onSpecify()">
                 <label class="form-check-label" for="dont_specify">
                     Don't Specify
-                </label>
+                </label><br>
                 <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
-                    From: <span id="rangeValue">{{ post.salary }}</span>
-                    <input id="salary" type="range" class="form-range" min="0"
-                        max="250" value="{{ post.salary }}" name="salary" oninput="updateValue(this.value)"
-                        onchange="updateValue(this.value)">
-                    To: <span id="rangeValue1">{{ post.salary1 }}</span>
-                    <input id="salary1" type="range" class="form-range" min="0"
-                        max="250" value="{{ post.salary1 }}" name="salary1" oninput="updateValue1(this.value)"
-                        onchange="updateValue1(this.value)">
+                    <div class="row mt-3 mb-2">
+                        <div class="col-sm-12">
+                            <span>Current Job Salary Range:
+                                {% if post.salary and post.salary1 == "0" %}
+                                <strong>Not Specified</strong>
+                                {% else %}
+                                <strong>PHP {{ post.salary }}K to {{ post.salary1 }}K</strong></span><br>
+                                {% endif %}
+                        </div>
+                    </div>
+                    <div class="row slider-labels">
+                        <div class="col-xs-6 caption">
+                            From: ₱<span id="slider-range-value1"></span>K
+                        </div>
+                        <div class="col-xs-6 text-right caption">
+                            To: ₱<span id="slider-range-value2"></span>K
+                        </div>
+                    </div>
+                    <div class="row mt-3 mb-2">
+                        <div class="col-sm-12">
+                            <div id="slider-range" onclick="updateValue()"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input id="salary" type="hidden" name="salary" value="15">
+                            <input id="salary1" type="hidden" name="salary1" value="35">
+                        </div>
+                    </div>
                 </div><br>
                 <script>
                     function updateValue(newValue) {
-                        document.getElementById("rangeValue").innerHTML = newValue + "K";
-                    }
-                    function updateValue1(newValue) {
-                        document.getElementById("rangeValue1").innerHTML = newValue + "K";
+                        var span_salary1 = document.getElementById("slider-range-value1").textContent;
+                        document.getElementById("salary").value = span_salary1;
+                        var span_salary2 = document.getElementById("slider-range-value2").textContent;
+                        document.getElementById("salary1").value = span_salary2;
                     }
                     function onSpecify() {
                         checkBox = document.getElementById("dont_specify");
@@ -113,7 +134,8 @@
                     <div class="col-md-6">
                         <label for="">Job Specializations</label>
                         <input class="form-control" type="text" name="specialization"
-                            placeholder="Job Specializations (please specify)" value="{{ post.specialization }}"><br>
+                            placeholder="Job Specializations (please specify)" value="{{ post.specialization }}"
+                            onclick="updateValue()"><br>
 
                         <label for="">Qualification</label>
                         <div class="form-check">
@@ -153,10 +175,9 @@
                             <input type="hidden" name="qualification3" id="qualification3_hidden"
                                 value="{{ post.qualification3 }}">
                             <input class="form-check-input" type="checkbox"
-                                value="Vocational Diploma/Short Course Certificate"
-                                name="qualification3" id="qualification3" onclick="getQualification3()" {{ 'checked' if
-                                post.qualification3=='Vocational Diploma/Short Course Certificate'
-                                else '' }}>
+                                value="Vocational Diploma/Short Course Certificate" name="qualification3"
+                                id="qualification3" onclick="getQualification3()" {{ 'checked' if
+                                post.qualification3=='Vocational Diploma/Short Course Certificate' else '' }}>
                             <label class="form-check-label" for="qualification3">
                                 Vocational Diploma/Short Course Certificate
                             </label>
@@ -165,10 +186,9 @@
                             <input type="hidden" name="qualification4" id="qualification4_hidden"
                                 value="{{ post.qualification4 }}">
                             <input class="form-check-input" type="checkbox"
-                                value="Post Graduate Diploma/Master's Degree"
-                                name="qualification4" id="qualification4" onclick="getQualification4()" {{ 'checked' if
-                                post.qualification4=="Post Graduate Diploma/Master's Degree"
-                                else '' }}>
+                                value="Post Graduate Diploma/Master's Degree" name="qualification4" id="qualification4"
+                                onclick="getQualification4()" {{ 'checked' if
+                                post.qualification4=="Post Graduate Diploma/Master's Degree" else '' }}>
                             <label class="form-check-label" for="qualification4">
                                 Post Graduate Diploma/Master's Degree
                             </label>

@@ -34,34 +34,44 @@
                     <input type="hidden" name="location" id="province_hidden">
                     <input type="hidden" name="location1" id="city_hidden">
 
-                    <label for="">Salary Range Monthly (0 - 150k ₱)</label><br>
-                    <input class="form-check-input"
-                        type="checkbox" value="" id="dont_specify" onclick="onSpecify()">
+                    <label for="">Salary Range Monthly (0 - 250K ₱)</label><br>
+                    <input class="form-check-input" type="checkbox" value="" onclick="onSpecify()">
                     <label class="form-check-label" for="dont_specify">
                         Don't Specify
-                    </label>
+                    </label><br>
                     <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
-                        Range: <span id="rangeValue"></span>
-                        <input id="salary" type="range" class="form-range" min="0" max="250"
-                            value="15" name="salary" oninput="updateValue(this.value)"
-                            onchange="updateValue(this.value)">
-                        Range: <span id="rangeValue1"></span>
-                        <input id="salary1" type="range" class="form-range" min="0" max="250"
-                            value="35" name="salary1" oninput="updateValue1(this.value)"
-                            onchange="updateValue1(this.value)">
+                        <div class="row slider-labels">
+                            <div class="col-xs-6 caption">
+                                From: ₱<span id="slider-range-value1"></span>K
+                            </div>
+                            <div class="col-xs-6 text-right caption">
+                                To: ₱<span id="slider-range-value2"></span>K
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-2">
+                            <div class="col-sm-12">
+                                <div id="slider-range" onclick="updateValue()"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input id="salary" type="hidden" name="salary">
+                                <input id="salary1" type="hidden" name="salary1">
+                            </div>
+                        </div>
                     </div>
+
                     <script>
                         function updateValue(newValue) {
-                            document.getElementById("rangeValue").innerHTML = newValue + "K";
-                        }
-                        function updateValue1(newValue) {
-                            document.getElementById("rangeValue1").innerHTML = newValue + "K";
+                            var span_salary1 = document.getElementById("slider-range-value1").textContent;
+                            document.getElementById("salary").value = span_salary1;
+                            var span_salary2 = document.getElementById("slider-range-value2").textContent;
+                            document.getElementById("salary1").value = span_salary2;
                         }
                         function onSpecify() {
-                            checkBox = document.getElementById("dont_specify");
                             salaryDiv = document.getElementById("salary_div");
-                            
                             salary1 = document.getElementById("salary1");
+
                             if (salaryDiv.style.display === "none") {
                                 salaryDiv.style.display = "block";
                             }
@@ -111,7 +121,7 @@
                 <div class="col-md-6">
                     <label for="">Job Specializations</label>
                     <input class="form-control" type="text" name="specialization"
-                        placeholder="Job Specializations (please specify)"><br>
+                        placeholder="Job Specializations (please specify)" onclick="updateValue()"><br>
 
                     <label for="">Qualification</label>
                     <div class="form-check">
@@ -138,15 +148,14 @@
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox"
-                            value="Vocational Diploma/Short Course Certificate"
-                            name="qualification3" id="flexCheckChecked">
+                            value="Vocational Diploma/Short Course Certificate" name="qualification3"
+                            id="flexCheckChecked">
                         <label class="form-check-label" for="flexCheckChecked">
                             Vocational Diploma/Short Course Certificate
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox"
-                            value="Post Graduate Diploma/Master's Degree"
+                        <input class="form-check-input" type="checkbox" value="Post Graduate Diploma/Master's Degree"
                             name="qualification4" id="flexCheckChecked">
                         <label class="form-check-label" for="flexCheckChecked">
                             Post Graduate Diploma/Master's Degree
