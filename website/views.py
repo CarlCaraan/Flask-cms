@@ -44,7 +44,7 @@ def create_post():
             if not title:
                 flash('This title field is required', category='error')
                 return redirect(url_for('views.create_post'))
-            if not text:
+            elif not text:
                 flash('This description field is required', category='error')
                 return redirect(url_for('views.create_post'))
             if not location:

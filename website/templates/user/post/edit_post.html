@@ -34,11 +34,13 @@
                     Don't Specify
                 </label>
                 <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
-                    From: <span id="rangeValue">{{ post.salary }}</span><input id="salary" type="range" class="form-range" min="0"
-                        max="150" value="{{ post.salary }}" name="salary" oninput="updateValue(this.value)"
+                    From: <span id="rangeValue">{{ post.salary }}</span>
+                    <input id="salary" type="range" class="form-range" min="0"
+                        max="250" value="{{ post.salary }}" name="salary" oninput="updateValue(this.value)"
                         onchange="updateValue(this.value)">
-                    To: <span id="rangeValue1">{{ post.salary1 }}</span><input id="salary1" type="range" class="form-range" min="0"
-                        max="150" value="{{ post.salary1 }}" name="salary1" oninput="updateValue1(this.value)"
+                    To: <span id="rangeValue1">{{ post.salary1 }}</span>
+                    <input id="salary1" type="range" class="form-range" min="0"
+                        max="250" value="{{ post.salary1 }}" name="salary1" oninput="updateValue1(this.value)"
                         onchange="updateValue1(this.value)">
                 </div><br>
                 <script>
