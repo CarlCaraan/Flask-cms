@@ -10,6 +10,7 @@ views = Blueprint("views", __name__)
 # User Home
 
 @views.route("/")
+@views.route("/homepage")
 def landing_page_home():
     return render_template("landing_page/home.html")
 
