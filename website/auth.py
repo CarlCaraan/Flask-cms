@@ -19,6 +19,7 @@ def login():
         if user_email:
             if check_password_hash(user_email.password, password):
                 login_user(user_email, remember=True)
+                flash('You can now browse all available jobs!.', category='success')
                 return redirect(url_for('views.home'))
             else:
                 flash('Password is incorrect.', category='error')

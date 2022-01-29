@@ -26,10 +26,18 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='auth/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='auth/css/main.css') }}">
+    <!-- Fixed CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='auth/css/fixed.css') }}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='auth/css/style.css') }}">
     <!--===============================================================================================-->
 </head>
 
 <body>
+    <!--- Start Landing Page Image -->
+    <div class="home-inner">
+    </div>
+    <!--- End Landing Page Image -->
 
     <div class="limiter">
         <div class="container-login100">
@@ -43,21 +51,25 @@
                     <!-- Start Message Validation -->
                     <div class="center mx-auto w-100" align="center">
                         {% with messages = get_flashed_messages(with_categories=True) %}
-                            {% if messages %}
-                                {% for category, message in messages %}
-                                    {% if category == 'error' %}
-                                        <div class="alert alert-danger alter-dismissible fade show">
-                                            {{ message }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                        </div>
-                                    {% else %}
-                                        <div class="alert alert-success alter-dismissible fade show">
-                                            {{ message }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category == 'error' %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
                         {% endwith %}
                     </div>
                     <!-- End Message Validation -->
