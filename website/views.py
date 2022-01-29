@@ -9,13 +9,19 @@ views = Blueprint("views", __name__)
 # ========= USER CONTROLLER =========
 # User Home
 
-
 @views.route("/")
+def landing_page_home():
+    return render_template("landing_page/home.html")
+
+@views.route("/about")
+def landing_page_about():
+    return render_template("landing_page/about.html")
+
 @views.route("/home")
 @login_required
 def home():
     posts = Post.query.order_by(Post.date_created.desc())
-    return render_template("home.html", user=current_user, posts=posts)
+    return render_template("user/home.html", user=current_user, posts=posts)
 
 # POSTING JOB
 
@@ -78,7 +84,7 @@ def create_post():
                 'You must add your company in your profile before posting!', category='error')
             return redirect(url_for('views.create_post'))
 
-    return render_template('create_post.html', user=current_user)
+    return render_template('user/post/create_post.html', user=current_user)
 
 
 @views.route("/edit-post/<post_id>", methods=['GET', 'POST'])
@@ -156,7 +162,7 @@ def posts(company):
         return redirect(url_for('views.home'))
 
     posts = user.posts
-    return render_template('posts.html', user=current_user, posts=posts, company=company)
+    return render_template('user/posts.html', user=current_user, posts=posts, company=company)
 
 # View Single Post
 
@@ -169,7 +175,7 @@ def post(id):
         flash('No post exist!', category='error')
         return redirect(url_for('views.home'))
 
-    return render_template('single_post.html', user=current_user, post=post)
+    return render_template('user/single_post.html', user=current_user, post=post)
 
 
 @views.route("/create-comment/<post_id>", methods=['POST'])

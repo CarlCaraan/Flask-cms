@@ -31,7 +31,7 @@ def login():
         else:
             flash('Email or Username does not exist.', category='error')
 
-    return render_template("login.html", user=current_user)
+    return render_template("user/login.html", user=current_user)
 
 
 @auth.route("/sign-up", methods=['GET', 'POST'])
@@ -115,7 +115,7 @@ def sign_up():
                     login_user(new_user, remember=True)
                     return redirect(url_for('views.home'))
 
-    return render_template("signup.html", user=current_user)
+    return render_template("user/signup.html", user=current_user)
 
 # ========= ADMIN CONTROLLER =========
 @auth.route("/admin-login", methods=['GET', 'POST'])
