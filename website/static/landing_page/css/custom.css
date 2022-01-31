@@ -121,6 +121,7 @@ body {
 .social-icon:hover {
   background-color: #7551f5 !important;
   opacity: 0.8;
+  transform: rotateY(180deg);
 }
 
 /*============= MEDIA QUERIES =============*/
