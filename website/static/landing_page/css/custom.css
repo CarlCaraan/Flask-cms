@@ -193,7 +193,8 @@ body {
     justify-content: center;
   }
   .caption {
-    border-bottom-right-radius: 50%!important;
+    border-bottom-left-radius: 25%!important;
+    border-bottom-right-radius: 25%!important;
   }
   #about_headings {
     margin-right: 0px !important;
@@ -207,6 +208,12 @@ body {
   }
   #sidebar_footer {
     display: none;
+  }
+  #social_icon_center {
+    text-align: center;
+  }
+  #about_sub_caption_bottom {
+    display: flex;
   }
 }
 
