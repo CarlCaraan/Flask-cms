@@ -24,8 +24,18 @@
                     href="/about">About</a></li>
         </ul>
     </div>
+
     <div class="border-top pt-1 w-100 mb-0 opacity-75" id="sidebar_footer">
-        <small class="text-light">&copy 2022 M83X Systems</small><br>
-        <small class="text-light">All Rights Reserved</small>
+        <div class="row">
+            <div class="col-3 text-end pe-0">
+                <img id="logo_m83x" src="{{ url_for('static',filename='landing_page/assets/img/logo.png') }}"
+                    width="32px" alt="">
+            </div>
+            <div class="col-9 text-start ps-2">
+                <small class="text-light" id="copyright_sidebar">&copy 2022 M83X Systems <br>
+                    All Rights Reserved</small>
+            </div>
+        </div>
+
     </div>
 </nav>

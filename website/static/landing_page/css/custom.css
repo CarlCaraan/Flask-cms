@@ -43,6 +43,13 @@ body {
   font-weight: bold;
   font-size: 24px;
 }
+#logo_m83x {
+  margin-top: 6px;
+}
+#copyright_sidebar {
+ overflow-wrap: break-word;
+ display:inline-block;
+}
 
 /*============= MAIN HOME CONTENT SECTION =============*/
 
