@@ -205,6 +205,9 @@ body {
   #p_venture {
     width: 140px;
   }
+  #sidebar_footer {
+    display: none;
+  }
 }
 
 /* Devices under 768px (md) */
