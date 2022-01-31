@@ -6,7 +6,8 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>{% block title %}{% endblock %}</title>
-        <link href="{{ url_for('static',filename='landing_page/assets/img/favicon.ico') }}" rel="stylesheet" type="text/css">
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{{ url_for('static',filename='auth/icons/favicon.ico') }}">
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -15,6 +16,11 @@
 
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ url_for('static',filename='landing_page/css/styles.css') }}" rel="stylesheet" type="text/css">
+
+        <!-- Custom CSS -->
+        <link href="{{ url_for('static',filename='landing_page/css/custom.css') }}" rel="stylesheet" type="text/css">
+        <!-- Fixed CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='landing_page/css/fixed.css') }}">
 
     </head>
     <body id="page-top">

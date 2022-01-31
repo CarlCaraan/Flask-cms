@@ -1,0 +1,235 @@
+/*============= ALL FONTS =============*/
+
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap");
+
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url("assets/fonts/Lato-Regular.ttf");
+}
+@font-face {
+  font-family: "Raleway", sans-serif;
+  src: url("assets/fonts/Raleway-Regular.ttf");
+}
+@font-face {
+  font-family: "Poppins", sans-serif;
+  src: url("assets/fonts/Poppins-Regular.ttf");
+}
+
+/*============= GLOBAL CLASS =============*/
+* {
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  /* transition: all .2s linear; */
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/*============= SIDEBAR SECTION =============*/
+
+.custom-sidebar {
+  background: #7551f5 !important;
+}
+.nav-item a {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/*============= MAIN HOME CONTENT SECTION =============*/
+
+.home-inner {
+  background-image: url("/static/landing_page/assets/img/bg.jpg");
+  z-index: -1;
+}
+.caption {
+  width: 100%;
+  max-width: 100%;
+  position: absolute;
+  z-index: 1;
+  border-bottom-right-radius: 100%;
+  box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.3);
+}
+.caption svg {
+  display: block;
+}
+#image_header {
+  margin-right: 20rem;
+}
+#journeys_caption {
+  font-size: 3.7rem;
+}
+.sub_caption {
+  font-size: 3rem;
+}
+#start_now_button {
+  font-size: 1.5rem;
+  color: #fff;
+  width: 255px;
+  background-color: #7551f5;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s linear;
+}
+#start_now_button:hover {
+  background-color: hsl(253, 88%, 67%);
+}
+#caption_wrapper {
+  padding-top: 6rem;
+  padding-left: 8rem;
+}
+
+/*============= ABOUT CONTENT SECTION =============*/
+
+.home-inner2 {
+  background-image: url("/static/landing_page/assets/img/about-bg.jpg");
+  z-index: -1;
+}
+
+#about_headings {
+  color: #7551f5;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  font-size: 40px;
+  margin-right: 20rem;
+}
+#about_description {
+  font-family: "Lato", sans-serif;
+  color: #171B23;
+  font-size: 36px;
+}
+#about_sub_caption_top {
+  padding-top: 1.2rem;
+  padding-left: 2rem;
+}
+.social-icon {
+  background-color: #7551f5!important;
+  transition: all 0.3s ease-in;
+}
+.social-icon:hover {
+  background-color: #7551f5!important;
+  opacity: .8;
+}
+
+/*============= MEDIA QUERIES =============*/
+/* Devices under 1681px (small-desktop) */
+@media (max-width: 1681px) {
+  #caption_wrapper {
+    padding-top: 6rem;
+    padding-left: 4rem;
+  }
+}
+/* Devices under 1440px (laptop) */
+@media (max-width: 1441px) {
+  #caption_wrapper {
+    padding-top: 3rem;
+    padding-left: 0rem;
+  }
+  #journeys_caption {
+    font-size: 3rem;
+  }
+  .sub_caption {
+    font-size: 2.4rem;
+  }
+  #about_sub_caption_top {
+    font-size: 1.5rem;
+    padding-left: 0rem;
+  }
+  #about_sub_caption_bottom {
+    font-size: 1.5rem;
+  }
+  #p_venture {
+    width: 170px;
+  }
+}
+/* Devices under 1025px (ipad) */
+@media (max-width: 1025px) {
+  #image_header {
+    width: 300px;
+  }
+  #p_venture {
+    width: 150px;
+  }
+}
+
+/* Devices under 992px (lg) */
+@media (max-width: 991px) {
+  #image_header {
+    margin-right: 0px !important;
+  }
+  #caption_wrapper {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  #start_btn_wrapper {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  .caption {
+    border-bottom-right-radius: 50%!important;
+  }
+  #about_headings {
+    margin-right: 0px!important;
+  }
+  #about_sub_caption_top {
+    font-size: 1.5rem;
+    padding-left: 1.7rem;
+  }
+  #p_venture {
+    width: 140px;
+  }
+}
+
+/* Devices under 768px (md) */
+@media (max-width: 767px) {
+  #about_sub_caption_top {
+    font-size: 1rem;
+    padding-left: 0rem;
+    font-weight: bold;
+  }
+  #about_sub_caption_bottom {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  #about_headings {
+    font-size: 2rem;
+  }
+}
+
+/* Devices under 576px (sm) */
+@media (max-width: 575px) {
+}
+
+/*============ BOOTSTRAP BREAK POINTS:
+
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+
+=============*/
