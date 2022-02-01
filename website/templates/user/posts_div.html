@@ -22,7 +22,7 @@
                     {% if post.date_updated == None %}
                     Posted {{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
                     {% else %}
-                    Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
+                    Last Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
                     {% endif %}
                 </small>
                 <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>

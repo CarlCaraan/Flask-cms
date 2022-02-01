@@ -13,7 +13,10 @@ class User(db.Model, UserMixin):
     company = db.Column(db.String(150))
     password = db.Column(db.String(150))
     usertype = db.Column(db.String(10))
-    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+    # date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+    date_created = db.Column(db.DateTime, default=datetime.now())
+    date_updated = db.Column(db.DateTime(
+        timezone=True), onupdate=datetime.now())
     # relationship of user and posts
     posts = db.relationship('Post', backref='user', passive_deletes="True")
     # comments = db.relationship('Comment', backref='user', passive_deletes="True") # relationship of user and comments
@@ -25,7 +28,6 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text, nullable=False)
     text = db.Column(db.Text, nullable=False)
-    # date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     date_created = db.Column(db.DateTime, default=datetime.now())
     date_updated = db.Column(db.DateTime(
         timezone=True), onupdate=datetime.now())

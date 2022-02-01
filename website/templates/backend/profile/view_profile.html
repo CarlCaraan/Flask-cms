@@ -8,8 +8,8 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800 w-100">Profile Info
-        <a href="/admin/profile/edit" class="btn btn-info float-right">Edit Profile</a>
+    <h1 class="h3 mb-2 text-gray-800 w-100"><i class="fas fa-id-card"></i> Profile Info
+        <a href="/admin/profile/edit" class="btn btn-info float-right"><i class="fas fa-user-edit"></i> Edit Profile</a>
     </h1>
 
     <!-- Start Message Validation -->
@@ -40,7 +40,14 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Basic Information</h6>
+            <h6 class="m-0 font-weight-bold text-primary float-left">Basic Information</h6>
+            <small class="text-muted me-2 float-right">
+                {% if user.date_updated == None %}
+                Last Updated {{ user.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
+                {% else %}
+                Updated {{ user.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
+                {% endif %}
+            </small>
         </div>
         <div class="card-body">
             <p>Full Name: {{ user.firstname }} {{ user.lastname }}</p>

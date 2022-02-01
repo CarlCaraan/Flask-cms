@@ -15,7 +15,13 @@
                 %}</h3>
             {% if user.id == post.author %}
             <div class="btn-group">
-                <small class="text-muted mt-1 me-2">{{ post.date_created }}</small>
+                <small class="text-muted mt-1 me-2">
+                    {% if post.date_updated == None %}
+                    Posted {{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
+                    {% else %}
+                    Last Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
+                    {% endif %}
+                </small>
                 <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>
                 <ul class="dropdown-menu">
                     <li>

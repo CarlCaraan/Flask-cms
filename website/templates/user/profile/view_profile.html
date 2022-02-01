@@ -14,7 +14,14 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Basic Information</h6>
+            <h6 class="m-0 font-weight-bold text-primary float-start">Basic Information</h6>
+            <small class="text-muted me-2 float-end">
+                {% if user.date_updated == None %}
+                Last Updated {{ user.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
+                {% else %}
+                Updated {{ user.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
+                {% endif %}
+            </small>
         </div>
         <div class="card-body">
             <p>Full Name: {{ user.firstname }} {{ user.lastname }}</p>
@@ -24,27 +31,27 @@
 
     <div class="card shadow mb-4">
         <!-- Card Header - Accordion -->
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Contact Information</h6>
-            </div>
-            <div class="card-body">
-                <p>Email: {{ user.email }}</p>
-                <p>Username: {{ user.username }}</p>
-                <p>User Type: {{ user.usertype }}</p>
-            </div>
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Contact Information</h6>
+        </div>
+        <div class="card-body">
+            <p>Email: {{ user.email }}</p>
+            <p>Username: {{ user.username }}</p>
+            <p>User Type: {{ user.usertype }}</p>
+        </div>
     </div>
 
     <div class="card shadow mb-4">
         <!-- Card Header - Accordion -->
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Your Company Information</h6>
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Your Company Information</h6>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                This will help you to hire employee.
             </div>
-            <div class="card-body">
-                <div class="alert alert-warning">
-                    This will help you to hire employee.
-                </div>
-                <p>Company Name: {{ user.company }}</p>
-            </div>
+            <p>Company Name: {{ user.company }}</p>
+        </div>
     </div>
 
 </div>
