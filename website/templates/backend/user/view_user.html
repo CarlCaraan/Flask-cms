@@ -66,7 +66,7 @@
                             <td>{{ user.email }}</td>
                             <td>{{ user.username }}</td>
                             <td>{{ user.usertype }}</td>
-                            <td>{{ user.date_created }}</td>
+                            <td>{{ user.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}</td>
                             <td>
                                 <a href="/admin/edit-user/{{ user.id }}" class="btn btn-info">Edit</a>
                                 <a href="/admin/delete-user/{{ user.id }}" class="btn btn-danger" id="delete">Delete</a>

@@ -411,11 +411,12 @@ def user_profile_password():
 
 # ========= ADMIN CONTROLLER =========
 # ADMIN DASHBOARD
-
-
 @views.route("/admin/home")
 @login_required
 def adminhome():
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     posts = Post.query.all()
     likes = Like.query.all()
     users = User.query.all()
@@ -428,15 +429,18 @@ def adminhome():
 @views.route("/admin/not-exist")
 @login_required
 def no_content_page():
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
 
     return render_template("admin/404.html", user=current_user)
 
 # MANAGE USER
 
-
 @views.route("/admin/user")
 @login_required
 def admin_user_view():
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
     posts = Post.query.all()
     users = User.query.all()
     likes = Like.query.all()
@@ -446,6 +450,9 @@ def admin_user_view():
 @views.route("/admin/user/add", methods=['GET', 'POST'])
 @login_required
 def admin_user_add():
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     posts = Post.query.all()
     users = User.query.all()
     likes = Like.query.all()
@@ -499,6 +506,9 @@ def admin_user_add():
 @views.route("/admin/edit-user/<user_id>", methods=['GET', 'POST'])
 @login_required
 def admin_user_edit(user_id):
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     user = User.query.get_or_404(user_id)
 
     if request.method == 'POST':
@@ -538,6 +548,9 @@ def admin_user_edit(user_id):
 @views.route("/admin/delete-user/<user_id>")
 @login_required
 def delete_user(user_id):
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     user = User.query.filter_by(id=user_id).first()
     if not user:
         flash('User does not exist.', category='error')
@@ -554,6 +567,9 @@ def delete_user(user_id):
 @views.route("/admin/profile")
 @login_required
 def admin_profile_view():
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     users = User.query.all()
     return render_template("backend/profile/view_profile.html", user=current_user,  users=users)
 
@@ -561,6 +577,9 @@ def admin_profile_view():
 @views.route("/admin/profile/edit", methods=['GET', 'POST'])
 @login_required
 def admin_profile_edit():
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     user = User.query.all()
 
     if request.method == 'POST':
@@ -687,6 +706,9 @@ def admin_profile_edit():
 @views.route("/admin/change-password", methods=['GET', 'POST'])
 @login_required
 def admin_profile_password():
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     user = User.query.get_or_404(current_user.id)
 
     check_current_password = User.query.filter_by(id=current_user.id).first()
@@ -726,6 +748,9 @@ def admin_profile_password():
 @views.route("/admin/post")
 @login_required
 def admin_post_view():
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     posts = Post.query.all()
     users = User.query.all()
 
@@ -735,6 +760,9 @@ def admin_post_view():
 @views.route("/admin/post/add", methods=['GET', 'POST'])
 @login_required
 def admin_post_add():
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     if request.method == "POST":
         title = request.form.get('title')
         text = request.form.get('text')
@@ -796,6 +824,9 @@ def admin_post_add():
 @views.route("/admin/edit-post/<post_id>", methods=['GET', 'POST'])
 @login_required
 def admin_post_edit(post_id):
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     post = Post.query.get_or_404(post_id)
 
     if request.method == 'POST':
@@ -843,6 +874,9 @@ def admin_post_edit(post_id):
 @views.route("/admin/delete-post/<post_id>")
 @login_required
 def admin_post_delete(post_id):
+    if current_user.usertype == 'user':
+       return redirect(url_for('views.home'))
+
     post = Post.query.filter_by(id=post_id).first()
 
     if not post:

@@ -64,7 +64,7 @@
                             <td class="text-primary font-weight-bold">{{ post.title }}</td>
                             <td>{{ post.user.firstname }} {{ post.user.lastname }}</td>
                             <td class="font-weight-bold">{{ post.location }} ({{ post.location1 }})</td>
-                            <td>{{ post.date_created }}</td>
+                            <td>{{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}</td>
                             <td>
                                 <a href="/admin/edit-post/{{ post.id }}" class="btn btn-info">Edit</a>
                                 <a href="/admin/delete-post/{{ post.id }}" class="btn btn-danger" id="delete">Delete</a>
