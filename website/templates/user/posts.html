@@ -3,9 +3,50 @@
 {% block title %}{{ company }}'s Jobs List | Venture{% endblock %}
 
 {% block header %}
-<i class="fas fa-list-alt"></i> {{ company }}'s Jobs List
+<!-- Start Header Section -->
+<section id="header_section">
+    <!-- Start Header Image -->
+    <div class="home-wrap">
+        <div class="home-inner">
+        </div>
+    </div>
+    <!-- End Header Image -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <h1 id="findjobs_heading">{{ company }}'s Jobs List</h1>
+                {% if active_page == "add_post" %}
+                {% elif active_page == "edit_post" %}
+                {% elif active_page == "view_single_post" %}
+                {% elif active_page == "edit_password" %}
+                {% elif active_page == "edit_post" %}
+                {% elif active_page == "edit_profile" %}
+                {% elif active_page == "view_profile" %}
+                {% else %}
+                <form class="d-flex" method="GET">
+                    <div class="input-group me-5">
+                        <span class="input-group-text bg-white" id="basic-addon1"><i
+                                class="fas fa-search text-secondary"></i></span>
+                        <input class="form-control border-start-0" type="search"
+                            placeholder="Search by keywords, job title, or company" aria-label="Search" name="searchbar"
+                            aria-describedby="basic-addon1">
+                        <button class="btn" id="search_button" type="submit">Search</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+            <div class="col-md-7">
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
 {% endblock %}
 
 {% block footer %}
-<a class="float-start mb-5" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
+<div class="container">
+    <a class="float-start mb-5" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
+</div>
 {% endblock %}

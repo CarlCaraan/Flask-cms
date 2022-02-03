@@ -5,156 +5,227 @@
 {% set active_page = "view_post" %}
 
 {% block content %}
-<h3 class="text-muted mt-3">{% block header %}<i class="fas fa-list-alt"></i> Job List{% endblock %}</h3>
-<div id="posts">
 
-    {% if posts.all()|length > 0 %}
-    {% for post in posts %}
-    <div class="card mb-3" id="post_container">
+{% block header %}
+<!-- Start Header Section -->
+<section id="header_section">
+    <!-- Start Header Image -->
+    <div class="home-wrap">
+        <div class="home-inner">
+        </div>
+    </div>
+    <!-- End Header Image -->
 
-        <!-- Start Header Section -->
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <a href="/post/{{ post.id }}" class="btn btn-secondary"><i class="fas fa-external-link-alt"></i> View
-                Post</a>
-            <div class="btn-group">
-                <small class="text-muted mt-1 me-2">
-                    {% if post.date_updated == None %}
-                    Posted {{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
-                    {% else %}
-                    Last Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
-                    {% endif %}
-                </small>
-                {% if user.id == post.author %}
-                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="/edit-post/{{ post.id }}" class="dropdown-item">Edit</a>
-                    </li>
-                    <li>
-                        <a href="/delete-post/{{ post.id }}" class="dropdown-item" id="delete">Delete</a>
-                    </li>
-                </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <h1 id="findjobs_heading">Find Jobs. Start your venture.</h1>
+                {% if active_page == "add_post" %}
+                {% elif active_page == "edit_post" %}
+                {% elif active_page == "view_single_post" %}
+                {% elif active_page == "edit_password" %}
+                {% elif active_page == "edit_post" %}
+                {% elif active_page == "edit_profile" %}
+                {% elif active_page == "view_profile" %}
+                {% else %}
+                <form class="d-flex" method="GET">
+                    <div class="input-group me-5">
+                        <span class="input-group-text bg-white" id="basic-addon1"><i
+                                class="fas fa-search text-secondary"></i></span>
+                        <input class="form-control border-start-0" type="search"
+                            placeholder="Search by keywords, job title, or company" aria-label="Search" name="searchbar"
+                            aria-describedby="basic-addon1">
+                        <button class="btn" id="search_button" type="submit">Search</button>
+                    </div>
+                </form>
                 {% endif %}
             </div>
-        </div>
-        <!-- End Header Section -->
-
-        <!-- Start Content Section -->
-        <div class="card-body">
-            <span class="text-primary fw-bold">
-                {{ post.title }}
-            </span><br>
-            <a class="text-secondary text-decoration-none" href="/posts/{{ post.user.company }}">{{ post.user.company
-                }}</a><br><br>
-            <span class="fw-bold">{{ post.location.capitalize() }} ({{ post.location1.capitalize() }})</span><br>
-            
-            <!-- Start Salary -->
-            {% if post.salary == "0" and post.salary1 == "0" %}
-            {% else %}
-                <span class="fw-bold">PHP {{ post.salary }}K - {{ post.salary1 }}K monthly</span>
-            {% endif %}
-            <!-- End Salary -->
-
-            <hr>
-            <!-- Start Collapsable Job Description -->
-            <p class="fw-bold" data-bs-toggle="collapse" href="#collapseExample{{ post.id }}" role="button"
-                aria-expanded="false" aria-controls="collapseExample">
-                Job Description <i class="fas fa-chevron-down"></i>
-            </p>
-            <div class="collapse" id="collapseExample{{ post.id }}">
-                <div class="card-text">
-                    {{ post.text|safe }}
-                </div><br><br>
-
-                <!-- Start Additional Information Section -->
-                <h5>Additional Information</h5>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <span class="fw-bold">Career Level</span><br>
-                        {{ post.level }}<br><br>
-                        <span class="fw-bold">Years of Experience</span><br>
-                        {{ post.experience }}<br><br>
-                        <span class="fw-bold">Job Specializations</span><br>
-                        <span class="text-primary">{{ post.specialization }}</span><br><br>
-                    </div>
-                    <div class="col-md-6">
-                        <span class="fw-bold">Job Type</span><br>
-                        {{ post.jobtype }}<br><br>
-                        <span class="fw-bold">Qualification</span><br>
-
-                        {% if post.qualification == None and post.qualification1 == None and post.qualification2 == None and post.qualification3 == None and post.qualification4 == None
-                        %}
-                        Not Specified
-                        {% else %}
-                        {% if not post.qualification %}
-                        {% else %}
-                        {{ post.qualification }},
-                        {% endif %}
-
-                        {% if not post.qualification1 %}
-                        {% else %}
-                        {{ post.qualification1 }},
-                        {% endif %}
-
-                        {% if not post.qualification2 %}
-                        {% else %}
-                        {{ post.qualification2 }},
-                        {% endif %}
-
-                        {% if not post.qualification3 %}
-                        {% else %}
-                        {{ post.qualification3 }},
-                        {% endif %}
-
-                        {% if not post.qualification4 %}
-                        {% else %}
-                        {{ post.qualification4 }},
-                        {% endif %}
-
-                        {% endif %}
-                    </div>
-                </div>
-                <!-- End Additional Information Section -->
+            <div class="col-md-7">
 
             </div>
-            <!-- End Collapsable Job Description -->
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+{% endblock %}
 
-            <div class="alert alert-info text-center">
-                <i class="fas fa-check-circle"></i>
-                Must Submit Application Form and Resume.<br>
-                <button class="btn btn-info mt-2">
+<section>
+    <div class="container" id="posts">
+        {% if posts.all()|length > 0 %}
+        {% for post in posts %}
+        <div class="card mb-3" id="post_container">
+
+            <!-- Start Header Section -->
+            <div class="card-header" id="post_card_header">
+                <div class="row pt-2">
+                    <div class="col-6">
+                        <span class="fw-bold" id="job_title">
+                            {{ post.title }}
+                        </span><br>
+                        <a class="text-secondary text-decoration-none" href="/posts/{{ post.user.company }}">{{
+                            post.user.company
+                            }}</a>
+                    </div>
+                    <div class="col">
+                        <div class="btn-group float-end">
+                            {% if user.id == post.author %}
+                            <a class="mx-3" id="three_dots" data-bs-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h text-secondary"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/edit-post/{{ post.id }}" class="dropdown-item">Edit</a>
+                                </li>
+                                <li>
+                                    <a href="/delete-post/{{ post.id }}" class="dropdown-item" id="delete">Delete</a>
+                                </li>
+                            </ul>
+                            {% endif %}
+                            <a href="/post/{{ post.id }}" class="text-secondary"><i
+                                    class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-3">
+                        <span class="post_card_header_text"><i class="fas fa-map-marker-alt"></i> {{ post.location.capitalize() }} ({{ post.location1.capitalize() }})</span><br>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="post_card_header_text"><i class="fas fa-briefcase"></i> {{ post.level }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- Start Salary -->
+                        {% if post.salary == "0" and post.salary1 == "0" %}
+                        {% else %}
+                        <span class="post_card_header_text"><i class="fas fa-money-bill-wave"></i> PHP {{ post.salary }}K - {{ post.salary1 }}K monthly</span>
+                        {% endif %}
+                        <!-- End Salary -->
+                    </div>
+                    <div class="col-md-3">
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Header Section -->
+
+            <!-- Start Content Section -->
+            <div class="card-body">
+                <!-- Start Collapsable Job Description -->
+                <div class="row">
+                    <div class="col">
+                        <small class="fw-bold" data-bs-toggle="collapse" href="#collapseExample{{ post.id }}" role="button"
+                            aria-expanded="false" aria-controls="collapseExample">
+                            Job Description <i class="fas fa-expand-alt"></i>
+                        </small>
+                        <div class="collapse" id="collapseExample{{ post.id }}">
+                            <div class="card-text pt-3">
+                                {{ post.text|safe }}
+                            </div><br><br>
+                            <!-- Start Additional Information Section -->
+                            <h5>Additional Information</h5>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <span class="fw-bold">Career Level</span><br>
+                                    {{ post.level }}<br><br>
+                                    <span class="fw-bold">Years of Experience</span><br>
+                                    {{ post.experience }}<br><br>
+                                    <span class="fw-bold">Job Specializations</span><br>
+                                    <span class="text-primary">{{ post.specialization }}</span><br><br>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="fw-bold">Job Type</span><br>
+                                    {{ post.jobtype }}<br><br>
+                                    <span class="fw-bold">Qualification</span><br>
+
+                                    {% if post.qualification == None and post.qualification1 == None and
+                                    post.qualification2 ==
+                                    None and post.qualification3 == None and post.qualification4 == None
+                                    %}
+                                    Not Specified
+                                    {% else %}
+                                    {% if not post.qualification %}
+                                    {% else %}
+                                    {{ post.qualification }},
+                                    {% endif %}
+
+                                    {% if not post.qualification1 %}
+                                    {% else %}
+                                    {{ post.qualification1 }},
+                                    {% endif %}
+
+                                    {% if not post.qualification2 %}
+                                    {% else %}
+                                    {{ post.qualification2 }},
+                                    {% endif %}
+
+                                    {% if not post.qualification3 %}
+                                    {% else %}
+                                    {{ post.qualification3 }},
+                                    {% endif %}
+
+                                    {% if not post.qualification4 %}
+                                    {% else %}
+                                    {{ post.qualification4 }},
+                                    {% endif %}
+
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- End Additional Information Section -->
+
+                            <div class="alert alert-info text-center" id="card_post_alert">
+                                <i class="fas fa-check-circle"></i>
+                                You must submit an application form and resume.
+                            </div>
+
+                        </div> <!-- End Collapse Div -->
+
+                    </div> <!-- End Col -->
+                </div> <!-- End Row -->
+                <!-- End Collapsable Job Description -->
+
+            </div>
+            <!-- End Content Section -->
+
+            <div class="card-footer" id="post_card_footer">
+                <div class="float-start">
+                    <!-- Start Like Button -->
+                    <small class="post_card_header_text">
+                        {% if user.id in post.likes|map(attribute="author")|list %}
+                        <i class="fas fa-chart-line text-primary" id="like-button-{{ post.id }}"
+                            onclick="like({{ post.id }})"></i>
+                        {% else %}
+                        <i class="fas fa-chart-line" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
+                        {% endif %}
+                        <span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span> Popularity<br>
+                    </small>
+                    <!-- End Like Button -->
+
+                    <small class="post_card_header_text">
+                        {% if post.date_updated == None %}
+                        Posted {{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
+                        {% else %}
+                        Last Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
+                        {% endif %}
+                    </small>
+                </div>
+
+                <button class="btn mt-1 float-end" id="apply_button">
                     <a class="text-light text-decoration-none" href="mailto:{{ post.user.email }}">Apply Now</a>
                 </button>
             </div>
+        </div> <!-- End Card -->
+        {% endfor %}
+        {% else %}
+        <div align="center">
+            <img src="{{ url_for('static',filename='user/img/search.png') }}" width="450" alt=""><br>
+            <h4 class="text-muted">No Job Listed.</h4>
         </div>
-        <!-- End Content Section -->
+        {% endif %}
 
-        <div class="card-footer text-muted">
-            <!-- Start Like Button -->
-            {% if user.id in post.likes|map(attribute="author")|list %}
-            <!-- <a class="text-decoration-none" href="/like-post/{{ post.id }}"> -->
-            <i class="fas fa-chart-line text-primary" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
-            <!-- </a> -->
-            {% else %}
-            <!-- <a class="text-decoration-none" href="/like-post/{{ post.id }}"> -->
-            <i class="fas fa-chart-line" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
-            <!-- </a> -->
-            {% endif %}
-            <span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span> <small>Popularity</small> 
-            <!-- End Like Button -->
-        </div>
-
-    </div> <!-- End Card -->
-    {% endfor %}
-    {% else %}
-    <div align="center">
-        <img src="{{ url_for('static',filename='user/img/search.png') }}" width="450" alt=""><br>
-        <h4 class="text-muted">No Job Listed.</h4>
     </div>
-    {% endif %}
-
-</div>
-
+</section>
 {% block footer %} {% endblock %}
 
 {% endblock %}

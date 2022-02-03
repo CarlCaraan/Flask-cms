@@ -1,6 +1,163 @@
-#post_container{
-    border-right: 5px solid#0c69f2;
-    box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.2);
-    -webkit-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.2);
-    -moz-box-shadow: 3px 2px 5px 0px rgba(0,0,0,0.2);
+/*============= ALL FONTS =============*/
+
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap");
+
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url("assets/fonts/Lato-Regular.ttf");
+}
+@font-face {
+  font-family: "Raleway", sans-serif;
+  src: url("assets/fonts/Raleway-Regular.ttf");
+}
+@font-face {
+  font-family: "Poppins", sans-serif;
+  src: url("assets/fonts/Poppins-Regular.ttf");
+}
+
+/*!
+* Global Class Reference
+* Version - 6.9
+* github https://github.com/CarlCaraan
+* Licensed under the MIT license - http://opensource.org/licenses/MIT
+*
+* Copyright (c) 2021 Carl Caraan
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  /* transition: all .2s linear; */
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Helvetica", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/*============ NAVIGATION =============*/
+
+.navbar-brand {
+    margin-right: 2rem;
+}
+#navbar_employee {
+  background-color: #7551f5;
+  color: #fff;
+  font-family: "Lato", sans-serif;
+  font-size: 20px;
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+#navbar_employer {
+  background-color: #444d5a;
+  color: #fff;
+  font-family: "Lato", sans-serif;
+  font-size: 20px;
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+.navbar li a {
+  color: #f1f1f1;
+}
+.navbar li a:hover {
+  color: #fff;
+}
+.dropdown-menu li a {
+  color: #000 !important;
+}
+.active_border_bottom {
+  border-bottom: 2px solid #aaa1d9;
+}
+.active_border_bottom2 {
+  border-bottom: 2px solid #7450f7;
+}
+#navbar_logo {
+  margin-top: -0.7rem;
+  image-rendering: crispEdges;
+}
+.home-inner {
+  background-image: url("/static/user/img/header-bg.jpg");
+  z-index: -1;
+}
+
+/*============ POST SECTION =============*/
+
+#message_validation {
+  position: absolute;
+  right: 1.5rem;
+  margin-top: 6rem;
+}
+#header_section {
+  padding-top: 8.5rem;
+  padding-bottom: 8.5rem;
+}
+#findjobs_heading {
+  font-size: 36px;
+  font-style: bold;
+  color: #fafafa;
+}
+#post_container {
+  border: none;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+}
+#search_button {
+  background-color: #7551f5;
+  color: #fff;
+}
+#search_button:hover {
+  background-color: #8a6cf5;
+}
+#basic-addon1 {
+  padding-right: 0px;
+}
+#three_dots {
+  padding-left: 5px;
+  padding-right: 4px;
+  padding-top: 2px;
+}
+#three_dots:hover {
+  background-color: #dadada;
+  border-radius: 100%;
+  padding-left: 5px;
+  padding-right: 4px;
+  padding-top: 2px;
+}
+#job_title {
+  font-style: bold;
+  font-size: 20px;
+  font-family: "Lato", sans-serif;
+  color: #7450f7;
+}
+#post_card_header {
+  background-color: #e5eaf1;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #7450f7;
+}
+#post_card_footer {
+  background-color: #e5eaf1;
+}
+#card_post_alert {
+  background-color: #9d82fd;
+  color: #fff;
+  border: none;
+}
+.post_card_header_text {
+  color: #444d5a;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+}
+#apply_button {
+  background-color: #7450f7;
 }
