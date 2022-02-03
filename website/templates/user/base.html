@@ -50,7 +50,21 @@
                     </li>
                     {% endif %}
                 </ul>
-                <li class="d-flex nav-item dropdown">
+
+                {% if active_page == "add_post" %}
+                {% elif active_page == "edit_post" %}
+                {% elif active_page == "view_single_post" %}
+                {% elif active_page == "edit_password" %}
+                {% elif active_page == "edit_post" %}
+                {% elif active_page == "edit_profile" %}
+                {% elif active_page == "view_profile" %}
+                {% else %}
+                <form class="d-flex" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchbar">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                {% endif %}
+                <li class="d-flex nav-item dropdown ms-2">
                     <a class="nav-link text-secondary dropdown-toggle ps-0 {{ 'text-white' if active_page == 'edit_password' or active_page == 'edit_profile' or active_page == 'view_profile' else '' }}" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         {{ current_user.firstname }}
@@ -78,19 +92,6 @@
                         </li>
                     </ul>
                 </li>
-                {% if active_page == "add_post" %}
-                {% elif active_page == "edit_post" %}
-                {% elif active_page == "view_single_post" %}
-                {% elif active_page == "edit_password" %}
-                {% elif active_page == "edit_post" %}
-                {% elif active_page == "edit_profile" %}
-                {% elif active_page == "view_profile" %}
-                {% else %}
-                <form class="d-flex" method="GET">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchbar">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                {% endif %}
             </div>
         </div>
     </nav>

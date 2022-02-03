@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from .models import Post, User, Like
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import or_
 
 views = Blueprint("views", __name__)
 
@@ -23,7 +24,12 @@ def landing_page_about():
 def home():
     searchbar = request.args.get('searchbar')
     if searchbar:
-        posts = Post.query.filter(Post.title.contains(searchbar)).order_by(Post.date_created.desc())
+        posts = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc())
+        results = posts.count()
+        if results > 0:
+            flash('Search Results: ' + str(results), category='success')
+        else:
+            flash('No results found', category='error')
     else:
         posts = Post.query.order_by(Post.date_created.desc())
     return render_template("user/home.html", user=current_user, posts=posts)
@@ -79,7 +85,7 @@ def create_post():
             else:
                 post = Post(text=text, title=title, location=location, location1=location1, salary=salary, salary1=salary1, level=level,
                             specialization=specialization, experience=experience, jobtype=jobtype, qualification=qualification, qualification1=qualification1,
-                            qualification2=qualification2, qualification3=qualification3, qualification4=qualification4, author=current_user.id)
+                            qualification2=qualification2, qualification3=qualification3, qualification4=qualification4, author=current_user.id, company=current_user.company)
                 db.session.add(post)
                 db.session.commit()
                 flash('Post Created!', category='success')
@@ -162,17 +168,22 @@ def delete_post(id):
 @login_required
 def posts(company):
     searchbar = request.args.get('searchbar')
-    if searchbar:
-        posts = Post.query.filter(Post.title.contains(searchbar)).order_by(Post.date_created.desc())
-    else:
-        user = User.query.filter_by(company=company).first()
 
-    if not user:
+    if searchbar :
+        posts = Post.query.filter_by(company=company).filter(Post.title.contains(searchbar)).order_by(Post.date_created.desc())
+        results = posts.count()
+        if results > 0:
+            flash('Search Results: '+ str(results), category='success')
+        else:
+            flash('No results found', category='error')
+    else:
+        posts = Post.query.filter_by(company=company).order_by(
+            Post.date_created.desc())
+
+    if not posts:
         flash('No user with that company exists.', category='error')
         return redirect(url_for('views.home'))
     
-    posts = user.posts
-
     return render_template('user/posts.html', user=current_user, posts=posts, company=company)
 
 # View Single Post

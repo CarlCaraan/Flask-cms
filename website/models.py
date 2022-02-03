@@ -33,6 +33,7 @@ class Post(db.Model):
         timezone=True), onupdate=datetime.now())
     author = db.Column(db.Integer, db.ForeignKey(
         'user.id', ondelete="CASCADE"), nullable="False")
+    company = db.Column(db.String(150), nullable="False")
     # comments = db.relationship('Comment', backref='post', passive_deletes=True) # relationship of post and comments
     # relationship of user and comments
     likes = db.relationship('Like', backref='post', passive_deletes="True")
