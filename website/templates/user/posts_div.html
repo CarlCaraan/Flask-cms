@@ -211,9 +211,12 @@
                     </small>
                 </div>
 
+                {% if current_user.company %}
+                {% else %}
                 <button class="btn mt-1 float-end" id="apply_button">
                     <a class="text-light text-decoration-none" href="mailto:{{ post.user.email }}">Apply Now</a>
                 </button>
+                {% endif %}
             </div>
         </div> <!-- End Card -->
         {% endfor %}
