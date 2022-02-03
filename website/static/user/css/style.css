@@ -161,3 +161,6 @@ body {
 #apply_button {
   background-color: #7450f7;
 }
+#apply_button:hover {
+  background-color: #8a6cf5;
+}
