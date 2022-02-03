@@ -13,7 +13,6 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="text-primary mt-1">{% block header %}<i class="fas fa-briefcase"></i> {{ post.title }}{% endblock
                 %}</h3>
-            {% if user.id == post.author %}
             <div class="btn-group">
                 <small class="text-muted mt-1 me-2">
                     {% if post.date_updated == None %}
@@ -22,6 +21,7 @@
                     Last Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
                     {% endif %}
                 </small>
+                {% if user.id == post.author %}
                 <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>
                 <ul class="dropdown-menu">
                     <li>
@@ -31,8 +31,8 @@
                         <a href="/delete-post/{{ post.id }}" class="dropdown-item" id="delete">Delete</a>
                     </li>
                 </ul>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
         <!-- End Header Section -->
 

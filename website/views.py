@@ -161,17 +161,17 @@ def delete_post(id):
 @views.route("/posts/<company>")
 @login_required
 def posts(company):
-    user = User.query.filter_by(company=company).first()
-
-    if not user:
-        flash('No user with that company exists.', category='error')
-        return redirect(url_for('views.home'))
-
     searchbar = request.args.get('searchbar')
     if searchbar:
         posts = Post.query.filter(Post.title.contains(searchbar)).order_by(Post.date_created.desc())
     else:
-        posts = user.posts
+        user = User.query.filter_by(company=company).first()
+
+    if not user:
+        flash('No user with that company exists.', category='error')
+        return redirect(url_for('views.home'))
+    
+    posts = user.posts
 
     return render_template('user/posts.html', user=current_user, posts=posts, company=company)
 
