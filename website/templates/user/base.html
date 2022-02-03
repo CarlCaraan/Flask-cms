@@ -78,6 +78,19 @@
                         </li>
                     </ul>
                 </li>
+                {% if active_page == "add_post" %}
+                {% elif active_page == "edit_post" %}
+                {% elif active_page == "view_single_post" %}
+                {% elif active_page == "edit_password" %}
+                {% elif active_page == "edit_post" %}
+                {% elif active_page == "edit_profile" %}
+                {% elif active_page == "view_profile" %}
+                {% else %}
+                <form class="d-flex" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchbar">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                {% endif %}
             </div>
         </div>
     </nav>
