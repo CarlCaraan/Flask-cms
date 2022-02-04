@@ -12,42 +12,42 @@
     <h3 class="mt-3 mb-2 text-muted"><i class="far fa-id-card"></i> Edit Profile</h3>
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit Form</h6>
+    <div class="card mb-4" id="post_container">
+        <div class="card-header py-3" id="post_card_header">
+            <h6 class="m-0 fw-bold" id="job_title">Edit Form</h6>
         </div>
         <div class="card-body">
             <form method="POST">
                 <div class="form-group">
-                    <label for="inputEmail4">First Name</label>
-                    <input type="text" class="form-control" id="firstname" name="firstname"
+                    <label class="venture_label" for="inputEmail4">First Name</label>
+                    <input type="text" class="form-control venture_input" id="firstname" name="firstname"
                         placeholder="First Name" value="{{ user.firstname }}">
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword4">Last Name</label>
-                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" value="{{ user.lastname }}">
+                    <label class="venture_label" for="inputPassword4">Last Name</label>
+                    <input type="text" class="form-control venture_input" id="lastname" name="lastname" placeholder="Last Name" value="{{ user.lastname }}">
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" value="{{ user.email }}">
+                    <label class="venture_label" for="email">Email</label>
+                    <input type="email" class="form-control venture_input" id="email" name="email" placeholder="Email Address" value="{{ user.email }}">
                 </div>
                 <div class="form-group">
-                    <label for="username">User Name</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="User Name" value="{{ user.username }}">
+                    <label class="venture_label" for="username">User Name</label>
+                    <input type="text" class="form-control venture_input" id="username" name="username" placeholder="User Name" value="{{ user.username }}">
                 </div>
                 <div class="form-group">
-                    <label for="company">Company Name</label>
-                    <input type="text" class="form-control" id="company" name="company" placeholder="Company Name (Optional)" value="{{ user.company }}">
+                    <label class="venture_label" for="company">Company Name</label>
+                    <input type="text" class="form-control venture_input" id="company" name="company" placeholder="Company Name (Optional)" value="{{ user.company }}">
                 </div>
                 <div class="form-group">
-                    <label for="usertype">User Type</label>
-                    <select id="usertype" class="form-control" name="usertype">
+                    <label class="venture_label" for="usertype">User Type</label>
+                    <select id="usertype" class="form-control venture_input" name="usertype">
                         <option selected disabled>Select User Type</option>
                         <option value="admin" {{ 'selected' if user.usertype == 'admin' else ''}}>Admin</option>
                         <option value="user" {{ 'selected' if user.usertype == 'user' else ''}}>User</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">Update Profile</button>
+                <button type="submit" class="btn mt-2 text-white" id="venture_button">Update Profile</button>
             </form>
         </div>
     </div>

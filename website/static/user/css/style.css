@@ -158,9 +158,27 @@ body {
   font-size: 14px;
   font-family: "Lato", sans-serif;
 }
-#apply_button {
+#venture_button {
   background-color: #7450f7;
 }
-#apply_button:hover {
+#venture_button:hover {
   background-color: #8a6cf5;
+}
+.venture_input {
+  font-family: "Lato", sans-serif;
+  background-color: #E6EBF2;
+  color: #000;
+}
+.venture_input:focus {
+  font-family: "Lato", sans-serif;
+  background-color: #E6EBF2;
+  color: #000;
+}
+.venture_input::placeholder {
+  font-family: "Lato", sans-serif;
+}
+.venture_label {
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
 }

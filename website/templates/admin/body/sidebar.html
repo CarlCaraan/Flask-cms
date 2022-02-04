@@ -1,11 +1,8 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/home">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">Admin Panel</div>
+        <img src="{{ url_for('static',filename='admin/img/venture-white.png') }}" width="102px" alt="">
     </a>
 
     <!-- Divider -->
@@ -90,11 +87,22 @@
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
-    <!-- Sidebar Message -->
-    <div class="sidebar-card d-none d-lg-flex">
-        <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-        <p class="text-center mb-2"><strong>M83X Systems</strong><br>All rights reserved &copy 2022</p>
-        <a class="btn btn-success btn-sm" href="/admin/not-exist">Visit our page!</a>
-    </div>
+    <!-- Sidebar Footer -->
+    <footer class="border-top border-bottom py-3 w-100 opacity-75 mt-3">
+        <div class="text-center w-100">
+            <a class="btn btn-sm text-white font-weight-bold py-2 px-3 shadow mb-2" id="venture_button" href="/admin/not-exist">Visit our page!</a>
+        </div>
+        <div class="row">
+            <div class="col-3 pr-0">
+                <img class="mt-2 float-right" id="logo_m83x" src="{{ url_for('static',filename='landing_page/assets/img/logo.png') }}"
+                    width="32px" alt="">
+            </div>
+            <div class="col-9">
+                <small class="text-light mt-1" id="copyright_sidebar">&copy 2022 M83X Systems <br>
+                    All Rights Reserved</small>
+            </div>
+        </div>
+    </footer>
+
 
 </ul>

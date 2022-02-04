@@ -1,0 +1,101 @@
+/*============= ALL FONTS =============*/
+
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap");
+
+@font-face {
+  font-family: "Lato", sans-serif;
+  src: url("assets/fonts/Lato-Regular.ttf");
+}
+@font-face {
+  font-family: "Raleway", sans-serif;
+  src: url("assets/fonts/Raleway-Regular.ttf");
+}
+@font-face {
+  font-family: "Poppins", sans-serif;
+  src: url("assets/fonts/Poppins-Regular.ttf");
+}
+
+/*!
+* Global Class Reference
+* Version - 6.9
+* github https://github.com/CarlCaraan
+* Licensed under the MIT license - http://opensource.org/licenses/MIT
+*
+* Copyright (c) 2021 Carl Caraan
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  /* transition: all .2s linear; */
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Helvetica", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/*============= SIDEBAR SECTION =============*/
+
+#accordionSidebar {
+    background-color: #7551f5!important;
+}
+#venture_button {
+  background-color: #8a6cf5;
+}
+#venture_button:hover {
+  background-color: #977ef3;
+}
+#copyright_sidebar {
+ overflow-wrap: break-word;
+ display:inline-block;
+}
+
+/*============= Content Section =============*/
+
+#post_container {
+  border: none;
+  box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+}
+#post_card_header {
+  background-color: #e5eaf1;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #7450f7;
+}
+#job_title {
+  font-style: bold;
+  font-size: 20px;
+  font-family: "Lato", sans-serif;
+  color: #7450f7;
+}
+.venture_input {
+  font-family: "Lato", sans-serif;
+  background-color: #E6EBF2;
+  color: #000;
+}
+.venture_input:focus {
+  font-family: "Lato", sans-serif;
+  background-color: #E6EBF2;
+  color: #000;
+}
+.venture_input::placeholder {
+  font-family: "Lato", sans-serif;
+}
+.venture_label {
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+}
+
