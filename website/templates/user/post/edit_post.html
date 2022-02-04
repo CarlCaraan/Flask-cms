@@ -36,12 +36,13 @@
                 <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
                     <div class="row mt-3 mb-2">
                         <div class="col-sm-12">
-                            <span>Current Job Salary Range:
+                            <span class="text-secondary">Current Job Salary Range:
                                 {% if post.salary and post.salary1 == "0" %}
                                 <strong>Not Specified</strong>
                                 {% else %}
-                                <strong>PHP {{ post.salary }}K to {{ post.salary1 }}K</strong></span><br>
+                                <strong>PHP {{ post.salary }}K to {{ post.salary1 }}K</strong>
                                 {% endif %}
+                            </span><br>
                         </div>
                     </div>
                     <div class="row slider-labels">
