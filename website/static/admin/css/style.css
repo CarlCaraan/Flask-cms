@@ -45,6 +45,13 @@ body {
   overflow-x: hidden;
 }
 
+/*============= HEADER SECTION =============*/
+#main_header {
+  font-family: "Poppins", sans-serif;
+}
+.dropdown-menu .dropdown-item {
+  font-family: "Poppins", sans-serif;
+}
 /*============= SIDEBAR SECTION =============*/
 
 #accordionSidebar {
@@ -62,8 +69,12 @@ body {
   display: inline-block;
 }
 .venture_active_link {
-  color: #aaa1d9 !important;
+  color: #7551f5 !important;
   font-weight: bold;
+}
+.nav-link,
+.nav-link span {
+  font-size: 16px!important;
 }
 
 /*============= CONTENT SECTION =============*/
