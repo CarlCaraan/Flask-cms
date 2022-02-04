@@ -174,10 +174,13 @@
                             </div>
                             <!-- End Additional Information Section -->
 
+                            {% if current_user.company %}
+                            {% else %}
                             <div class="alert alert-info text-center" id="card_post_alert">
                                 <i class="fas fa-check-circle"></i>
                                 You must submit an application form and resume.
                             </div>
+                            {% endif %}
 
                         </div> <!-- End Collapse Div -->
 
@@ -204,7 +207,7 @@
 
                     <small class="post_card_header_text">
                         {% if post.date_updated == None %}
-                        Posted {{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
+                        Posted on {{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
                         {% else %}
                         Last Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
                         {% endif %}
