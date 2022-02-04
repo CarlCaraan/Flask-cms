@@ -168,11 +168,13 @@ body {
   font-family: "Lato", sans-serif;
   background-color: #E6EBF2;
   color: #000;
+  border: none;
 }
 .venture_input:focus {
   font-family: "Lato", sans-serif;
   background-color: #E6EBF2;
   color: #000;
+  border: none;
 }
 .venture_input::placeholder {
   font-family: "Lato", sans-serif;

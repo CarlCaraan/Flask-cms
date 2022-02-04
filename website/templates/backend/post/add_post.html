@@ -38,162 +38,175 @@
     <!-- End Message Validation -->
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Add Form</h6>
+    <div class="card border mb-4" id="post_container">
+        <div class="card-header py-3" id="post_card_header">
+            <h6 class="m-0 font-weight-bold" id="job_title">Add Form</h6>
         </div>
         <div class="card-body">
-        <form action="" method="POST">
-            <label for="title">Job Title</label>
-            <input class="form-control" type="text" id="title" name="title" placeholder="Job Title"><br>
-        
-            <label for="text">Job Description</label>
-            <input type="hidden" class="form-control" id="text" name="text" cols="30" rows="10"
-                placeholder="Whats on your mind?">
-            <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
-        
-            <label for="">Company Location</label>
-            <div class="row">
-                <div class="col-md-6">
-                    Region*<select class="form-control mb-2" id="region" onclick="getHidden()">
-        
-                    </select>
-                    Province*<select class="form-control mb-2" id="province" onclick="getHidden()">
-                    </select>
-                    City*<select class="form-control" id="city" onclick="getHidden()">
-                    </select><br>
-                    <input type="hidden" name="location" id="province_hidden">
-                    <input type="hidden" name="location1" id="city_hidden">
+            <form action="" method="POST">
+                <label class="venture_label" for="title"><i class="fas fa-pen-nib"></i> Job Title</label>
+                <input class="form-control venture_input" type="text" id="title" name="title"
+                    placeholder="Job Title"><br>
 
-                    <label for="">Salary Range Monthly (0 - 250K ₱)</label><br>
-                    <input class="form-check-input ml-2" type="checkbox" value="" onclick="onSpecify()">
-                    <label class="form-check-label ml-4" for="dont_specify">
-                        Don't Specify
-                    </label><br>
-                    <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
-                        From: ₱<span id="slider-range-value1"></span>K<br>
-                        To: ₱<span id="slider-range-value2"></span>K
-                        <div class="row mt-3 mb-2">
-                            <div class="col-sm-12">
-                                <div id="slider-range" onclick="updateValue()"></div>
-                            </div>
-                        </div>
+                <label class="venture_label" for="text"><i class="fas fa-sticky-note"></i> Job Description</label>
+                <input type="hidden" class="form-control" id="text" name="text" cols="30" rows="10"
+                    placeholder="Whats on your mind?">
+                <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
+
+                <label class="venture_label" for=""><i class="fas fa-map-marker-alt"></i> Company Location</label>
+                <div class="row">
+                    <div class="col-12">
                         <div class="row">
-                            <div class="col-sm-12">
-                                <input id="salary" type="hidden" name="salary">
-                                <input id="salary1" type="hidden" name="salary1">
+                            <div class="col-md-4">
+                                Region*<select class="form-control mb-2 venture_input" id="region"
+                                    onclick="getHidden()">
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                Province*<select class="form-control mb-2 venture_input" id="province"
+                                    onclick="getHidden()">
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                City*<select class="form-control venture_input" id="city" onclick="getHidden()">
+                                </select><br>
+                                <input type="hidden" name="location" id="province_hidden">
+                                <input type="hidden" name="location1" id="city_hidden">
                             </div>
                         </div>
-                    </div><br>
-                    <script>
-                        function updateValue(newValue) {
-                            var span_salary1 = document.getElementById("slider-range-value1").textContent;
-                            document.getElementById("salary").value = span_salary1;
-                            var span_salary2 = document.getElementById("slider-range-value2").textContent;
-                            document.getElementById("salary1").value = span_salary2;
-                        }
-                        function onSpecify() {
-                            salaryDiv = document.getElementById("salary_div");
-                            salary1 = document.getElementById("salary1");
+                    </div> <!-- End Col -->
+                </div> <!-- End Row -->
+                <div class="row">
+                    <div class="col-12">
+                        <label class="venture_label" for=""><i class="fas fa-money-bill-wave"></i> Salary Range Monthly (0 - 250K ₱)</label><br>
+                        <input class="form-check-input ml-2" type="checkbox" value="" onclick="onSpecify()">
+                        <label class="form-check-label ml-4 venture_label" for="dont_specify">
+                            Don't Specify
+                        </label><br>
+                        <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
+                            From: ₱<span id="slider-range-value1"></span>K<br>
+                            To: ₱<span id="slider-range-value2"></span>K
+                            <div class="row mt-3 mb-2">
+                                <div class="col-sm-12">
+                                    <div id="slider-range" onclick="updateValue()"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <input id="salary" type="hidden" name="salary">
+                                    <input id="salary1" type="hidden" name="salary1">
+                                </div>
+                            </div>
+                        </div><br>
+                    </div> <!-- End Col -->
+                </div> <!-- End Row -->
+                <script>
+                    function updateValue(newValue) {
+                        var span_salary1 = document.getElementById("slider-range-value1").textContent;
+                        document.getElementById("salary").value = span_salary1;
+                        var span_salary2 = document.getElementById("slider-range-value2").textContent;
+                        document.getElementById("salary1").value = span_salary2;
+                    }
+                    function onSpecify() {
+                        salaryDiv = document.getElementById("salary_div");
+                        salary1 = document.getElementById("salary1");
 
-                            if (salaryDiv.style.display === "none") {
-                                salaryDiv.style.display = "block";
-                            }
-                            else {
-                                salary = document.getElementById("salary").value = "0";
-                                salary1 = document.getElementById("salary1").value = "0";
-                                salaryDiv.style.display = "none";
-                            }
+                        if (salaryDiv.style.display === "none") {
+                            salaryDiv.style.display = "block";
                         }
-                    </script>
+                        else {
+                            salary = document.getElementById("salary").value = "0";
+                            salary1 = document.getElementById("salary1").value = "0";
+                            salaryDiv.style.display = "none";
+                        }
+                    }
+                </script>
+                <hr>
+                <h5><i class="fas fa-info-circle"></i> Additional Information (Required)</h5>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="venture_label" for="">Careel Level</label>
+                        <select class="form-control venture_input" name="level" id="">
+                            <option disabled selected>Select options</option>
+                            <option value="Less than 1 Year Experienced Employee">Less than 1 Year Experienced Employee
+                            </option>
+                            <option value="1-4 Years Experienced Employee">1-4 Years Experienced Employee</option>
+                            <option value="Supervisor/5 Years & Up Experienced Employee">Supervisor/5 Years & Up
+                                Experienced
+                                Employee</option>
+                        </select><br>
+
+                        <label class="venture_label" for="">Years Of Experience</label>
+                        <select class="form-control venture_input" name="experience" id="">
+                            <option disabled selected>Select options</option>
+                            <option value="Fresh Graduate">Fresh Graduate</option>
+                            <option value="1 Year">1 Year</option>
+                            <option value="2 Years">2 Years</option>
+                            <option value="3 Years">3 Years</option>
+                            <option value="4 Years">4 Years</option>
+                            <option value="5 Years">5 Years</option>
+                        </select><br>
+                        <label class="venture_label" for="">Job Type</label>
+                        <select class="form-control venture_input" name="jobtype" id="">
+                            <option disabled selected>Select options</option>
+                            <option value="Full-Time">Full-Time</option>
+                            <option value="Part-Time">Part-Time</option>
+                        </select><br>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="venture_label" for="">Job Specializations</label>
+                        <input class="form-control venture_input" type="text" name="specialization"
+                            placeholder="Job Specializations (please specify)" onclick="updateValue()"><br>
+
+                        <label class="venture_label" for="">Qualification</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Highschool Diploma"
+                                name="qualification" id="qualification">
+                            <label class="form-check-label" for="qualification">
+                                Highschool Diploma
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Bachelor's/College Degree"
+                                name="qualification1" id="qualification1">
+                            <label class="form-check-label" for="qualification1">
+                                Bachelor's/College Degree
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                value="Professional License (Passed Board/Bar/Professional License Exam)"
+                                name="qualification2" id="qualification2">
+                            <label class="form-check-label" for="qualification2">
+                                Professional License (Passed Board/Bar/Professional License Exam)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                value="Vocational Diploma/Short Course Certificate" name="qualification3"
+                                id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Vocational Diploma/Short Course Certificate
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                value="Post Graduate Diploma/Master's Degree" name="qualification4"
+                                id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Post Graduate Diploma/Master's Degree
+                            </label>
+                        </div>
+                        <br>
+                    </div>
                 </div>
-                <div class="col-md-6">
+
+                <div>
+                    <button class="btn btn-lg text-white float-end" id="venture_button" onclick="getHidden()">Add
+                        Post</button>
                 </div>
-            </div>
-        
-            <h5>Additional Information(Required)</h5>
-        
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="">Careel Level</label>
-                    <select class="form-control" name="level" id="">
-                        <option disabled selected>Select options</option>
-                        <option value="Less than 1 Year Experienced Employee">Less than 1 Year Experienced Employee
-                        </option>
-                        <option value="1-4 Years Experienced Employee">1-4 Years Experienced Employee</option>
-                        <option value="Supervisor/5 Years & Up Experienced Employee">Supervisor/5 Years & Up Experienced
-                            Employee</option>
-                    </select><br>
-        
-                    <label for="">Years Of Experience</label>
-                    <select class="form-control" name="experience" id="">
-                        <option disabled selected>Select options</option>
-                        <option value="Fresh Graduate">Fresh Graduate</option>
-                        <option value="1 Year">1 Year</option>
-                        <option value="2 Years">2 Years</option>
-                        <option value="3 Years">3 Years</option>
-                        <option value="4 Years">4 Years</option>
-                        <option value="5 Years">5 Years</option>
-                    </select><br>
-                    <label for="">Job Type</label>
-                    <select class="form-control" name="jobtype" id="">
-                        <option disabled selected>Select options</option>
-                        <option value="Full-Time">Full-Time</option>
-                        <option value="Part-Time">Part-Time</option>
-                    </select><br>
-                </div>
-                <div class="col-md-6">
-                    <label for="">Job Specializations</label>
-                    <input class="form-control" type="text" name="specialization"
-                        placeholder="Job Specializations (please specify)" onclick="updateValue()"><br>
-        
-                    <label for="">Qualification</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Highschool Diploma" name="qualification"
-                            id="qualification">
-                        <label class="form-check-label" for="qualification">
-                            Highschool Diploma
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Bachelor's/College Degree" name="qualification1"
-                            id="qualification1">
-                        <label class="form-check-label" for="qualification1">
-                            Bachelor's/College Degree
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox"
-                            value="Professional License (Passed Board/Bar/Professional License Exam)" name="qualification2"
-                            id="qualification2">
-                        <label class="form-check-label" for="qualification2">
-                            Professional License (Passed Board/Bar/Professional License Exam)
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox"
-                            value="Vocational Diploma/Short Course Certificate"
-                            name="qualification3" id="flexCheckChecked">
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Vocational Diploma/Short Course Certificate
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox"
-                            value="Post Graduate Diploma/Master's Degree"
-                            name="qualification4" id="flexCheckChecked">
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Post Graduate Diploma/Master's Degree
-                        </label>
-                    </div>
-                    <br>
-                </div>
-            </div>
-        
-            <div>
-                <button class="btn btn-lg btn-primary float-end" onclick="getHidden()">Post</button>
-            </div>
-        </form>
+            </form>
         </div>
     </div>
 

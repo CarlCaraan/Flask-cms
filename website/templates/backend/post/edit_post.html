@@ -39,24 +39,24 @@
     <!-- End Message Validation -->
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit Form</h6>
+    <div class="card border mb-4" id="post_container">
+        <div class="card-header py-3" id="post_card_header">
+            <h6 class="m-0 font-weight-bold" id="job_title">Edit Form</h6>
         </div>
         <div class="card-body">
             <form action="" method="POST">
-                <label for="title">Job Title</label>
-                <input class="form-control" type="text" id="title" name="title" placeholder="Job Title"
+                <label class="venture_label" for="title"><i class="fas fa-pen-nib"></i> Job Title</label>
+                <input class="form-control venture_input" type="text" id="title" name="title" placeholder="Job Title"
                     value="{{ post.title }}"><br>
 
-                <label for="text">Job Description</label>
+                <label class="venture_label" for="text"><i class="fas fa-sticky-note"></i> Job Description</label>
                 <input type="hidden" class="form-control" id="text" name="text" cols="30" rows="10"
                     placeholder="Whats on your mind?" value="{{ post.text }}">
                 <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
 
-                <label for="">Salary Range Monthly (0 - 250K ₱)</label><br>
+                <label class="venture_label" for=""><i class="fas fa-money-bill-wave"></i> Salary Range Monthly (0 - 250K ₱)</label><br>
                 <input class="form-check-input ml-2" type="checkbox" value="" id="dont_specify" onclick="onSpecify()">
-                <label class="form-check-label ml-4" for="dont_specify">
+                <label class="form-check-label ml-4 venture_label" for="dont_specify">
                     Don't Specify
                 </label><br>
                 <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
@@ -106,12 +106,12 @@
                     }
                 </script>
 
-                <h5>Additional Information(Required)</h5>
+                <h5><i class="fas fa-info-circle"></i> Additional Information (Required)</h5>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="">Careel Level</label>
-                        <select class="form-control" name="level" id="">
+                        <label class="venture_label" for="">Careel Level</label>
+                        <select class="form-control venture_input" name="level" id="">
                             <option disabled selected>Select options</option>
                             <option value="Less than 1 Year Experienced Employee" {{ 'selected' if
                                 post.level=='Less than 1 Year Experienced Employee' else '' }}>Less than 1 Year
@@ -126,8 +126,8 @@
                                 Employee</option>
                         </select><br>
 
-                        <label for="">Years Of Experience</label>
-                        <select class="form-control" name="experience" id="">
+                        <label class="venture_label" for="">Years Of Experience</label>
+                        <select class="form-control venture_input" name="experience" id="">
                             <option disabled selected>Select options</option>
                             <option value="Fresh Graduate" {{ 'selected' if post.experience=='Fresh Graduate' else ''
                                 }}>Fresh Graduate</option>
@@ -141,8 +141,8 @@
                             <option value="5 Years" {{ 'selected' if post.experience=='5 Years' else '' }}>5 Years
                             </option>
                         </select><br>
-                        <label for="">Job Type</label>
-                        <select class="form-control" name="jobtype" id="">
+                        <label class="venture_label" for="">Job Type</label>
+                        <select class="form-control venture_input" name="jobtype" id="">
                             <option disabled selected>Select options</option>
                             <option value="Full-Time" {{ 'selected' if post.jobtype=='Full-Time' else '' }}>Full-Time
                             </option>
@@ -151,11 +151,11 @@
                         </select><br>
                     </div>
                     <div class="col-md-6">
-                        <label for="">Job Specializations</label>
-                        <input class="form-control" type="text" name="specialization"
+                        <label class="venture_label" for="">Job Specializations</label>
+                        <input class="form-control venture_input" type="text" name="specialization"
                             placeholder="Job Specializations (please specify)" value="{{ post.specialization }}"><br>
 
-                        <label for="">Qualification</label>
+                        <label class="venture_label" for="">Qualification</label>
                         <div class="form-check">
                             <input type="hidden" name="qualification" id="qualification_hidden"
                                 value="{{ post.qualification }}">
@@ -218,7 +218,7 @@
                 </div>
 
                 <div>
-                    <button class="btn btn-lg btn-primary float-end" onclick="getHidden()">Post</button>
+                    <button class="btn btn-lg float-end text-white" id="venture_button" onclick="getHidden()">Update</button>
                 </div>
             </form>
         </div>

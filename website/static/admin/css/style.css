@@ -48,7 +48,8 @@ body {
 /*============= SIDEBAR SECTION =============*/
 
 #accordionSidebar {
-    background-color: #7551f5!important;
+  background-color: #7551f5 !important;
+  font-family: "Poppins", sans-serif;
 }
 #venture_button {
   background-color: #8a6cf5;
@@ -57,11 +58,15 @@ body {
   background-color: #977ef3;
 }
 #copyright_sidebar {
- overflow-wrap: break-word;
- display:inline-block;
+  overflow-wrap: break-word;
+  display: inline-block;
+}
+.venture_active_link {
+  color: #aaa1d9 !important;
+  font-weight: bold;
 }
 
-/*============= Content Section =============*/
+/*============= CONTENT SECTION =============*/
 
 #post_container {
   border: none;
@@ -82,13 +87,15 @@ body {
 }
 .venture_input {
   font-family: "Lato", sans-serif;
-  background-color: #E6EBF2;
+  background-color: #e6ebf2;
   color: #000;
+  border: none;
 }
 .venture_input:focus {
   font-family: "Lato", sans-serif;
-  background-color: #E6EBF2;
+  background-color: #e6ebf2;
   color: #000;
+  border: none;
 }
 .venture_input::placeholder {
   font-family: "Lato", sans-serif;
@@ -98,4 +105,17 @@ body {
   font-weight: bold;
   font-size: 14px;
 }
+.post_card_header_text {
+  color: #444d5a;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+}
 
+/*============= DASHBOARD SECTION =============*/
+
+.venture_border_left {
+  border-left: 3px solid #7551f5 !important;
+}
+.venture_border_left1 {
+  border-left: 3px solid #aaa1d9 !important;
+}

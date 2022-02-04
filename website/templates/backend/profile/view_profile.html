@@ -9,7 +9,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800 w-100"><i class="fas fa-id-card"></i> Profile Info
-        <a href="/admin/profile/edit" class="btn btn-info float-right"><i class="fas fa-user-edit"></i> Edit Profile</a>
+        <a href="/admin/profile/edit" class="btn text-white float-right" id="venture_button"><i class="fas fa-user-edit"></i> Edit Profile</a>
     </h1>
 
     <!-- Start Message Validation -->
@@ -38,9 +38,9 @@
     </div>
     <!-- End Message Validation -->
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary float-left">Basic Information</h6>
+    <div class="card border mb-4" id="post_container">
+        <div class="card-header py-3" id="post_card_header">
+            <h6 class="m-0 font-weight-bold float-left" id="job_title">Basic Information</h6>
             <small class="text-muted me-2 float-right">
                 {% if user.date_updated == None %}
                 Last Updated {{ user.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
@@ -50,36 +50,36 @@
             </small>
         </div>
         <div class="card-body">
-            <p>Full Name: {{ user.firstname }} {{ user.lastname }}</p>
-            <p>Joined: {{ user.date_created.strftime('%Y-%m-%d') }}</p>
+            <p class="post_card_header_text"><strong>Full Name:</strong> {{ user.firstname }} {{ user.lastname }}</p>
+            <p class="post_card_header_text"><strong>Joined:</strong> {{ user.date_created.strftime('%Y-%m-%d') }}</p>
         </div>
     </div>
 
-    <div class="card shadow mb-4">
+    <div class="card border mb-4" id="post_container">
         <!-- Card Header - Accordion -->
-        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button"
+        <a href="#collapseCardExample" class="d-block card-header py-3" id="post_card_header" data-toggle="collapse" role="button"
             aria-expanded="true" aria-controls="collapseCardExample">
-            <h6 class="m-0 font-weight-bold text-primary">Contact Information</h6>
+            <h6 class="m-0 font-weight-bold" id="job_title">Contact Information</h6>
         </a>
         <!-- Card Content - Collapse -->
         <div class="collapse show" id="collapseCardExample">
             <div class="card-body">
-                <p>Email: {{ user.email }}</p>
-                <p>Username: {{ user.username }}</p>
-                <p>User Type: {{ user.usertype }}</p>
+                <p class="post_card_header_text"><strong>Email:</strong> {{ user.email }}</p>
+                <p class="post_card_header_text"><strong>Username:</strong> {{ user.username }}</p>
+                <p class="post_card_header_text"><strong>User Type:</strong> {{ user.usertype }}</p>
             </div>
         </div>
     </div>
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Your Company Information</h6>
+    <div class="card border mb-4" id="post_container">
+        <div class="card-header py-3" id="post_card_header">
+            <h6 class="m-0 font-weight-bold" id="job_title">Your Company Information</h6>
         </div>
         <div class="card-body">
             <div class="alert alert-warning">
                 This will help you hire employee
             </div>
-            <p>Company Name: {{ user.company }}</p>
+            <p class="post_card_header_text"><strong>Company Name:</strong> {{ user.company }}</p>
         </div>
     </div>
 
