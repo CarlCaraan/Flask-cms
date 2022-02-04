@@ -5,62 +5,44 @@
 {% set active_page = "add_post" %}
 
 {% block content %}
-<script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
-<h3 class="text-muted mt-3"><i class="fas fa-file-alt"></i> Post Job</h3>
-<div class="card">
-    <div class="card-header text-primary">
-        <h6>Post a Job Details</h6>
-    </div>
-    <div class="card-body">
-        <form action="" method="POST">
-            <label for="title">Job Title</label>
-            <input class="form-control" type="text" id="title" name="title" placeholder="Job Title"><br>
+<br><br><br><br>
+<div class="container">
+    <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
+    <h3 class="text-muted mt-3"><i class="fas fa-file-alt"></i> Post Job</h3>
+    <div class="card border" id="post_container">
+        <div class="card-header py-3" id="post_card_header">
+            <h6 class="m-0 fw-bold" id="job_title">Post Job</h6>
+        </div>
+        <div class="card-body">
+            <form action="" method="POST">
+                <label class="venture_label text-secondary" for="title"><i class="fas fa-pen-nib"></i> Job Title</label>
+                <input class="form-control venture_input" type="text" id="title" name="title"
+                    placeholder="Job Title"><br>
 
-            <label for="text">Job Description</label>
-            <input type="hidden" class="form-control" id="text" name="text" cols="30" rows="10"
-                placeholder="Whats on your mind?">
-            <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
+                <label class="venture_label text-secondary" for="text"><i class="fas fa-sticky-note"></i> Job
+                    Description</label>
+                <input type="hidden" class="form-control" id="text" name="text" cols="30" rows="10"
+                    placeholder="Whats on your mind?">
+                <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
 
-            <label for="">Company Location</label>
-            <div class="row">
-                <div class="col-6">
-                    Region*<select class="form-control mb-2" id="region" onclick="getHidden()">
+                <label class="venture_label text-secondary" for=""><i class="fas fa-map-marker-alt"></i> Company
+                    Location</label>
 
-                    </select>
-                    Province*<select class="form-control mb-2" id="province" onclick="getHidden()">
-                    </select>
-                    City*<select class="form-control" id="city" onclick="getHidden()">
-                    </select><br>
-                    <input type="hidden" name="location" id="province_hidden">
-                    <input type="hidden" name="location1" id="city_hidden">
-
-                    <label for="">Salary Range Monthly (0 - 250K ₱)</label><br>
-                    <input class="form-check-input" type="checkbox" value="" onclick="onSpecify()">
-                    <label class="form-check-label" for="dont_specify">
-                        Don't Specify
-                    </label><br>
-                    <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
-                        <div class="row slider-labels">
-                            <div class="col-xs-6 caption">
-                                From: ₱<span id="slider-range-value1"></span>K
-                            </div>
-                            <div class="col-xs-6 text-right caption">
-                                To: ₱<span id="slider-range-value2"></span>K
-                            </div>
-                        </div>
-                        <div class="row mt-3 mb-2">
-                            <div class="col-sm-12">
-                                <div id="slider-range" onclick="updateValue()"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <input id="salary" type="hidden" name="salary">
-                                <input id="salary1" type="hidden" name="salary1">
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        Region*<select class="form-select venture_input mb-2" id="region" onclick="getHidden()">
+                        </select>
                     </div>
-
+                    <div class="col-md-4">
+                        Province*<select class="form-select venture_input mb-2" id="province" onclick="getHidden()">
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        City*<select class="form-select venture_input" id="city" onclick="getHidden()">
+                        </select><br>
+                        <input type="hidden" name="location" id="province_hidden">
+                        <input type="hidden" name="location1" id="city_hidden">
+                    </div>
                     <script>
                         function updateValue(newValue) {
                             var span_salary1 = document.getElementById("slider-range-value1").textContent;
@@ -83,137 +65,171 @@
                         }
                     </script>
                 </div>
-                <div class="col-6">
+
+                <label class="venture_label text-secondary" for=""><i class="fas fa-money-bill-wave"></i> Salary
+                    Range Monthly (0 - 250K ₱)</label><br>
+                <div class="row">
+                    <div class="col-12">
+                        <input class="form-check-input" type="checkbox" value="" onclick="onSpecify()">
+                        <label class="form-check-label venture_label text-secondary" for="dont_specify">
+                            Don't Specify
+                        </label><br>
+                        <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
+                            <div class="row slider-labels">
+                                <div class="col-xs-6 caption">
+                                    From: ₱<span id="slider-range-value1"></span>K
+                                </div>
+                                <div class="col-xs-6 text-right caption">
+                                    To: ₱<span id="slider-range-value2"></span>K
+                                </div>
+                            </div>
+                            <div class="row mt-3 mb-2">
+                                <div class="col-sm-12">
+                                    <div id="slider-range" onclick="updateValue()"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <input id="salary" type="hidden" name="salary">
+                                    <input id="salary1" type="hidden" name="salary1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+
+                <h6 class="text-secondary"><i class="fas fa-info-circle"></i> Additional Information(Required)</h6>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="venture_label text-secondary" for="">Careel Level</label>
+                        <select class="form-select venture_input" name="level" id="">
+                            <option disabled selected>Select options</option>
+                            <option value="Less than 1 Year Experienced Employee">Less than 1 Year Experienced Employee
+                            </option>
+                            <option value="1-4 Years Experienced Employee">1-4 Years Experienced Employee</option>
+                            <option value="Supervisor/5 Years & Up Experienced Employee">Supervisor/5 Years & Up
+                                Experienced
+                                Employee</option>
+                        </select><br>
+
+                        <label class="venture_label text-secondary" for="">Years Of Experience</label>
+                        <select class="form-select venture_input" name="experience" id="">
+                            <option disabled selected>Select options</option>
+                            <option value="Fresh Graduate">Fresh Graduate</option>
+                            <option value="1 Year">1 Year</option>
+                            <option value="2 Years">2 Years</option>
+                            <option value="3 Years">3 Years</option>
+                            <option value="4 Years">4 Years</option>
+                            <option value="5 Years">5 Years</option>
+                        </select><br>
+                        <label class="venture_label text-secondary" for="">Job Type</label>
+                        <select class="form-select venture_input" name="jobtype" id="">
+                            <option disabled selected>Select options</option>
+                            <option value="Full-Time">Full-Time</option>
+                            <option value="Part-Time">Part-Time</option>
+                        </select><br>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="venture_label text-secondary" for="">Job Specializations</label>
+                        <input class="form-control venture_input" type="text" name="specialization"
+                            placeholder="Job Specializations (please specify)" onclick="updateValue()"><br>
+
+                        <label class="venture_label text-secondary" for="">Qualification</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Highschool Diploma"
+                                name="qualification" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Highschool Diploma
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Bachelor's/College Degree"
+                                name="qualification1" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Bachelor's/College Degree
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                value="Professional License (Passed Board/Bar/Professional License Exam)"
+                                name="qualification2" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Professional License (Passed Board/Bar/Professional License Exam)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                value="Vocational Diploma/Short Course Certificate" name="qualification3"
+                                id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Vocational Diploma/Short Course Certificate
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                                value="Post Graduate Diploma/Master's Degree" name="qualification4"
+                                id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Post Graduate Diploma/Master's Degree
+                            </label>
+                        </div>
+                        <br>
+                    </div>
                 </div>
-            </div><br>
 
-            <h5>Additional Information(Required)</h5>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="">Careel Level</label>
-                    <select class="form-control" name="level" id="">
-                        <option disabled selected>Select options</option>
-                        <option value="Less than 1 Year Experienced Employee">Less than 1 Year Experienced Employee
-                        </option>
-                        <option value="1-4 Years Experienced Employee">1-4 Years Experienced Employee</option>
-                        <option value="Supervisor/5 Years & Up Experienced Employee">Supervisor/5 Years & Up Experienced
-                            Employee</option>
-                    </select><br>
-
-                    <label for="">Years Of Experience</label>
-                    <select class="form-control" name="experience" id="">
-                        <option disabled selected>Select options</option>
-                        <option value="Fresh Graduate">Fresh Graduate</option>
-                        <option value="1 Year">1 Year</option>
-                        <option value="2 Years">2 Years</option>
-                        <option value="3 Years">3 Years</option>
-                        <option value="4 Years">4 Years</option>
-                        <option value="5 Years">5 Years</option>
-                    </select><br>
-                    <label for="">Job Type</label>
-                    <select class="form-control" name="jobtype" id="">
-                        <option disabled selected>Select options</option>
-                        <option value="Full-Time">Full-Time</option>
-                        <option value="Part-Time">Part-Time</option>
-                    </select><br>
+                <div>
+                    <button class="btn btn-lg text-white float-end" id="venture_button"
+                        onclick="getHidden()">Post</button>
                 </div>
-                <div class="col-md-6">
-                    <label for="">Job Specializations</label>
-                    <input class="form-control" type="text" name="specialization"
-                        placeholder="Job Specializations (please specify)" onclick="updateValue()"><br>
-
-                    <label for="">Qualification</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Highschool Diploma" name="qualification"
-                            id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Highschool Diploma
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Bachelor's/College Degree"
-                            name="qualification1" id="flexCheckChecked">
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Bachelor's/College Degree
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox"
-                            value="Professional License (Passed Board/Bar/Professional License Exam)"
-                            name="qualification2" id="flexCheckChecked">
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Professional License (Passed Board/Bar/Professional License Exam)
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox"
-                            value="Vocational Diploma/Short Course Certificate" name="qualification3"
-                            id="flexCheckChecked">
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Vocational Diploma/Short Course Certificate
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Post Graduate Diploma/Master's Degree"
-                            name="qualification4" id="flexCheckChecked">
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Post Graduate Diploma/Master's Degree
-                        </label>
-                    </div>
-                    <br>
-                </div>
-            </div>
-
-            <div>
-                <button class="btn btn-lg btn-primary float-end" onclick="getHidden()">Post</button>
-            </div>
-        </form>
-        <a class="float-start" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
+            </form>
+            <a class="float-start" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
+        </div>
     </div>
-</div>
-<br>
-<!-- Dynamic PH Locations -->
-<script type="text/javascript">
-    var my_handlers = {
-        fill_provinces: function () {
-            var region_code = $(this).val();
-            $('#province').ph_locations('fetch_list', [{ "region_code": region_code }]);
-        },
-        fill_cities: function () {
-            var province_code = $(this).val();
-            $('#city').ph_locations('fetch_list', [{ "province_code": province_code }]);
-        },
-        fill_barangays: function () {
-            var city_code = $(this).val();
-            $('#barangay').ph_locations('fetch_list', [{ "city_code": city_code }]);
+    <br>
+    <!-- Dynamic PH Locations -->
+    <script type="text/javascript">
+        var my_handlers = {
+            fill_provinces: function () {
+                var region_code = $(this).val();
+                $('#province').ph_locations('fetch_list', [{ "region_code": region_code }]);
+            },
+            fill_cities: function () {
+                var province_code = $(this).val();
+                $('#city').ph_locations('fetch_list', [{ "province_code": province_code }]);
+            },
+            fill_barangays: function () {
+                var city_code = $(this).val();
+                $('#barangay').ph_locations('fetch_list', [{ "city_code": city_code }]);
+            }
+        };
+
+        $(function () {
+            $('#region').on('change', my_handlers.fill_provinces);
+            $('#province').on('change', my_handlers.fill_cities);
+            $('#city').on('change', my_handlers.fill_barangays);
+
+            $('#region').ph_locations({ 'location_type': 'regions' });
+            $('#province').ph_locations({ 'location_type': 'provinces' });
+            $('#city').ph_locations({ 'location_type': 'cities' });
+            $('#barangay').ph_locations({ 'location_type': 'barangays' });
+
+            $('#region').ph_locations('fetch_list');
+        });
+
+        // Get value of select and store to hidden inputs
+        var sel = document.getElementById("province");
+        var text = sel.options[sel.selectedIndex].text;
+        var sel1 = document.getElementById("city");
+        var text1 = sel1.options[sel1.selectedIndex].text;
+
+        function getHidden() {
+            var location1 = $("#province option:selected").text();
+            var location2 = $("#city option:selected").text();
+            document.getElementById("province_hidden").value = location1;
+            document.getElementById("city_hidden").value = location2;
         }
-    };
+    </script>
+</div>
 
-    $(function () {
-        $('#region').on('change', my_handlers.fill_provinces);
-        $('#province').on('change', my_handlers.fill_cities);
-        $('#city').on('change', my_handlers.fill_barangays);
-
-        $('#region').ph_locations({ 'location_type': 'regions' });
-        $('#province').ph_locations({ 'location_type': 'provinces' });
-        $('#city').ph_locations({ 'location_type': 'cities' });
-        $('#barangay').ph_locations({ 'location_type': 'barangays' });
-
-        $('#region').ph_locations('fetch_list');
-    });
-
-    // Get value of select and store to hidden inputs
-    var sel = document.getElementById("province");
-    var text = sel.options[sel.selectedIndex].text;
-    var sel1 = document.getElementById("city");
-    var text1 = sel1.options[sel1.selectedIndex].text;
-
-    function getHidden() {
-        var location1 = $("#province option:selected").text();
-        var location2 = $("#city option:selected").text();
-        document.getElementById("province_hidden").value = location1;
-        document.getElementById("city_hidden").value = location2;
-    }
-</script>
 {% endblock %}

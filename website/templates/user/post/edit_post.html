@@ -5,32 +5,32 @@
 {% set active_page = "add_post" %}
 
 {% block content %}
-
+<br><br><br><br>
 <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
-<div class="container-fluid">
+<div class="container">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Edit Job</h1>
+    <h1 class="h3 mb-2 text-gray-800 text-secondary"><i class="fas fa-file-alt"></i> Edit Job</h1>
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit Form</h6>
+    <div class="card border mb-4" id="post_container">
+        <div class="card-header py-3" id="post_card_header">
+            <h6 class="m-0 fw-bold" id="job_title">Edit Form</h6>
         </div>
         <div class="card-body">
             <form action="" method="POST">
-                <label for="title">Job Title</label>
-                <input class="form-control" type="text" id="title" name="title" placeholder="Job Title"
+                <label class="venture_label text-secondary" for="title">Job Title</label>
+                <input class="form-control venture_input" type="text" id="title" name="title" placeholder="Job Title"
                     value="{{ post.title }}"><br>
 
-                <label for="text">Job Description</label>
+                <label class="venture_label text-secondary" for="text">Job Description</label>
                 <input type="hidden" class="form-control" id="text" name="text" cols="30" rows="10"
                     placeholder="Whats on your mind?" value="{{ post.text }}">
                 <trix-editor input="text" cols="30" rows="100"></trix-editor><br>
 
-                <label for="">Salary Range Monthly (0 - 250K ₱)</label><br>
+                <label class="venture_label text-secondary" for="">Salary Range Monthly (0 - 250K ₱)</label><br>
                 <input class="form-check-input" type="checkbox" value="" id="dont_specify" onclick="onSpecify()">
-                <label class="form-check-label" for="dont_specify">
+                <label class="form-check-label venture_label text-secondary" for="dont_specify">
                     Don't Specify
                 </label><br>
                 <div class="bg-light px-3 pt-2 pb-3 border rounded" id="salary_div">
@@ -87,12 +87,12 @@
                     }
                 </script>
 
-                <h5>Additional Information(Required)</h5>
+                <h6 class="text-secondary"><i class="fas fa-info-circle"></i> Additional Information(Required)</h6>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="">Careel Level</label>
-                        <select class="form-control" name="level" id="">
+                        <label class="venture_label text-secondary" for="">Careel Level</label>
+                        <select class="form-select venture_input" name="level" id="">
                             <option disabled selected>Select options</option>
                             <option value="Less than 1 Year Experienced Employee" {{ 'selected' if
                                 post.level=='Less than 1 Year Experienced Employee' else '' }}>Less than 1 Year
@@ -107,8 +107,8 @@
                                 Employee</option>
                         </select><br>
 
-                        <label for="">Years Of Experience</label>
-                        <select class="form-control" name="experience" id="">
+                        <label class="venture_label text-secondary" for="">Years Of Experience</label>
+                        <select class="form-select venture_input" name="experience" id="">
                             <option disabled selected>Select options</option>
                             <option value="Fresh Graduate" {{ 'selected' if post.experience=='Fresh Graduate' else ''
                                 }}>Fresh Graduate</option>
@@ -122,8 +122,8 @@
                             <option value="5 Years" {{ 'selected' if post.experience=='5 Years' else '' }}>5 Years
                             </option>
                         </select><br>
-                        <label for="">Job Type</label>
-                        <select class="form-control" name="jobtype" id="">
+                        <label class="venture_label text-secondary" for="">Job Type</label>
+                        <select class="form-select venture_input" name="jobtype" id="">
                             <option disabled selected>Select options</option>
                             <option value="Full-Time" {{ 'selected' if post.jobtype=='Full-Time' else '' }}>Full-Time
                             </option>
@@ -132,12 +132,12 @@
                         </select><br>
                     </div>
                     <div class="col-md-6">
-                        <label for="">Job Specializations</label>
-                        <input class="form-control" type="text" name="specialization"
+                        <label class="venture_label text-secondary" for="">Job Specializations</label>
+                        <input class="form-control venture_input" type="text" name="specialization"
                             placeholder="Job Specializations (please specify)" value="{{ post.specialization }}"
                             onclick="updateValue()"><br>
 
-                        <label for="">Qualification</label>
+                        <label class="venture_label text-secondary" for="">Qualification</label>
                         <div class="form-check">
                             <input type="hidden" name="qualification" id="qualification_hidden"
                                 value="{{ post.qualification }}">
@@ -198,7 +198,7 @@
                 </div>
 
                 <div>
-                    <button class="btn btn-lg btn-primary float-end" onclick="getHidden()">Post</button>
+                    <button class="btn btn-lg text-white float-end" id="venture_button" onclick="getHidden()">Post</button>
                 </div>
             </form>
             <a class="float-start" href="/home"><button class="btn btn-lg btn-secondary">Back</button></a>
