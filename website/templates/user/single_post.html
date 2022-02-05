@@ -14,11 +14,20 @@
             <div class="row pt-2">
                 <div class="col-6">
                     <h1 class="mt-1 fw-bold" id="job_title">{% block header %}{{ post.title }}{% endblock %}</h1>
+
                 </div>
                 <div class="col">
                     <div class="btn-group float-end">
+                        <small class="text-muted mt-2">
+                            {% if post.date_updated == None %}
+                            Posted on {{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
+                            {% else %}
+                            Last Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
+                            {% endif %}
+                        </small>
+
                         {% if user.id == post.author %}
-                        <a id="three_dots" data-bs-toggle="dropdown">
+                        <a class="ms-3 mt-1" id="three_dots" data-bs-toggle="dropdown">
                             <i class="fas fa-ellipsis-h text-secondary"></i>
                         </a>
                         <ul class="dropdown-menu">
