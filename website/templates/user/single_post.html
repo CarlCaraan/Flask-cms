@@ -5,33 +5,33 @@
 {% set active_page = "view_single_post" %}
 
 {% block content %}
-<div id="posts">
-
+<br><br><br><br>
+<div class="container-fluid" id="posts">
     <div class="card mb-3" id="post_container">
 
         <!-- Start Header Section -->
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="text-primary mt-1">{% block header %}<i class="fas fa-briefcase"></i> {{ post.title }}{% endblock
-                %}</h3>
-            <div class="btn-group">
-                <small class="text-muted mt-1 me-2">
-                    {% if post.date_updated == None %}
-                    Posted {{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
-                    {% else %}
-                    Last Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
-                    {% endif %}
-                </small>
-                {% if user.id == post.author %}
-                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="/edit-post/{{ post.id }}" class="dropdown-item">Edit</a>
-                    </li>
-                    <li>
-                        <a href="/delete-post/{{ post.id }}" class="dropdown-item" id="delete">Delete</a>
-                    </li>
-                </ul>
-                {% endif %}
+        <div class="card-header" id="post_card_header">
+            <div class="row pt-2">
+                <div class="col-6">
+                    <h1 class="mt-1 fw-bold" id="job_title">{% block header %}{{ post.title }}{% endblock %}</h1>
+                </div>
+                <div class="col">
+                    <div class="btn-group float-end">
+                        {% if user.id == post.author %}
+                        <a id="three_dots" data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-h text-secondary"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/edit-post/{{ post.id }}" class="dropdown-item">Edit</a>
+                            </li>
+                            <li>
+                                <a href="/delete-post/{{ post.id }}" class="dropdown-item" id="delete">Delete</a>
+                            </li>
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
         <!-- End Header Section -->
@@ -130,17 +130,17 @@
             <div class="alert alert-info text-center">
                 <i class="fas fa-check-circle"></i>
                 Must Submit Application Form and Resume.<br>
-                <button class="btn btn-info mt-2">
+            </div>
+
+            <div class="text-center w-100">
+                <button class="btn btn-lg mt-2 mb-2" id="venture_button">
                     <a class="text-light text-decoration-none" href="mailto:{{ post.user.email }}">Apply Now</a>
                 </button>
             </div>
-
-
-
         </div>
         <!-- End Content Section -->
 
-        <div class="card-footer text-muted">
+        <div class="card-footer">
             <!-- Start Comment Section -->
             <div id="disqus_thread"></div>
             <script>
