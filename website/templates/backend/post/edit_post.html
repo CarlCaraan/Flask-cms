@@ -80,8 +80,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <input id="salary" type="hidden" name="salary" value="15">
-                            <input id="salary1" type="hidden" name="salary1" value="35">
+                            <input id="salary" type="hidden" name="salary" value="{{ post.salary }}">
+                            <input id="salary1" type="hidden" name="salary1" value="{{ post.salary1 }}">
                         </div>
                     </div>
                 </div><br>
@@ -97,6 +97,8 @@
                         salary1 = document.getElementById("salary1");
 
                         if (salaryDiv.style.display === "none") {
+                            salary = document.getElementById("salary").value = "{{ post.salary }}";
+                            salary1 = document.getElementById("salary1").value = "{{ post.salary1 }}";
                             salaryDiv.style.display = "block";
                         }
                         else {

@@ -93,8 +93,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <input id="salary" type="hidden" name="salary">
-                                    <input id="salary1" type="hidden" name="salary1">
+                                    <input id="salary" type="hidden" name="salary" value="15">
+                                    <input id="salary1" type="hidden" name="salary1" value="35">
                                 </div>
                             </div>
                         </div><br>
@@ -112,6 +112,10 @@
                         salary1 = document.getElementById("salary1");
 
                         if (salaryDiv.style.display === "none") {
+                            var span_salary1 = document.getElementById("slider-range-value1").textContent;
+                            document.getElementById("salary").value = span_salary1;
+                            var span_salary2 = document.getElementById("slider-range-value2").textContent;
+                            document.getElementById("salary1").value = span_salary2;
                             salaryDiv.style.display = "block";
                         }
                         else {
@@ -157,7 +161,7 @@
                     <div class="col-md-6">
                         <label class="venture_label" for="">Job Specializations</label>
                         <input class="form-control venture_input" type="text" name="specialization"
-                            placeholder="Job Specializations (please specify)" onclick="updateValue()"><br>
+                            placeholder="Job Specializations (please specify)"><br>
 
                         <label class="venture_label" for="">Qualification</label>
                         <div class="form-check">
