@@ -165,14 +165,14 @@
             {% if messages %}
             {% for category, message in messages %}
             {% if category == 'error' %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-dismissible fade show border rounded" role="alert" id="user_alert_message_danger">
                 {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close py-3" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {% else %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-dismissible fade show border rounded" role="alert" id="user_alert_message_success">
                 {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <small type="button" class="btn-close py-3" data-bs-dismiss="alert" aria-label="Close"></small>
             </div>
             {% endif %}
             {% endfor %}

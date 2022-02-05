@@ -59,28 +59,28 @@ def create_post():
 
         if current_user.company:
             if not title:
-                flash('This title field is required', category='error')
+                flash('title field is required', category='error')
                 return redirect(url_for('views.create_post'))
             elif not text:
-                flash('This description field is required', category='error')
+                flash('description field is required', category='error')
                 return redirect(url_for('views.create_post'))
             elif not location:
-                flash('This province field is required', category='error')
+                flash('province field is required', category='error')
                 return redirect(url_for('views.create_post'))
             elif not location1:
-                flash('This city field is required', category='error')
+                flash('city field is required', category='error')
                 return redirect(url_for('views.create_post'))
             elif not level:
-                flash('This career level field is required', category='error')
+                flash('career level field is required', category='error')
                 return redirect(url_for('views.create_post'))
             elif not specialization:
-                flash('This job specialization field is required', category='error')
+                flash('job specialization field is required', category='error')
                 return redirect(url_for('views.create_post'))
             elif not experience:
-                flash('This years of experience field is required', category='error')
+                flash('years of experience field is required', category='error')
                 return redirect(url_for('views.create_post'))
             elif not jobtype:
-                flash('This jobtype field is required', category='error')
+                flash('jobtype field is required', category='error')
                 return redirect(url_for('views.create_post'))
             else:
                 post = Post(text=text, title=title, location=location, location1=location1, salary=salary, salary1=salary1, level=level,
@@ -119,23 +119,23 @@ def user_post_edit(post_id):
         post.qualification4 = request.form['qualification4']
 
         if not post.title:
-            flash("This title field is required.", category='error')
+            flash("title field is required.", category='error')
             return redirect(url_for('views.user_post_edit', post_id=post_id))
         elif len(post.text) < 14:
             flash(
-                "This description field is required or must be greater than 2 characters.", category='error')
+                "description field is required or must be greater than 2 characters.", category='error')
             return redirect(url_for('views.user_post_edit', post_id=post_id))
         elif not post.level:
-            flash('This career level field is required', category='error')
+            flash('career level field is required', category='error')
             return redirect(url_for('views.user_post_edit', post_id=post_id))
         elif not post.specialization:
-            flash('This job specialization field is required', category='error')
+            flash('job specialization field is required', category='error')
             return redirect(url_for('views.user_post_edit', post_id=post_id))
         elif not post.experience:
-            flash('This years of experience field is required', category='error')
+            flash('years of experience field is required', category='error')
             return redirect(url_for('views.user_post_edit', post_id=post_id))
         elif not post.jobtype:
-            flash('This jobtype field is required', category='error')
+            flash('jobtype field is required', category='error')
             return redirect(url_for('views.user_post_edit', post_id=post_id))
         else:
             db.session.commit()
@@ -290,19 +290,19 @@ def user_profile_edit():
                 current_user.usertype = request.form["usertype"]
 
                 if not current_user.firstname:
-                    flash("This firstname field is required.", category='error')
+                    flash("firstname field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.lastname:
-                    flash("This lastname field is required.", category='error')
+                    flash("lastname field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.email:
-                    flash("This email field is required.", category='error')
+                    flash("email field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.username:
-                    flash("This username field is required.", category='error')
+                    flash("username field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.usertype:
-                    flash("This usertype field is required.", category='error')
+                    flash("usertype field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 else:
                     try:
@@ -324,19 +324,19 @@ def user_profile_edit():
                 current_user.usertype = request.form["usertype"]
 
                 if not current_user.firstname:
-                    flash("This firstname field is required.", category='error')
+                    flash("firstname field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.lastname:
-                    flash("This lastname field is required.", category='error')
+                    flash("lastname field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.email:
-                    flash("This email field is required.", category='error')
+                    flash("email field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.username:
-                    flash("This username field is required.", category='error')
+                    flash("username field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.usertype:
-                    flash("This usertype field is required.", category='error')
+                    flash("usertype field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 else:
                     try:
@@ -362,22 +362,22 @@ def user_profile_edit():
                     current_user.usertype = request.form["usertype"]
 
                     if not current_user.firstname:
-                        flash("This firstname field is required.",
+                        flash("firstname field is required.",
                               category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     elif not current_user.lastname:
-                        flash("This lastname field is required.",
+                        flash("lastname field is required.",
                               category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     elif not current_user.email:
-                        flash("This email field is required.", category='error')
+                        flash("email field is required.", category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     elif not current_user.username:
-                        flash("This username field is required.",
+                        flash("username field is required.",
                               category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     elif not current_user.usertype:
-                        flash("This usertype field is required.",
+                        flash("usertype field is required.",
                               category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     else:
@@ -496,22 +496,22 @@ def admin_user_add():
             flash('Username is already in use.', category='error')
             return redirect(url_for('views.admin_user_add'))
         elif not firstname:
-            flash("This firstname field is required.", category='error')
+            flash("firstname field is required.", category='error')
             return redirect(url_for('views.admin_user_add'))
         elif not lastname:
-            flash("This lastname field is required.", category='error')
+            flash("lastname field is required.", category='error')
             return redirect(url_for('views.admin_user_add'))
         elif not email:
-            flash("This email field is required.", category='error')
+            flash("email field is required.", category='error')
             return redirect(url_for('views.admin_user_add'))
         elif not username:
-            flash("This username field is required.", category='error')
+            flash("username field is required.", category='error')
             return redirect(url_for('views.admin_user_add'))
         elif not password:
-            flash("This password field is required.", category='error')
+            flash("password field is required.", category='error')
             return redirect(url_for('views.admin_user_add'))
         elif not usertype:
-            flash("This usertype field is required.", category='error')
+            flash("usertype field is required.", category='error')
             return redirect(url_for('views.admin_user_add'))
         else:
             new_user = User(email=email, username=username, firstname=firstname, lastname=lastname,
@@ -540,19 +540,19 @@ def admin_user_edit(user_id):
         user.usertype = request.form["usertype"]
 
         if not user.email:
-            flash("This email field is required.", category='error')
+            flash("email field is required.", category='error')
             return redirect(url_for('views.admin_user_edit', user_id=user_id))
         elif not user.username:
-            flash("This username field is required.", category='error')
+            flash("username field is required.", category='error')
             return redirect(url_for('views.admin_user_edit', user_id=user_id))
         elif not user.firstname:
-            flash("This firstname field is required.", category='error')
+            flash("firstname field is required.", category='error')
             return redirect(url_for('views.admin_user_edit', user_id=user_id))
         elif not user.lastname:
-            flash("This lastname field is required.", category='error')
+            flash("lastname field is required.", category='error')
             return redirect(url_for('views.admin_user_edit', user_id=user_id))
         elif not user.usertype:
-            flash("This usertype field is required.", category='error')
+            flash("usertype field is required.", category='error')
             return redirect(url_for('views.admin_user_edit', user_id=user_id))
         else:
             try:
@@ -621,19 +621,19 @@ def admin_profile_edit():
                 current_user.usertype = request.form["usertype"]
 
                 if not current_user.firstname:
-                    flash("This firstname field is required.", category='error')
+                    flash("firstname field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 elif not current_user.lastname:
-                    flash("This lastname field is required.", category='error')
+                    flash("lastname field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 elif not current_user.email:
-                    flash("This email field is required.", category='error')
+                    flash("email field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 elif not current_user.username:
-                    flash("This username field is required.", category='error')
+                    flash("username field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 elif not current_user.usertype:
-                    flash("This usertype field is required.", category='error')
+                    flash("usertype field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 else:
                     try:
@@ -654,19 +654,19 @@ def admin_profile_edit():
                 current_user.usertype = request.form["usertype"]
 
                 if not current_user.firstname:
-                    flash("This firstname field is required.", category='error')
+                    flash("firstname field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 elif not current_user.lastname:
-                    flash("This lastname field is required.", category='error')
+                    flash("lastname field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 elif not current_user.email:
-                    flash("This email field is required.", category='error')
+                    flash("email field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 elif not current_user.username:
-                    flash("This username field is required.", category='error')
+                    flash("username field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 elif not current_user.usertype:
-                    flash("This usertype field is required.", category='error')
+                    flash("usertype field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 else:
                     try:
@@ -692,22 +692,22 @@ def admin_profile_edit():
                     current_user.usertype = request.form["usertype"]
 
                     if not current_user.firstname:
-                        flash("This firstname field is required.",
+                        flash("firstname field is required.",
                               category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     elif not current_user.lastname:
-                        flash("This lastname field is required.",
+                        flash("lastname field is required.",
                               category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     elif not current_user.email:
-                        flash("This email field is required.", category='error')
+                        flash("email field is required.", category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     elif not current_user.username:
-                        flash("This username field is required.",
+                        flash("username field is required.",
                               category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     elif not current_user.usertype:
-                        flash("This usertype field is required.",
+                        flash("usertype field is required.",
                               category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     else:
@@ -803,28 +803,28 @@ def admin_post_add():
 
         if current_user.company:
             if not title:
-                flash('This title field cannot be empty', category='error')
+                flash('title field cannot be empty', category='error')
                 return redirect(url_for('views.admin_post_add'))
             elif not text:
-                flash('This description field cannot be empty', category='error')
+                flash('description field cannot be empty', category='error')
                 return redirect(url_for('views.admin_post_add'))
             elif not location:
-                flash('This province field is required', category='error')
+                flash('province field is required', category='error')
                 return redirect(url_for('views.admin_post_add'))
             elif not location1:
-                flash('This city field is required', category='error')
+                flash('city field is required', category='error')
                 return redirect(url_for('views.admin_post_add'))
             elif not level:
-                flash('This career level field is required', category='error')
+                flash('career level field is required', category='error')
                 return redirect(url_for('views.admin_post_add'))
             elif not specialization:
-                flash('This job specialization field is required', category='error')
+                flash('job specialization field is required', category='error')
                 return redirect(url_for('views.admin_post_add'))
             elif not experience:
-                flash('This years of experience field is required', category='error')
+                flash('years of experience field is required', category='error')
                 return redirect(url_for('views.admin_post_add'))
             elif not jobtype:
-                flash('This jobtype field is required', category='error')
+                flash('jobtype field is required', category='error')
                 return redirect(url_for('views.admin_post_add'))
             else:
                 post = Post(text=text, title=title, location=location, location1=location1, salary=salary, salary1=salary1, level=level,
@@ -866,23 +866,23 @@ def admin_post_edit(post_id):
         post.qualification4 = request.form['qualification4']
 
         if not post.title:
-            flash("This title field is required.", category='error')
+            flash("title field is required.", category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
         elif len(post.text) < 14:
             flash(
-                "This description field is required or must be greater than 2 characters.", category='error')
+                "description field is required or must be greater than 2 characters.", category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
         elif not post.level:
-            flash('This career level field is required', category='error')
+            flash('career level field is required', category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
         elif not post.specialization:
-            flash('This job specialization field is required', category='error')
+            flash('job specialization field is required', category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
         elif not post.experience:
-            flash('This years of experience field is required', category='error')
+            flash('years of experience field is required', category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
         elif not post.jobtype:
-            flash('This jobtype field is required', category='error')
+            flash('jobtype field is required', category='error')
             return redirect(url_for('views.admin_post_edit', post_id=post_id))
         else:
             db.session.commit()
