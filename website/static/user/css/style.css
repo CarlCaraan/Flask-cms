@@ -109,6 +109,10 @@ body {
   background-image: url("/static/user/img/header-bg.jpg");
   z-index: -1;
 }
+.venture_active_link {
+  color: #7551f5 !important;
+  font-weight: bold;
+}
 
 /*============ POST SECTION =============*/
 

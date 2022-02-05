@@ -67,21 +67,28 @@
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li>
-                            <a class="dropdown-item {{ 'active' if active_page == 'view_profile' or active_page == 'edit_profile' else '' }}" href="/user/profile">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
+                            <a class="dropdown-item" href="/user/profile">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-secondary"></i>
+                                <span
+                                    class="{{ 'venture_active_link' if active_page == 'view_profile' or active_page == 'edit_profile' else 'text-secondary' }}">
+                                    Profile
+                                </span>
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ 'active' if active_page == 'edit_password' else '' }}" href="/user/change-password">
-                                <i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Change Password
+                            <a class="dropdown-item" href="/user/change-password">
+                                <i class="fas fa-cog fa-sm fa-fw mr-2 text-secondary"></i>
+                                <span class=" {{ 'venture_active_link' if active_page == 'edit_password' else 'text-secondary' }}">
+                                    Change Password
+                                </span>
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="/logout">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-secondary"></i>
+                                <span class="text-secondary">
+                                    Logout
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -122,21 +129,27 @@
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li>
-                            <a class="dropdown-item {{ 'active' if active_page == 'view_profile' or active_page == 'edit_profile' else '' }}" href="/user/profile">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
+                            <a class="dropdown-item" href="/user/profile">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-secondary"></i>
+                                <span class="{{ 'venture_active_link' if active_page == 'view_profile' or active_page == 'edit_profile' else 'text-secondary' }}">
+                                    Profile
+                                </span>
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ 'active' if active_page == 'edit_password' else '' }}" href="/user/change-password">
-                                <i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Change Password
+                            <a class="dropdown-item" href="/user/change-password">
+                                <i class="fas fa-cog fa-sm fa-fw mr-2 text-secondary"></i>
+                                <span class=" {{ 'venture_active_link' if active_page == 'edit_password' else 'text-secondary' }}">
+                                    Change Password
+                                </span>
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="/logout">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-secondary"></i>
+                                <span class="text-secondary">
+                                    Logout
+                                </span>
                             </a>
                         </li>
                     </ul>
