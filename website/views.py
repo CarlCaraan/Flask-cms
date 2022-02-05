@@ -287,7 +287,6 @@ def user_profile_edit():
                 current_user.email = request.form["email"]
                 current_user.username = request.form["username"]
                 current_user.company = request.form["company"]
-                current_user.usertype = request.form["usertype"]
 
                 if not current_user.firstname:
                     flash("firstname field is required.", category='error')
@@ -300,9 +299,6 @@ def user_profile_edit():
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.username:
                     flash("username field is required.", category='error')
-                    return redirect(url_for('views.user_profile_edit'))
-                elif not current_user.usertype:
-                    flash("usertype field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 else:
                     try:
@@ -321,7 +317,6 @@ def user_profile_edit():
                 current_user.email = request.form["email"]
                 current_user.username = request.form["username"]
                 current_user.company = request.form["company"]
-                current_user.usertype = request.form["usertype"]
 
                 if not current_user.firstname:
                     flash("firstname field is required.", category='error')
@@ -334,9 +329,6 @@ def user_profile_edit():
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.username:
                     flash("username field is required.", category='error')
-                    return redirect(url_for('views.user_profile_edit'))
-                elif not current_user.usertype:
-                    flash("usertype field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 else:
                     try:
@@ -359,7 +351,6 @@ def user_profile_edit():
                     current_user.email = request.form["email"]
                     current_user.username = request.form["username"]
                     current_user.company = request.form["company"]
-                    current_user.usertype = request.form["usertype"]
 
                     if not current_user.firstname:
                         flash("firstname field is required.",
@@ -374,10 +365,6 @@ def user_profile_edit():
                         return redirect(url_for('views.user_profile_edit'))
                     elif not current_user.username:
                         flash("username field is required.",
-                              category='error')
-                        return redirect(url_for('views.user_profile_edit'))
-                    elif not current_user.usertype:
-                        flash("usertype field is required.",
                               category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     else:
