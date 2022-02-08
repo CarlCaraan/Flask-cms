@@ -92,7 +92,7 @@
     <!-- Sidebar Footer -->
     <footer class="border-top py-3 w-100 opacity-75 mt-3">
         <div class="text-center w-100">
-            <a class="btn btn-sm text-white font-weight-bold py-2 px-3 shadow mb-2" id="venture_button" href="/admin/not-exist">Visit our page!</a>
+            <button class="btn btn-sm text-white font-weight-bold py-2 px-3 shadow mb-2" id="venture_button" data-toggle="modal" data-target="#developerModal">About Developers</button>
         </div>
         <div class="row">
             <div class="col-3 pr-0">
@@ -105,6 +105,86 @@
             </div>
         </div>
     </footer>
-
-
 </ul>
+
+<!-- Start About Developers Modal -->
+<div class="modal fade" id="developerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content border-0" id="about_developers_modal_container">
+            <div class="modal-header border-bottom-0">
+                <div class="row mt-3 w-100">
+                    <div class="col-4 px-3">
+                        <img class="ml-5" src="{{ url_for('static',filename='landing_page/assets/img/about_developers/m83x_logo_purple.png') }}"
+                            alt="">
+                    </div>
+                    <div class="col-4 px-3 text-center">
+                        <img src="{{ url_for('static',filename='landing_page/assets/img/about_developers/venture_developers.png') }}"
+                            alt="">
+                    </div>
+                    <div class="col-4 px-3">
+                        <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close" id="about_developers_close_button">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-3 mb-2">
+                        <div class="w-100 text-center">
+                            <img src="{{ url_for('static',filename='landing_page/assets/img/about_developers/caraan.png') }}" alt="">
+                        </div>
+                        <div class="w-100 mt-2 text-center">
+                            <span class="developer_role p-0">Carl Aaron D. Caraan</span><br>
+                            <span class="developer_role_small p-0">Lead Developer</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mb-2">
+                        <div class="w-100 text-center">
+                            <img src="{{ url_for('static',filename='landing_page/assets/img/about_developers/liam.png') }}" alt="">
+                        </div>
+                        <div class="w-100 mt-2 text-center">
+                            <span class="developer_role p-0">Liam Cassiel L. Martin</span><br>
+                            <span class="developer_role_small p-0">UI/UX Designer</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mb-2">
+                        <div class="w-100 text-center">
+                            <img src="{{ url_for('static',filename='landing_page/assets/img/about_developers/brofar.png') }}" alt="">
+                        </div>
+                        <div class="w-100 mt-2 text-center">
+                            <span class="developer_role p-0">John Wendrick D. Brofar</span><br>
+                            <span class="developer_role_small p-0">Associate Developer</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mb-2">
+                        <div class="w-100 text-center">
+                            <img src="{{ url_for('static',filename='landing_page/assets/img/about_developers/errol.png') }}" alt="">
+                        </div>
+                        <div class="w-100 mt-2 text-center">
+                            <span class="developer_role p-0">John Errol B. Iporac</span><br>
+                            <span class="developer_role_small p-0">Research Developer</span>
+                        </div>
+                    </div>
+                </div> <!-- End Row -->
+
+                <hr class="venture_socket">
+
+                <div class="container" id="developers_note_container">
+                    <p class="developer_role">Developer's Note</p>
+
+                    <p class="developers_note_text">
+                        The Venture Employment Web Application is for educational purposes only and a partial fulfillment for
+                        Integrative Programming Technologies 2 (ITEL 304). This web application is NOT for sale.
+                    </p>
+                    <p class="developers_note_text">
+                        The Venture Employment Web Application is developed by © 2022 M83X Systems. All Rights Reserved.
+                        © 2022 Venture, Venture for Employers & Venture Developers
+                    </p>
+                </div>
+
+            </div> <!-- End Modal Body -->
+        </div> <!-- End Modal Content -->
+    </div>
+</div>
+<!-- End About Developers Modal -->

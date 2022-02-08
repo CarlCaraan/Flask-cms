@@ -130,6 +130,48 @@ body {
   opacity: 0.8;
   transform: rotateY(180deg);
 }
+#about_developers_button {
+  font-size: 20px;
+  background-color: #826AF4;
+  box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
+}
+#about_developers_button:hover {
+  background-color: #8b76f5;
+}
+#about_developers_modal_container {
+  border-radius: 15px!important;
+  box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.2);
+}
+.developer_role {
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #7450f7;
+}
+.developer_role_small {
+  font-size: 14px;
+  font-family: 'Lato', sans-serif;
+  color: #444D5A ;
+}
+.venture_socket {
+  border-top: 3px solid #7450f7;
+  opacity: 1;
+  width: 90%;
+  margin: .5rem auto;
+}
+#developers_note_container {
+  padding-left: 3.3rem;
+  padding-right: 2.6rem;
+  margin-top: .7rem;
+}
+.developers_note_text {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+}
 
 /*============= MEDIA QUERIES =============*/
 /* Devices under 1681px (small-desktop) */
