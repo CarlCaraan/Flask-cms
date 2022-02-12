@@ -63,6 +63,14 @@
                     <input type="text" class="form-control venture_input" id="username" name="username" placeholder="User Name" value="{{ user.username }}">
                 </div>
                 <div class="form-group">
+                    <label class="venture_label" for="gender">Gender</label>
+                    <select id="gender" class="form-control venture_input" name="gender">
+                        <option selected disabled>Select Gender</option>
+                        <option value="Male" {{ 'selected' if user.gender == 'Male' else ''}}>Male</option>
+                        <option value="Female" {{ 'selected' if user.gender == 'Female' else ''}}>Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label class="venture_label" for="usertype">User Type</label>
                     <select id="usertype" class="form-control venture_input" name="usertype">
                         <option selected disabled>Select User Type</option>

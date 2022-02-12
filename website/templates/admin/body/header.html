@@ -12,9 +12,12 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% if(user.gender) == 'Male' %}
+                <img class="img-profile rounded-circle mr-2" src="{{ url_for('static',filename='auth/image/profile_pic/male.png') }}">
+                {% else %}
+                <img class="img-profile rounded-circle mr-2" src="{{ url_for('static',filename='auth/image/profile_pic/female.png') }}">
+                {% endif %}
                 <span class="mr-2 d-none d-lg-inline text-gray-600">{{ user.firstname }} {{ user.lastname }}</span>
-                <img class="img-profile rounded-circle"
-                    src="img/undraw_profile.svg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

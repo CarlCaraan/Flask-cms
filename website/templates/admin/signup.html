@@ -109,6 +109,15 @@
                         <span class="focus-input100"></span>
                     </div>
 
+                    <div class="wrap-input100 validate-input m-b-12" data-validate="Gender is required">
+                        <select class="input100 login-input form-select" id="gender" name="gender" placeholder="Gender">
+                            <option disabled selected>Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <span class="focus-input100"></span>
+                    </div>
+
                     <div class="wrap-input100 m-b-12">
                         <input class="input100 login-input" type="text" id="company" name="company"
                             placeholder="Company Name (Optional)">
@@ -118,22 +127,28 @@
                     <span class="txt1 p-b-11">
                         Password
                     </span>
-                    <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
-                        <span class="btn-show-pass">
-                            <i class="fa fa-eye"></i>
-                        </span>
-                        <input class="input100 login-input" type="password" id="password1" name="password1" placeholder="Password">
-                        <span class="focus-input100"></span>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                                <span class="btn-show-pass">
+                                    <i class="fa fa-eye"></i>
+                                </span>
+                                <input class="input100 login-input" type="password" id="password1" name="password1" placeholder="Password">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                                <span class="btn-show-pass">
+                                    <i class="fa fa-eye"></i>
+                                </span>
+                                <input class="input100 login-input" type="password" id="password2" name="password2"
+                                    placeholder="Confirm Pwd">
+                                <span class="focus-input100"></span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
-                        <span class="btn-show-pass">
-                            <i class="fa fa-eye"></i>
-                        </span>
-                        <input class="input100 login-input" type="password" id="password2" name="password2"
-                            placeholder="Confirm Password">
-                        <span class="focus-input100"></span>
-                    </div>
                     <div class="container-login100-form-btn w-100">
                         <button class="login100-form-btn mx-auto login-button w-100 rounded" type="submit">
                             Register

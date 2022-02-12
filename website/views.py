@@ -23,15 +23,17 @@ def landing_page_about():
 @login_required
 def home():
     searchbar = request.args.get('searchbar')
+    page = request.args.get('page', 1, type=int)
     if searchbar:
-        posts = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc())
-        results = posts.count()
+        posts = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc()).paginate(page=page, per_page=1)
+        posts_no_paginate = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc())
+        results = posts_no_paginate.count()
         if results > 0:
             flash('Search Results: ' + str(results), category='success')
         else:
             flash('No results found', category='error')
     else:
-        posts = Post.query.order_by(Post.date_created.desc())
+        posts = Post.query.order_by(Post.date_created.desc()).paginate(page=page, per_page=5)
     return render_template("user/home.html", user=current_user, posts=posts)
 
 # POSTING JOB
@@ -168,17 +170,19 @@ def delete_post(id):
 @login_required
 def posts(company):
     searchbar = request.args.get('searchbar')
+    page = request.args.get('page', 1, type=int)
 
     if searchbar :
-        posts = Post.query.filter_by(company=company).filter(Post.title.contains(searchbar)).order_by(Post.date_created.desc())
-        results = posts.count()
+        posts = Post.query.filter_by(company=company).filter(Post.title.contains(searchbar)).order_by(Post.date_created.desc()).paginate(page=page, per_page=1)
+        posts_no_paginate = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc())
+        results = posts_no_paginate.count()
         if results > 0:
             flash('Search Results: '+ str(results), category='success')
         else:
             flash('No results found', category='error')
     else:
         posts = Post.query.filter_by(company=company).order_by(
-            Post.date_created.desc())
+            Post.date_created.desc()).paginate(page=page, per_page=5)
 
     if not posts:
         flash('No user with that company exists.', category='error')
@@ -287,6 +291,7 @@ def user_profile_edit():
                 current_user.email = request.form["email"]
                 current_user.username = request.form["username"]
                 current_user.company = request.form["company"]
+                current_user.gender = request.form["gender"]
 
                 if not current_user.firstname:
                     flash("firstname field is required.", category='error')
@@ -299,6 +304,9 @@ def user_profile_edit():
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.username:
                     flash("username field is required.", category='error')
+                    return redirect(url_for('views.user_profile_edit'))
+                elif not current_user.gender:
+                    flash("gender field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 else:
                     try:
@@ -317,6 +325,7 @@ def user_profile_edit():
                 current_user.email = request.form["email"]
                 current_user.username = request.form["username"]
                 current_user.company = request.form["company"]
+                current_user.gender = request.form["gender"]
 
                 if not current_user.firstname:
                     flash("firstname field is required.", category='error')
@@ -329,6 +338,9 @@ def user_profile_edit():
                     return redirect(url_for('views.user_profile_edit'))
                 elif not current_user.username:
                     flash("username field is required.", category='error')
+                    return redirect(url_for('views.user_profile_edit'))
+                elif not current_user.gender:
+                    flash("gender field is required.", category='error')
                     return redirect(url_for('views.user_profile_edit'))
                 else:
                     try:
@@ -351,6 +363,7 @@ def user_profile_edit():
                     current_user.email = request.form["email"]
                     current_user.username = request.form["username"]
                     current_user.company = request.form["company"]
+                    current_user.gender = request.form["gender"]
 
                     if not current_user.firstname:
                         flash("firstname field is required.",
@@ -365,6 +378,10 @@ def user_profile_edit():
                         return redirect(url_for('views.user_profile_edit'))
                     elif not current_user.username:
                         flash("username field is required.",
+                              category='error')
+                        return redirect(url_for('views.user_profile_edit'))
+                    elif not current_user.gender:
+                        flash("gender field is required.",
                               category='error')
                         return redirect(url_for('views.user_profile_edit'))
                     else:
@@ -472,6 +489,7 @@ def admin_user_add():
         lastname = request.form.get("lastname")
         password = request.form.get("password")
         usertype = request.form.get("usertype")
+        gender = request.form.get("gender")
 
         email_exists = User.query.filter_by(email=email).first()
         username_exists = User.query.filter_by(username=username).first()
@@ -500,9 +518,12 @@ def admin_user_add():
         elif not usertype:
             flash("usertype field is required.", category='error')
             return redirect(url_for('views.admin_user_add'))
+        elif not gender:
+            flash("gender field is required.", category='error')
+            return redirect(url_for('views.admin_user_add'))
         else:
             new_user = User(email=email, username=username, firstname=firstname, lastname=lastname,
-                            usertype=usertype, password=generate_password_hash(password, method='sha256'))
+                            usertype=usertype, gender=gender, password=generate_password_hash(password, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             flash("User Inserted Successfully.", category='success')
@@ -525,6 +546,7 @@ def admin_user_edit(user_id):
         user.firstname = request.form["firstname"]
         user.lastname = request.form["lastname"]
         user.usertype = request.form["usertype"]
+        user.gender = request.form["gender"]
 
         if not user.email:
             flash("email field is required.", category='error')
@@ -540,6 +562,9 @@ def admin_user_edit(user_id):
             return redirect(url_for('views.admin_user_edit', user_id=user_id))
         elif not user.usertype:
             flash("usertype field is required.", category='error')
+            return redirect(url_for('views.admin_user_edit', user_id=user_id))
+        elif not user.gender:
+            flash("gender field is required.", category='error')
             return redirect(url_for('views.admin_user_edit', user_id=user_id))
         else:
             try:
@@ -606,6 +631,7 @@ def admin_profile_edit():
                 current_user.username = request.form["username"]
                 current_user.company = request.form["company"]
                 current_user.usertype = request.form["usertype"]
+                current_user.gender = request.form["gender"]
 
                 if not current_user.firstname:
                     flash("firstname field is required.", category='error')
@@ -621,6 +647,9 @@ def admin_profile_edit():
                     return redirect(url_for('views.admin_profile_edit'))
                 elif not current_user.usertype:
                     flash("usertype field is required.", category='error')
+                    return redirect(url_for('views.admin_profile_edit'))
+                elif not current_user.gender:
+                    flash("gender field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 else:
                     try:
@@ -639,6 +668,7 @@ def admin_profile_edit():
                 current_user.username = request.form["username"]
                 current_user.company = request.form["company"]
                 current_user.usertype = request.form["usertype"]
+                current_user.gender = request.form["gender"]
 
                 if not current_user.firstname:
                     flash("firstname field is required.", category='error')
@@ -654,6 +684,9 @@ def admin_profile_edit():
                     return redirect(url_for('views.admin_profile_edit'))
                 elif not current_user.usertype:
                     flash("usertype field is required.", category='error')
+                    return redirect(url_for('views.admin_profile_edit'))
+                elif not current_user.gender:
+                    flash("gender field is required.", category='error')
                     return redirect(url_for('views.admin_profile_edit'))
                 else:
                     try:
@@ -677,6 +710,7 @@ def admin_profile_edit():
                     current_user.username = request.form["username"]
                     current_user.company = request.form["company"]
                     current_user.usertype = request.form["usertype"]
+                    current_user.gender = request.form["gender"]
 
                     if not current_user.firstname:
                         flash("firstname field is required.",
@@ -695,6 +729,10 @@ def admin_profile_edit():
                         return redirect(url_for('views.admin_profile_edit'))
                     elif not current_user.usertype:
                         flash("usertype field is required.",
+                              category='error')
+                        return redirect(url_for('views.admin_profile_edit'))
+                    elif not current_user.gender:
+                        flash("gender field is required.",
                               category='error')
                         return redirect(url_for('views.admin_profile_edit'))
                     else:

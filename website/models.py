@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     company = db.Column(db.String(150))
     password = db.Column(db.String(150))
     usertype = db.Column(db.String(10))
+    gender = db.Column(db.String(10))
     # date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     date_created = db.Column(db.DateTime, default=datetime.now())
     date_updated = db.Column(db.DateTime(

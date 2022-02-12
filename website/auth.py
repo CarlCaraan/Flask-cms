@@ -49,6 +49,7 @@ def sign_up():
             password1 = request.form.get("password1")
             password2 = request.form.get("password2")
             usertype = "user"
+            gender = request.form.get("gender")
 
             email_exists = User.query.filter_by(email=email).first()
             username_exists = User.query.filter_by(username=username).first()
@@ -69,8 +70,10 @@ def sign_up():
                 flash('Password is too short.', category='error')
             elif len(email) < 4:
                 flash("Email is invalid.", category='error')
+            elif not gender:
+                flash("Gender is invalid.", category='error')
             else:
-                new_user = User(email=email, username=username, firstname=firstname, lastname=lastname, company=company, usertype=usertype, password=generate_password_hash(password1, method='sha256'))
+                new_user = User(email=email, username=username, firstname=firstname, lastname=lastname, company=company, usertype=usertype, gender=gender, password=generate_password_hash(password1, method='sha256'))
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user, remember=True)
@@ -89,6 +92,7 @@ def sign_up():
                 password1 = request.form.get("password1")
                 password2 = request.form.get("password2")
                 usertype = "user"
+                gender = request.form.get("gender")
 
                 email_exists = User.query.filter_by(email=email).first()
                 username_exists = User.query.filter_by(username=username).first()
@@ -109,8 +113,10 @@ def sign_up():
                     flash('Password is too short.', category='error')
                 elif len(email) < 4:
                     flash("Email is invalid.", category='error')
+                elif not gender:
+                    flash("Gender is invalid.", category='error')
                 else:
-                    new_user = User(email=email, username=username, firstname=firstname, lastname=lastname, company=company, usertype=usertype, password=generate_password_hash(password1, method='sha256'))
+                    new_user = User(email=email, username=username, firstname=firstname, lastname=lastname, company=company, usertype=usertype, gender=gender, password=generate_password_hash(password1, method='sha256'))
                     db.session.add(new_user)
                     db.session.commit()
                     login_user(new_user, remember=True)
@@ -166,6 +172,7 @@ def admin_sign_up():
             password1 = request.form.get("password1")
             password2 = request.form.get("password2")
             usertype = "admin"
+            gender = request.form.get("gender")
 
             email_exists = User.query.filter_by(email=email).first()
             username_exists = User.query.filter_by(username=username).first()
@@ -186,9 +193,11 @@ def admin_sign_up():
                 flash('Password is too short.', category='error')
             elif len(email) < 4:
                 flash("Email is invalid.", category='error')
+            elif not gender:
+                flash("gender field is required.", category='error')
             else:
                 new_user = User(email=email, username=username, firstname=firstname, lastname=lastname,
-                                company=company, usertype=usertype, password=generate_password_hash(password1, method='sha256'))
+                                company=company, usertype=usertype, gender=gender, password=generate_password_hash(password1, method='sha256'))
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user, remember=True)
@@ -207,6 +216,7 @@ def admin_sign_up():
                 password1 = request.form.get("password1")
                 password2 = request.form.get("password2")
                 usertype = "admin"
+                gender = request.form.get("gender")
 
                 email_exists = User.query.filter_by(email=email).first()
                 username_exists = User.query.filter_by(
@@ -228,9 +238,11 @@ def admin_sign_up():
                     flash('Password is too short.', category='error')
                 elif len(email) < 4:
                     flash("Email is invalid.", category='error')
+                elif not gender:
+                    flash("gender field is required.", category='error')
                 else:
                     new_user = User(email=email, username=username, firstname=firstname, lastname=lastname,
-                                    company=company, usertype=usertype, password=generate_password_hash(password1, method='sha256'))
+                                    company=company, usertype=usertype, gender=gender, password=generate_password_hash(password1, method='sha256'))
                     db.session.add(new_user)
                     db.session.commit()
                     login_user(new_user, remember=True)
