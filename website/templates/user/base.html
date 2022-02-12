@@ -60,7 +60,7 @@
                 <li class="d-flex nav-item dropdown">
                     <a class="nav-link text-light dropdown-toggle py-0 ps-0 ms-3" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img class="rounded-circle mr-2" width="35px" src="https://source.unsplash.com/100x100/?company" alt="">
+                        <img class="rounded-circle me-1" width="35px" src="https://source.unsplash.com/100x100/?company" alt="">
                         <span class="{{ 'active_border_bottom2' if active_page == 'edit_password' or active_page == 'edit_profile' or active_page == 'view_profile' else '' }}">
                             {{ current_user.company }}
                         </span>
@@ -123,9 +123,9 @@
                     <a class="nav-link py-0 dropdown-toggle ps-0 text-light mx-3" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         {% if(user.gender) == 'Male' %}
-                        <img class="rounded-circle mr-2" width="35px" src="{{ url_for('static',filename='auth/image/profile_pic/male.png') }}">
+                        <img class="rounded-circle me-1" width="35px" src="{{ url_for('static',filename='auth/image/profile_pic/male.png') }}">
                         {% else %}
-                        <img class="rounded-circle mr-2" width="35px" src="{{ url_for('static',filename='auth/image/profile_pic/female.png') }}">
+                        <img class="rounded-circle me-1" width="35px" src="{{ url_for('static',filename='auth/image/profile_pic/female.png') }}">
                         {% endif %}
                         <span class=" {{ 'active_border_bottom' if active_page == 'edit_password' or active_page == 'edit_profile' else '' }}">
                             {{ current_user.firstname }}
