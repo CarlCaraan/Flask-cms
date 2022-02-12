@@ -25,8 +25,8 @@ def home():
     searchbar = request.args.get('searchbar')
     page = request.args.get('page', 1, type=int)
     if searchbar:
-        posts = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc()).paginate(page=page, per_page=1)
         posts_no_paginate = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc())
+        posts = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc()).paginate(page=page, per_page=posts_no_paginate.count())
         results = posts_no_paginate.count()
         if results > 0:
             flash('Search Results: ' + str(results), category='success')
@@ -170,19 +170,16 @@ def delete_post(id):
 @login_required
 def posts(company):
     searchbar = request.args.get('searchbar')
-    page = request.args.get('page', 1, type=int)
 
     if searchbar :
-        posts = Post.query.filter_by(company=company).filter(Post.title.contains(searchbar)).order_by(Post.date_created.desc()).paginate(page=page, per_page=1)
-        posts_no_paginate = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc())
-        results = posts_no_paginate.count()
+        posts = Post.query.filter_by(company=company).filter(Post.title.contains(searchbar)).order_by(Post.date_created.desc())
+        results = posts.count()
         if results > 0:
             flash('Search Results: '+ str(results), category='success')
         else:
             flash('No results found', category='error')
     else:
-        posts = Post.query.filter_by(company=company).order_by(
-            Post.date_created.desc()).paginate(page=page, per_page=5)
+        posts = Post.query.filter_by(company=company).order_by(Post.date_created.desc())
 
     if not posts:
         flash('No user with that company exists.', category='error')

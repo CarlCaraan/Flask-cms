@@ -10,8 +10,8 @@
 
 <section>
     <div class="container" id="posts">
-        {% if posts.items|length > 0 %}
-        {% for post in posts.items %}
+        {% if posts.all()|length > 0 %}
+        {% for post in posts %}
         <div class="card mb-3" id="post_container">
 
             <!-- Start Header Section -->
@@ -190,39 +190,6 @@
             <h4 class="text-muted">No Job Listed.</h4>
         </div>
         {% endif %}
-
-        <!-- Start Pagination Links-->
-        <div class="text-right">
-            <a href="{{ url_for('views.home', page=posts.prev_num) }}" class="btn btn-outline-dark 
-       {% if posts.page == 1 %}disabled{% endif %}">
-                &laquo;
-            </a>
-            <!-- Loop through the number of pages to display a link for each-->
-            {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-            {% if page_num %}
-            <!-- Check for the active page and set the link to "Active"-->
-            {% if posts.page == page_num %}
-            <a href="{{ url_for('views.home', page=page_num) }}" class="btn btn-dark">
-                {{ page_num }}
-            </a>
-            {% else %}
-            <a href="{{ url_for('views.home', page=page_num) }}" class="btn btn-outline-dark">
-                {{ page_num }}
-            </a>
-            {% endif %}
-            {% else %}
-            ...
-            {% endif %}
-            {% endfor %}
-            <a href="{{ url_for('views.home', page=posts.next_num) }}" class="btn btn-outline-dark 
-       {% if posts.page == posts.pages %}disabled{% endif %}">
-                &raquo;
-            </a>
-        </div>
-        <p class="text-right mt-3">
-            Showing page {{ posts.page }} of {{ posts.pages }}
-        </p>
-        <!-- End Pagination Links-->
 
     </div>
 </section>
