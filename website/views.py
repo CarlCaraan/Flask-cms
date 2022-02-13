@@ -416,7 +416,7 @@ def user_profile_password():
                 flash("All Fields are required.", category='error')
                 return redirect(url_for('views.user_profile_password'))
             elif user.password != password2:
-                flash("New Password dont match!.", category='error')
+                flash("New Password dont match!", category='error')
                 return redirect(url_for('views.user_profile_password'))
             else:
                 hashed_password = generate_password_hash(
@@ -771,7 +771,7 @@ def admin_profile_password():
                 flash("All Fields are required.", category='error')
                 return redirect(url_for('views.admin_profile_password'))
             elif user.password != password2:
-                flash("New Password dont match!.", category='error')
+                flash("New Password dont match!", category='error')
                 return redirect(url_for('views.admin_profile_password'))
             else:
                 hashed_password = generate_password_hash(
