@@ -180,7 +180,7 @@ def posts(company):
         else:
             flash('No results found', category='error')
     else:
-        posts = Post.query.filter_by(company=company).order_by(Post.date_created.desc()).paginate(page=page, per_page=1)
+        posts = Post.query.filter_by(company=company).order_by(Post.date_created.desc()).paginate(page=page, per_page=4)
 
     if not posts:
         flash('No user with that company exists.', category='error')
