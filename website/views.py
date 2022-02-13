@@ -442,11 +442,12 @@ def adminhome():
 
     posts = Post.query.all()
     likes = Like.query.all()
-    users = User.query.all()
-    employee = User.query.filter_by(usertype='user').all()
+    users = User.query.filter_by(usertype='user').all()
+    companies = User.query.filter(User.company.isnot(None)).all()
+    applicant = User.query.filter_by(company='').all()
     admins = User.query.filter_by(usertype='admin').all()
 
-    return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes, admins=admins, employee=employee)
+    return render_template("admin/home.html", user=current_user, posts=posts, users=users, likes=likes, admins=admins, applicant=applicant, companies=companies)
 
 
 @views.route("/admin/not-exist")
