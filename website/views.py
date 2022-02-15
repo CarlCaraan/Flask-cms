@@ -10,14 +10,17 @@ views = Blueprint("views", __name__)
 # ========= USER CONTROLLER =========
 # User Home
 
+
 @views.route("/")
 @views.route("/homepage")
 def landing_page_home():
     return render_template("landing_page/home.html")
 
+
 @views.route("/about")
 def landing_page_about():
     return render_template("landing_page/about.html")
+
 
 @views.route("/home")
 @login_required
@@ -25,15 +28,18 @@ def home():
     searchbar = request.args.get('searchbar')
     page = request.args.get('page', 1, type=int)
     if searchbar:
-        posts_no_paginate = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc())
-        posts = Post.query.filter(or_(Post.title.contains(searchbar),Post.company.contains(searchbar))).order_by(Post.date_created.desc()).paginate(page=page, per_page=posts_no_paginate.count())
+        posts_no_paginate = Post.query.filter(or_(Post.title.contains(searchbar), Post.company.contains(
+            searchbar), Post.location.contains(searchbar), Post.location1.contains(searchbar))).order_by(Post.date_created.desc())
+        posts = Post.query.filter(or_(Post.title.contains(searchbar), Post.company.contains(searchbar), Post.location.contains(
+            searchbar), Post.location1.contains(searchbar))).order_by(Post.date_created.desc()).paginate(page=page, per_page=posts_no_paginate.count())
         results = posts_no_paginate.count()
         if results > 0:
             flash('Search Results: ' + str(results), category='success')
         else:
             flash('No results found', category='error')
     else:
-        posts = Post.query.order_by(Post.date_created.desc()).paginate(page=page, per_page=4)
+        posts = Post.query.order_by(
+            Post.date_created.desc()).paginate(page=page, per_page=4)
     return render_template("user/home.html", user=current_user, posts=posts)
 
 # POSTING JOB
@@ -171,21 +177,24 @@ def delete_post(id):
 def posts(company):
     searchbar = request.args.get('searchbar')
     page = request.args.get('page', 1, type=int)
-    if searchbar :
-        posts_no_paginate = Post.query.filter_by(company=company).filter(Post.title.contains(searchbar)).order_by(Post.date_created.desc())
-        posts = Post.query.filter_by(company=company).filter(Post.title.contains(searchbar)).order_by(Post.date_created.desc()).paginate(page=page, per_page=posts_no_paginate.count())
+    if searchbar:
+        posts_no_paginate = Post.query.filter_by(company=company).filter(or_(Post.title.contains(
+            searchbar), Post.location.contains(searchbar), Post.location1.contains(searchbar))).order_by(Post.date_created.desc())
+        posts = Post.query.filter_by(company=company).filter(or_(Post.title.contains(searchbar), Post.location.contains(searchbar), Post.location1.contains(searchbar))).order_by(
+            Post.date_created.desc()).paginate(page=page, per_page=posts_no_paginate.count())
         results = posts_no_paginate.count()
         if results > 0:
-            flash('Search Results: '+ str(results), category='success')
+            flash('Search Results: ' + str(results), category='success')
         else:
             flash('No results found', category='error')
     else:
-        posts = Post.query.filter_by(company=company).order_by(Post.date_created.desc()).paginate(page=page, per_page=4)
+        posts = Post.query.filter_by(company=company).order_by(
+            Post.date_created.desc()).paginate(page=page, per_page=4)
 
     if not posts:
         flash('No user with that company exists.', category='error')
         return redirect(url_for('views.home'))
-    
+
     return render_template('user/posts.html', user=current_user, posts=posts, company=company)
 
 # View Single Post
@@ -434,11 +443,13 @@ def user_profile_password():
 
 # ========= ADMIN CONTROLLER =========
 # ADMIN DASHBOARD
+
+
 @views.route("/admin/home")
 @login_required
 def adminhome():
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     posts = Post.query.all()
     likes = Like.query.all()
@@ -454,17 +465,18 @@ def adminhome():
 @login_required
 def no_content_page():
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     return render_template("admin/404.html", user=current_user)
 
 # MANAGE USER
 
+
 @views.route("/admin/user")
 @login_required
 def admin_user_view():
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
     posts = Post.query.all()
     users = User.query.all()
     likes = Like.query.all()
@@ -475,7 +487,7 @@ def admin_user_view():
 @login_required
 def admin_user_add():
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     posts = Post.query.all()
     users = User.query.all()
@@ -535,7 +547,7 @@ def admin_user_add():
 @login_required
 def admin_user_edit(user_id):
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     user = User.query.get_or_404(user_id)
 
@@ -581,7 +593,7 @@ def admin_user_edit(user_id):
 @login_required
 def delete_user(user_id):
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     user = User.query.filter_by(id=user_id).first()
     if not user:
@@ -600,7 +612,7 @@ def delete_user(user_id):
 @login_required
 def admin_profile_view():
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     users = User.query.all()
     return render_template("backend/profile/view_profile.html", user=current_user,  users=users)
@@ -610,7 +622,7 @@ def admin_profile_view():
 @login_required
 def admin_profile_edit():
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     user = User.query.all()
 
@@ -752,7 +764,7 @@ def admin_profile_edit():
 @login_required
 def admin_profile_password():
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     user = User.query.get_or_404(current_user.id)
 
@@ -794,7 +806,7 @@ def admin_profile_password():
 @login_required
 def admin_post_view():
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     posts = Post.query.all()
     users = User.query.all()
@@ -806,7 +818,7 @@ def admin_post_view():
 @login_required
 def admin_post_add():
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     if request.method == "POST":
         title = request.form.get('title')
@@ -870,7 +882,7 @@ def admin_post_add():
 @login_required
 def admin_post_edit(post_id):
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     post = Post.query.get_or_404(post_id)
 
@@ -920,7 +932,7 @@ def admin_post_edit(post_id):
 @login_required
 def admin_post_delete(post_id):
     if current_user.usertype == 'user':
-       return redirect(url_for('views.home'))
+        return redirect(url_for('views.home'))
 
     post = Post.query.filter_by(id=post_id).first()
 
