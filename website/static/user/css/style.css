@@ -208,3 +208,41 @@ body {
   font-weight: bold;
   font-size: 14px;
 }
+/*============= MEDIA QUERIES =============*/
+
+/* Devices under 992px (lg) */
+@media (max-width: 991px) {
+
+}
+
+/* Devices under 768px (md) */
+@media (max-width: 767px) {
+
+}
+
+/* Devices under 576px (sm) */
+@media (max-width: 575px) {
+  .apply-button {
+    float: left!important;
+  }
+}
+
+
+/*============ BOOTSTRAP BREAK POINTS:
+
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+
+=============*/

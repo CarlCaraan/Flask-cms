@@ -194,34 +194,40 @@
             <!-- End Content Section -->
 
             <div class="card-footer" id="post_card_footer">
-                <div class="float-start">
-                    <!-- Start Like Button -->
-                    <small class="post_card_header_text">
-                        {% if user.id in post.likes|map(attribute="author")|list %}
-                        <i class="fas fa-chart-line text-primary" id="like-button-{{ post.id }}"
-                            onclick="like({{ post.id }})"></i>
-                        {% else %}
-                        <i class="fas fa-chart-line" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
-                        {% endif %}
-                        <span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span> Popularity<br>
-                    </small>
-                    <!-- End Like Button -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="float-start">
+                            <!-- Start Like Button -->
+                            <small class="post_card_header_text">
+                                {% if user.id in post.likes|map(attribute="author")|list %}
+                                <i class="fas fa-chart-line text-primary" id="like-button-{{ post.id }}"
+                                    onclick="like({{ post.id }})"></i>
+                                {% else %}
+                                <i class="fas fa-chart-line" id="like-button-{{ post.id }}" onclick="like({{ post.id }})"></i>
+                                {% endif %}
+                                <span id="likes-count-{{ post.id }}">{{ post.likes|length }}</span> Popularity<br>
+                            </small>
+                            <!-- End Like Button -->
 
-                    <small class="post_card_header_text">
-                        {% if post.date_updated == None %}
-                        Posted on {{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
+                            <small class="post_card_header_text">
+                                {% if post.date_updated == None %}
+                                Posted on {{ post.date_created.strftime("%m/%d/%Y, %H:%M:%S") }}
+                                {% else %}
+                                Last Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
+                                {% endif %}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        {% if current_user.company %}
                         {% else %}
-                        Last Updated {{ post.date_updated.strftime("%m/%d/%Y, %H:%M:%S") }}
+                        <button class="btn mt-1 float-end apply-button" id="venture_button">
+                            <a class="text-light text-decoration-none" href="mailto:{{ post.user.email }}">Apply Now</a>
+                        </button>
                         {% endif %}
-                    </small>
+                    </div>
                 </div>
 
-                {% if current_user.company %}
-                {% else %}
-                <button class="btn mt-1 float-end" id="venture_button">
-                    <a class="text-light text-decoration-none" href="mailto:{{ post.user.email }}">Apply Now</a>
-                </button>
-                {% endif %}
             </div>
         </div> <!-- End Card -->
         {% endfor %}
